@@ -1,30 +1,23 @@
 <?php
-
-	/**
-	 * Mostrar errores de PHP
-	 */
+ 
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
+	
+	require "Config/Autoload.php";
+	require "Config/Config.php";
 
-	/**
-	 * Archivos necesarios de inicio
-	 */
-	require "config/autoload.php";
-	require "config/config.php";
-
-	/**
-	 * Alias
-	 */
-	use config\Autoload 	as Autoload;
-	use config\Router 	as Router;
-	use config\Request 	as Request;
-	echo 'Paso por index.php';
-	/**
-	 * Flujo de ejecución
-	 */
+	use Config\Autoload as Autoload;
+	use Config\Router 	as Router;
+	use Config\Request 	as Request;
+		
 	Autoload::start();
 
-	$request = new Request();
+	session_start();
 
-	Router::direccionar($request);
+	require_once(VIEWS_PATH."header.php");
+
+	Router::Route(new Request());
+
+	require_once(VIEWS_PATH."footer.php");
+?>
