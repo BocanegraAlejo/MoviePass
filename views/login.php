@@ -6,11 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="">
+    <form method="post" action="<?php echo FRONT_ROOT ?>Usuario/loguear">
 
-        <input type="text" name="user" placeholder="Usuario" />
+        <input type="email" name="user" placeholder="Usuario" />
         <input type="password" name="pass" placeholder="Contraseña" />
-    
+        <input type="submit" name="enviar" />
     </form>
 </body>
 </html>
