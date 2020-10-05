@@ -17,16 +17,38 @@
         }
 
         public function loguear($email, $pass) {
-            echo $email;
-            echo $pass;
-            
+            $userAux = $this->verifExistenciaUser($email, $pass);
+            if($userAux != null)
+            {
+                $_SESSION['loggedUser'] = $userAux;
+                if($userAux->getAdmin() == 1) {
+                    require_once(VIEWS_PATH."dashboardAdmin.php");
+                }else {
+                    require_once(VIEWS_PATH."dashboard.php");
+                }
+            }
+            else {
+                echo "<script>alert('ERROR! USUARIO Y/O CLAVE INCORRECTOS')</script>";
+                $this->ShowLoginView();
+            }
+           
         }
 
         
-        public function Add($recordId, $firstName, $lastName)
-        {
-            
-        }
+       private function verifExistenciaUser($email, $pass) {
+           
+            $arrUsuarios = $this->UsuarioDAO->GetAll();
+            foreach ($arrUsuarios as $value) {
+                if($value->getEmail() == $email && $value->getPass() == $pass)
+                {
+                    return $value;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+       }
     }
     
 
