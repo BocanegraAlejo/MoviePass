@@ -16,6 +16,11 @@
             require_once(VIEWS_PATH."login.php");
         }
 
+        public function ShowRegisterView()
+        {
+            require_once(VIEWS_PATH."registrarUser.php");
+        }
+
         public function loguear($email, $pass) {
             $userAux = $this->verifExistenciaUser($email, $pass);
             if($userAux != null)
