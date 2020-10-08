@@ -57,6 +57,26 @@
                 throw $ex;
             }
         }
+        public function VerifExistenciaUser($user) {
+            try
+            {
+                $query = "SELECT * FROM `".$this->tableName."` WHERE email='$user'";
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+                
+                return $resultSet;
+            
+            
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+        
+
     }
 
 

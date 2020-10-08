@@ -16,7 +16,7 @@
         <a class="nav-link" href="#">Mas vistas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo FRONT_ROOT ?>Usuario/ShowLoginView">Login</a>
+        <a class="nav-link" href="<?php echo FRONT_ROOT ?>Usuario/destroySession">Salir</a>
       </li>
     </ul>
   </div>

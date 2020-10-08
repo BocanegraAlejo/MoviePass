@@ -6,9 +6,10 @@
         private $pass;
         private $admin;
         
-        public function __construct($email = '', $pass = '') {
+        public function __construct($email = '', $pass = '', $admin = 0) {
             $this->email = $email;
             $this->pass = $pass;
+            $this->admin = $admin;
         }
 
 
