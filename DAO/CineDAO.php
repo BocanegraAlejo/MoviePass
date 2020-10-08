@@ -37,7 +37,7 @@ class CineDAO implements ICineDAO {
     public function BuscarId($id) {
         try
         {
-            $query = "SELECT * FROM `".$this->tableName."` WHERE id_cine=$id";
+            $query = "SELECT * FROM `".$this->tableName."` WHERE id_cine='$id'";
 
             $this->connection = Connection::GetInstance();
 
@@ -57,7 +57,7 @@ class CineDAO implements ICineDAO {
     {
         try
         {
-            $query = "UPDATE `.$this->tableName.` SET nombre=:nombre,direccion=:direccion,horario_apertura=:horario_apertura,horario_cierre=:horario_cierre,valor_entrada=:valor_entrada,capacidad_total=:capacidad_total  where id_cine= :id";
+            $query = "UPDATE ".$this->tableName." SET nombre=:nombre,direccion=:direccion,horario_apertura=:horario_apertura,horario_cierre=:horario_cierre,valor_entrada=:valor_entrada,capacidad_total=:capacidad_total  where id_cine= :id";
             
             $parameters["id"] = $cine->getId();
             $parameters["nombre"] = $cine->getNombre();

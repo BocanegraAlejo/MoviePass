@@ -1,5 +1,6 @@
-<div class="container ">
+<div class="container">
   <form class="formulario-add bg-light" method="post" action="<?php echo FRONT_ROOT ?>Cine/ModificarCine2">
+    <input type="hidden" name="id" value="<?=$ObjectCine->getId();?>">
     <div class="form-group">
       <label for="nombre">Nombre:</label>
       <input type="text" name="nombre" class="form-control" id="nombre" value="<?= $ObjectCine->getNombre();?>">
@@ -20,13 +21,12 @@
     </div>
     <div class="form-group">
       <label for="valor_entrada">Valor Entrada</label>
-      <input type="int" name="valor_entrada" class="form-control" id="valor_entrada" value="<?=$objectCine->getValorEntrada(); ?>">
+      <input type="int" name="valor_entrada" class="form-control" id="valor_entrada" value="<?=$ObjectCine->getValorEntrada(); ?>">
     </div>
     <div class="form-group">
       <label for="cap_total">Capacidad Total</label>
-      <input type="int" name="capacidad_total" class="form-control" id="cap_total" value="<?=$objectCine->getCapacidadTotal(); ?>">
+      <input type="int" name="capacidad_total" class="form-control" id="cap_total" value="<?=$ObjectCine->getCapacidadTotal(); ?>">
     </div>
     <button type="submit" class="btn btn-success">Enviar</button>
   </form>
-</div>
 </div>
