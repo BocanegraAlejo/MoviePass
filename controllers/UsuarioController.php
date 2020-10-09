@@ -45,7 +45,7 @@
             }
             else {
                 
-                //echo "<script>alert('ERROR! USUARIO Y/O CLAVE INCORRECTOS')</script>";
+                echo "<script>alert('ERROR! USUARIO Y/O CLAVE INCORRECTOS')</script>";
                 $this->ShowLoginView();
             }
         }

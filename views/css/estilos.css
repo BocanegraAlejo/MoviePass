@@ -122,6 +122,28 @@ html, body {
 
 /** ============== FIN NAVBARS====================*/
 
+
+/** ============== CARD PELICULAS =================*/
+.card-img-top {
+    width: 100%;
+}
+
+/** ============== FINCARD PELICULAS =================*/
+
+/** ============== NAVEGADOR PAGINAS  =================*/
+    .navegador_paginas {
+        width: 600px;
+        margin: 30px auto 0px auto;
+    }
+    .navegador_paginas a {
+        color: #fff;
+        background-color: #000;
+        padding: 3px;
+        border-radius: 10px;
+    }
+
+/** ============== FIN NAVEGADOR PAGINAS====================*/
+
 /** ============== FORM ADD  CINE====================*/
 .formulario-add {
      
@@ -135,3 +157,11 @@ html, body {
 }
 
 /** ============== FIN FORM ADD  CINE====================*/
+
+/** ============== SELECT GENERO PELICULAS ====================*/
+    .buscarGenero {
+        width: 250px;
+    }
+
+
+/** ============== FIN SELECT GENERO PELICULAS====================*/

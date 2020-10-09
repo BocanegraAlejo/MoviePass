@@ -1,22 +1,19 @@
 <?php
-    require_once(VIEWS_PATH.'navAdmin.php');
 
+use Controllers\CineController;
 
-    use Controllers\CineController;
-
-    $CineController = new CineController();
-    $arrCines = $CineController->getAllCines();
-
-
+require_once(VIEWS_PATH.'navAdmin.php');
+  
 ?>
 
 
 <div class="container">
     <a href="<?php echo FRONT_ROOT?>Cine/ShowAltaView">AGREGAR PELICULA</a>
+    
+   
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">direccion</th>
                 <th scope="col">Horario Apertura</th>
@@ -32,7 +29,6 @@
                 foreach ($arrCines as $key => $value) {
                     ?>
                     <tr>
-                        <td><?= $value->getId(); ?></td>
                         <td><?= $value->getNombre(); ?></td>
                         <td><?= $value->getDireccion(); ?></td>
                         <td><?= $value->getHorario_apertura(); ?></td>

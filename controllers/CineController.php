@@ -15,6 +15,8 @@
         }
 
         public function ShowAdministraCine() {
+            $CineController = new CineController();
+            $arrCines = $CineController->getAllCines();
             require_once(VIEWS_PATH."administra_cines.php");
         }
         
@@ -45,14 +47,13 @@
             $this->ShowAdministraCine();
            
         }
-
+        
         public function ElimCine($id_cine) {
             
             $this->CineDAO->EliminarCine($id_cine);
             require_once(VIEWS_PATH."administra_cines.php");
 
         }
-
         public function getAllCines() {
             return $this->CineDAO->GetAll();
         }
