@@ -11,20 +11,16 @@
             return $data->{'genres'};
         }
 
-        public function GetAllPeliculasActuales($page)
+        public function GetAllPeliculasActuales($page, $genero)
         {
-            $api = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?page=$page".CONFIG_API, true);
+            $api = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?page=$page&with_genres=$genero".CONFIG_API, true);
             $data = json_decode($api);
             return $data->{'results'};
         }
 
-        public function getAllPeliculasGenero($genero) {
-            $api = file_get_contents("https://api.themoviedb.org/3/discover/movie?with_genres=$genero".CONFIG_API, true);
-            $data = json_decode($api);
-            return $data->{'results'};
-        }
-        public function getCantidadPaginas() {
-            $api = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?".CONFIG_API, true);
+        
+        public function getCantidadPaginas($genero = '') {
+            $api = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?with_genres=$genero".CONFIG_API, true);
             $data = json_decode($api);
             return $data->{'total_pages'};
         }

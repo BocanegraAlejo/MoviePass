@@ -2,12 +2,13 @@
     require_once('navAdmin.php'); 
     
 ?>
-
+  
     <div class="container">
     <div class="buscarGenero">
-        <form method="get" action="<?php echo FRONT_ROOT?>Pelicula/peliculasXgenero">
+        <form method="get" action="<?php echo FRONT_ROOT?>Pelicula/getPeliculasActuales">
+            <input type="hidden" value="" name="page">
             <div class="form-group">
-                <label for="genero">Genero:</label>    
+                <label for="genero">Genero:</label>  
                 <select class="form-control" id="genero" name="genero" onchange="this.form.submit()">
                     <option value="todos" >Todos</option>
                     <?php
@@ -18,6 +19,7 @@
             </div>         
         </form>
     </div>
+    <section>
     <div class="card-deck">
         <?php foreach ($this->arrPeliculas as $key => $value) { ?>
            <div class="col-md-4">
@@ -36,11 +38,16 @@
      
      <div class="navegador_paginas">
         <?php
-        $x=1;
-            for($x=1;$x<$this->cantPaginas;$x++)
+        
+            for($x=1;$x<$this->cantPaginas+1;$x++)
             {
-                ?><a href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales/<?=$x?>"><?=$x?></a>
+                ?><form method="get" action="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales">
+                <input type="hidden" name="page" value="<?=$x?>">
+                <input type="hidden" name="genero" value="<?=$this->generoActual?>">
+                <button type="submit"><?=$x?></button>
+                </form>
               <?php
             }
         ?>
     </div>
+    </section>

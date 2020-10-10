@@ -135,11 +135,12 @@ html, body {
         width: 600px;
         margin: 30px auto 0px auto;
     }
-    .navegador_paginas a {
+    .navegador_paginas button[type="submit"] {
         color: #fff;
         background-color: #000;
         padding: 3px;
         border-radius: 10px;
+        display: inline !important;
     }
 
 /** ============== FIN NAVEGADOR PAGINAS====================*/
