@@ -1,33 +1,39 @@
-<?php
-    require_once('navAdmin.php'); 
-    
-?>
-  
-    <div class="container">
-    <div class="buscarGenero">
-        <form method="get" action="<?php echo FRONT_ROOT?>Pelicula/getPeliculasActuales">
-            <input type="hidden" value="" name="page">
-            <div class="form-group">
+    <div class="container"> 
+    <div class="row">
+    <section class="busqueda col-md-12">
+        <form method="get" class="form-inline" action="<?php echo FRONT_ROOT?>Pelicula/getPeliculasActuales">
+            <input type="hidden" value="1" name="page">
+            
                 <label for="genero">Genero:</label>  
-                <select class="form-control" id="genero" name="genero" onchange="this.form.submit()">
-                    <option value="todos" >Todos</option>
+                <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="genero" name="genero" >
+                    <option value="">Todos</option>
                     <?php
                         foreach ($this->arrGeneros as $key => $value) {
-                        ?><option value="<?=$value->{'id'}?>"><?=$value->{'name'}?></option>
+                        ?><option value="<?=$value->{'id'}?>" <?php if($value->{'id'} == $this->generoActual){ echo 'selected="selected"'; } ?>><?=$value->{'name'}?></option>
                     <?php } ?>
                 </select>
-            </div>         
+        
+                <label  for="fecha_ini" >Fecha Inicial:</label>
+                <input class="form-control" name="fecha_ini" id="fecha_ini" type="date">
+            
+                <label for="fecha_fin">Fecha Fin:</label>
+                <input class="form-control" name="fecha_fin" value="<?=date("Y-m-d") ?>" id="fecha_fin" type="date">
+                <button type="submit" class="btn btn-warning">Buscar</button>
         </form>
+    </section>
     </div>
     <section>
     <div class="card-deck">
         <?php foreach ($this->arrPeliculas as $key => $value) { ?>
-           <div class="col-md-4">
-                <div class="card" style="width: 300px">
+           <div class="col-sm-12 col-md-6 col-lg-4">
+                <div class="card card_" style="width: 300px">
                     <img class="card-img-top" src="<?='https://image.tmdb.org/t/p/w500'.$value->{'poster_path'} ?>" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title"><?=$value->{'title'}?></h5>
-                        <p class="card-text"><?=$value->{'overview'}?></p>
+                        <p class="card-text"><?=$this->cortarCadena($value->{'overview'},130)?></p>
+                        <blockquote class="blockquote mb-0">
+                            <footer class="blockquote-footer"><?=$value->{'release_date'}?></footer>
+                        </blockquote>
                     </div>
                 </div>
                 
@@ -35,19 +41,28 @@
         <?php } ?>
         </div>
     </div>
-     
-     <div class="navegador_paginas">
-        <?php
+    <?php
+        // calculamos la primera y última página a mostrar
         
-            for($x=1;$x<$this->cantPaginas+1;$x++)
-            {
-                ?><form method="get" action="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales">
-                <input type="hidden" name="page" value="<?=$x?>">
-                <input type="hidden" name="genero" value="<?=$this->generoActual?>">
-                <button type="submit"><?=$x?></button>
-                </form>
-              <?php
-            }
-        ?>
-    </div>
-    </section>
+        $primera = $this->pagActual - ($this->pagActual % 10) + 1;
+        if ($primera > $this->pagActual) { $primera = $primera - 10; }
+        $ultima = $primera + 9 > $this->cantPaginas ? $this->cantPaginas : $primera + 9; 
+    ?>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-sm justify-content-center">
+        <?php if ($this->cantPaginas > 1) { ?>
+            <li class="page-item  <?php if($this->pagActual==1) echo 'disabled'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$this->pagActual-1?>&genero=<?=$this->generoActual?>">&laquo;</a></li>
+                <?php
+                for($x=$primera;$x<=$ultima;$x++)
+                {
+                    ?><li class="page-item <?php if($this->pagActual == $x) echo 'active'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$x?>&genero=<?=$this->generoActual?>"><?=$x?></a></li><?php
+                }
+                if ($x <= $this->cantPaginas)
+                ?>
+            <li class="page-item  <?php if($this->pagActual==$this->cantPaginas) echo 'disabled'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$this->pagActual+1?>&genero=<?=$this->generoActual?>">&raquo;</a></li>
+           
+        <?php } ?>   
+        </ul>
+    </nav>
+</section>
+</div>

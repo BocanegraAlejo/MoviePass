@@ -1,7 +1,4 @@
 <?php
-
-use Controllers\CineController;
-
 require_once(VIEWS_PATH.'navAdmin.php');
   
 ?>

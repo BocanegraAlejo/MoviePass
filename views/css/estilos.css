@@ -119,29 +119,49 @@ html, body {
 /** ===============FIN FORM LOGIN=================*/
 
 /** ===============INICIO NAVBARS================*/
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color:orange;
+}
+/* change the color of active or hovered links */
 
+.navbar-custom .nav-item .nav-link {
+    color: orange;
+}
+
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #C87D03;
+} 
+.navbar-custom .navbar-brand {
+    font-weight: 700;
+    font-size: 25px;
+    font-family: sans-serif;
+}
+.navbar-custom .navbar-brand:hover {
+    color: #C87D03; 
+}
 /** ============== FIN NAVBARS====================*/
 
 
 /** ============== CARD PELICULAS =================*/
 .card-img-top {
-    width: 100%;
+    height: 300px;
+}
+.card_ {
+    min-height: 580px !important;
+    margin: 20px 0px 20px 0px;
 }
 
 /** ============== FINCARD PELICULAS =================*/
 
 /** ============== NAVEGADOR PAGINAS  =================*/
-    .navegador_paginas {
-        width: 600px;
-        margin: 30px auto 0px auto;
+    .pagination {
+        margin-top: 30px;
     }
-    .navegador_paginas button[type="submit"] {
-        color: #fff;
-        background-color: #000;
-        padding: 3px;
-        border-radius: 10px;
-        display: inline !important;
-    }
+    
+    
 
 /** ============== FIN NAVEGADOR PAGINAS====================*/
 
@@ -164,5 +184,16 @@ html, body {
         width: 250px;
     }
 
+    .form-inline input,select {
+        margin-right: 40px;
+        
+    }
 
 /** ============== FIN SELECT GENERO PELICULAS====================*/
+
+.busqueda {
+    margin: 20px 0px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

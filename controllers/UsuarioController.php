@@ -8,18 +8,13 @@
     
         public function __construct()
         {
+            
             $this->UsuarioDAO = new UsuarioDAO();
         }
 
         public function Index($message = "")
         {
-            if(isset($_SESSION['loggedUser']))
-            {
-                require_once(VIEWS_PATH."dashboard.php");
-            }
-            else{
-                require_once(VIEWS_PATH."login.php");
-            }
+            UsuarioController::verifUserLogueado();
             
         }   
         
@@ -28,6 +23,9 @@
             require_once(VIEWS_PATH."login.php");
         }
 
+        public function ShowDashboard() {
+            require_once(VIEWS_PATH."dashboard.php");
+        }
         public function ShowRegisterView()
         {
             require_once(VIEWS_PATH."registrarUser.php");
@@ -59,7 +57,7 @@
 
         //  ### VERIFICA SI USUARIO ESTA LOGUEADO ### 
         public static function verifUserLogueado() {
-            if($_SESSION['loggedUser']) {
+            if(isset($_SESSION['loggedUser'])) {
                 if($_SESSION['loggedUser']->getAdmin()==1) {
                     require_once(VIEWS_PATH."navAdmin.php");
                 }
@@ -67,7 +65,7 @@
                     require_once(VIEWS_PATH."nav.php");
                 }
             }else {
-                echo "<script>alert('ERROR! DEBE ESTAR LOGUEADO')</script>";
+               // echo "<script>alert('ERROR! DEBE ESTAR LOGUEADO')</script>";
                 require_once(VIEWS_PATH."login.php");
             }
         }
