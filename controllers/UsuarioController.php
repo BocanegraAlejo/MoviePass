@@ -1,7 +1,7 @@
 <?php
     namespace Controllers;
     use Models\Usuario;
-    use DAO\UsuarioDAO;
+    use DAO\UsuarioDAOjson;
 
     class UsuarioController {
         private $UsuarioDAO;
@@ -9,7 +9,7 @@
         public function __construct()
         {
             
-            $this->UsuarioDAO = new UsuarioDAO();
+            $this->UsuarioDAO = new UsuarioDAOjson();
         }
 
         public function Index($message = "")
@@ -31,15 +31,14 @@
             require_once(VIEWS_PATH."registrarUser.php");
         }
 
-        public function loguear($email = '', $pass = '') {
-            $userAux = $this->UsuarioDAO->verifExistenciaUser($email, $pass);
-           
-            if(!empty($userAux) && $userAux[0]['clave'] == $pass)
+        public function loguear($email = '', $clave = '') {
+            $userAux = $this->UsuarioDAO->verifExistenciaUser($email, $clave);
+            //var_dump($userAux);
+            if(!empty($userAux) && $userAux[0]['clave'] == $clave)
             {
                 $userObject = new Usuario($userAux[0]['email'],$userAux[0]['clave'], $userAux[0]['admin']);
                 $_SESSION['loggedUser'] = $userObject;
                 require_once(VIEWS_PATH."dashboard.php");
-                
             }
             else {
                 

@@ -6,6 +6,8 @@
 
     function Add(Usuario $usuario);
     function GetAll();
+    function VerifExistenciaUser($user);
+    
 }
 
 ?>

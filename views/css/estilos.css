@@ -197,3 +197,12 @@ html, body {
     flex-direction: column;
     align-items: center;
 }
+
+
+.tableCines thead{
+    background-color:#C87D03;
+}
+
+.tableCines tbody{
+    background-color:#fff;
+}

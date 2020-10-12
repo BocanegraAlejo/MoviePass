@@ -8,7 +8,36 @@
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>bootstrap.min.css">
      <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>estilos.css">
+     <!-- toastr -->
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+     <script type="text/javascript">
+	// Default Configuration
+		$(document).ready(function() {
+			toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+			
+		});
+	
+	
+</script>
+     
+     <script src="https://kit.fontawesome.com/a48a758cbb.js" crossorigin="anonymous"></script>
      <title>MoviePass</title>
      
+
 </head>
 <body>

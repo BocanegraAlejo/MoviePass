@@ -15,7 +15,7 @@
                 $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName) VALUES (:recordId, :firstName, :lastName);";
                 
                 $parameters["email"] = $usuario->getEmail();
-                $parameters["pass"] = $usuario->getPass();
+                $parameters["clave"] = $usuario->getClave();
                 $parameters["admin"] = $usuario->getAdmin();
 
                 $this->connection = Connection::GetInstance();
@@ -44,7 +44,7 @@
                 {               
                     $usuario = new Usuario();
                     $usuario->setEmail($row["email"]);
-                    $usuario->setPass($row["clave"]);
+                    $usuario->setClave($row["clave"]);
                     $usuario->setAdmin($row["admin"]);
 
                     array_push($usuariosList, $usuario);

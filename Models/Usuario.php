@@ -3,12 +3,12 @@
     
     class Usuario {
         private $email;
-        private $pass;
+        private $clave;
         private $admin;
         
-        public function __construct($email = '', $pass = '', $admin = 0) {
+        public function __construct($email = '', $clave = '', $admin = 0) {
             $this->email = $email;
-            $this->pass = $pass;
+            $this->clave = $clave;
             $this->admin = $admin;
         }
 
@@ -24,15 +24,15 @@
             $this->email = $email;
         }
 
-        public function getPass()
+        public function getClave()
         {
-            return $this->pass;
+            return $this->clave;
         }
 
        
-        public function setPass($pass)
+        public function setClave($clave)
         {
-            $this->pass = $pass;
+            $this->clave = $clave;
         }
 
        
