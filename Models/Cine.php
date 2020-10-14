@@ -10,14 +10,15 @@
         private $capacidadTotal;
         private $valorEntrada;
 
-        public function __construct($id_cine = '', $nombre = '',$direccion = '', $horario_apertura = '', $horario_cierre = '',  $capacidadTotal = '',  $valorEntrada = '') {
+        public function __construct($id_cine = '', $nombre = '',$direccion = '', $horario_apertura = '', $horario_cierre = '',  $valorEntrada = '', $capacidadTotal = '') {
             $this->id_cine = $id_cine;
             $this->nombre = $nombre;
             $this->direccion = $direccion;
             $this->horario_apertura = $horario_apertura;
             $this->horario_cierre = $horario_cierre;
-            $this->capacidadTotal = $capacidadTotal;
             $this->valorEntrada = $valorEntrada;
+            $this->capacidadTotal = $capacidadTotal;
+            
         }
 
            

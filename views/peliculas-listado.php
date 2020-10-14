@@ -2,8 +2,7 @@
     <div class="row">
     <section class="busqueda col-md-12">
         <form method="get" class="form-inline" action="<?php echo FRONT_ROOT?>Pelicula/getPeliculasActuales">
-            <input type="hidden" value="1" name="page">
-            
+            <input type="hidden" value="1" name="page">         
                 <label for="genero">Genero:</label>  
                 <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="genero" name="genero" >
                     <option value="">Todos</option>
@@ -14,11 +13,11 @@
                 </select>
         
                 <label  for="fecha_ini" >Fecha Inicial:</label>
-                <input class="form-control" name="fecha_ini" id="fecha_ini" type="date">
+                <input class="form-control" name="fecha_ini" value="<?=$this->fecha_ini?>" id="fecha_ini" type="date">
             
                 <label for="fecha_fin">Fecha Fin:</label>
                 <input class="form-control" name="fecha_fin" value="<?=date("Y-m-d") ?>" id="fecha_fin" type="date">
-                <button type="submit" class="btn btn-warning">Buscar</button>
+                <button type="submit" class="btn btn-warning"><i class="fas fa-search"></i></button>
         </form>
     </section>
     </div>
@@ -51,15 +50,15 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination pagination-sm justify-content-center">
         <?php if ($this->cantPaginas > 1) { ?>
-            <li class="page-item  <?php if($this->pagActual==1) echo 'disabled'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$this->pagActual-1?>&genero=<?=$this->generoActual?>">&laquo;</a></li>
+            <li class="page-item  <?php if($this->pagActual==1) echo 'disabled'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$this->pagActual-1?>&genero=<?=$this->generoActual?>&fecha_ini=<?=$this->fecha_ini?>&fecha_fin=<?=$this->fecha_fin ?>">&laquo;</a></li>
                 <?php
                 for($x=$primera;$x<=$ultima;$x++)
                 {
-                    ?><li class="page-item <?php if($this->pagActual == $x) echo 'active'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$x?>&genero=<?=$this->generoActual?>"><?=$x?></a></li><?php
+                    ?><li class="page-item <?php if($this->pagActual == $x) echo 'active'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$x?>&genero=<?=$this->generoActual?>&fecha_ini=<?=$this->fecha_ini?>&fecha_fin=<?=$this->fecha_fin ?>"><?=$x?></a></li><?php
                 }
                 if ($x <= $this->cantPaginas)
                 ?>
-            <li class="page-item  <?php if($this->pagActual==$this->cantPaginas) echo 'disabled'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$this->pagActual+1?>&genero=<?=$this->generoActual?>">&raquo;</a></li>
+            <li class="page-item  <?php if($this->pagActual==$this->cantPaginas) echo 'disabled'; ?>"><a class="page-link" href="<?= FRONT_ROOT ?>Pelicula/getPeliculasActuales?page=<?=$this->pagActual+1?>&genero=<?=$this->generoActual?>&fecha_ini=<?=$this->fecha_ini?>&fecha_fin=<?=$this->fecha_fin ?>">&raquo;</a></li>
            
         <?php } ?>   
         </ul>

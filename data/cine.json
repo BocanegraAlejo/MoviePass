@@ -1,0 +1,38 @@
+[
+    {
+        "id": "16",
+        "nombre": "Cine Aldrey",
+        "direccion": "Sarmiento 2685",
+        "horario_apertura": "10:00",
+        "horario_cierre": "23:30",
+        "valorEntrada": "500",
+        "capacidadTotal": "5000"
+    },
+    {
+        "id": "17",
+        "nombre": "Cine Ambassador",
+        "direccion": "Diagonal Centro 1673",
+        "horario_apertura": "10:00",
+        "horario_cierre": "00:00",
+        "valorEntrada": "800",
+        "capacidadTotal": "1000"
+    },
+    {
+        "id": "19",
+        "nombre": "cine ejemplo",
+        "direccion": "centro MDP 123",
+        "horario_apertura": "23:30",
+        "horario_cierre": "08:00",
+        "valorEntrada": "-500",
+        "capacidadTotal": "1000"
+    },
+    {
+        "id": 21,
+        "nombre": "cine ejemplo 4",
+        "direccion": "centro MDP",
+        "horario_apertura": "10:00",
+        "horario_cierre": "23:30",
+        "valorEntrada": "450",
+        "capacidadTotal": "1000"
+    }
+]

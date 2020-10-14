@@ -1,3 +1,4 @@
+<div class="bg-login">
 <div class="container">
     <div id="logreg-forms">
         <form class="form-signin" method="post" action="<?php echo FRONT_ROOT ?>Usuario/loguear">
@@ -10,11 +11,12 @@
             <input type="email" id="inputEmail" name="user" class="form-control" placeholder="Nombre de Usuario.." required>
             <input type="password" id="inputPassword" name="pass" class="form-control" placeholder="Clave.." required>
             
-            <button class="btn btn-success btn-block" type="submit"> Loguear</button>
+            <button id="btn-loguear" class="btn btn-success btn-block" type="submit"> Loguear</button>
             <hr>
             
             <a href="<?php echo FRONT_ROOT ?>Usuario/ShowRegisterView"><button class="btn btn-primary btn-block" type="button" id="btn-signup">si no tenes una cuenta, registrate!</button></a>
         </form>
         <br>   
     </div>
+</div>
 </div>

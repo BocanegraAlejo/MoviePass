@@ -10,6 +10,9 @@
           private $arrPeliculas;
           private $generoActual;
           private $pagActual;
+          private $fecha_ini;
+          private $fecha_fin;
+
           public function __construct()
           {
               UsuarioController::verifUserLogueado();
@@ -28,7 +31,8 @@
   
           public function getPeliculasActuales($page = 1, $genero = '', $fecha_ini = '', $fecha_fin = '')
           {
-              
+              $this->fecha_ini = $fecha_ini;
+              $this->fecha_fin = $fecha_fin;
               $this->generoActual = $genero;
               $this->pagActual = $page;
               $this->cantPaginas = $this->getCantidadPaginas($genero, $fecha_ini, $fecha_fin);
