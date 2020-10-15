@@ -69,8 +69,7 @@ class CineDAOjson implements ICineDAO
             foreach($arrayToDecode as $valuesArray) {
                 $cine = new Cine($valuesArray['id'],$valuesArray['nombre'],$valuesArray['direccion'],$valuesArray['horario_apertura'],$valuesArray['horario_cierre'],$valuesArray['valorEntrada'],$valuesArray['capacidadTotal']);
 
-                array_push($this->cineList, $cine);
-               
+                array_push($this->cineList, $cine);      
             }
         }
     }

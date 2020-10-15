@@ -13,7 +13,7 @@
 	 <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>toastr.min.css">
 	 <script type="text/javascript" src="<?php echo JS_PATH ?>toastr.min.js" defer></script>
      <script type="text/javascript" defer>
-	// Default Configuration
+		// Default Configuration
 		$(document).ready(function() {
 			toastr.options = {
 				"closeButton": true,
@@ -34,9 +34,7 @@
 			}
 		
 		});
-	
-	
-</script>
+	</script>
      
      <script src="https://kit.fontawesome.com/a48a758cbb.js" crossorigin="anonymous"></script>
      <title>MoviePass</title>
