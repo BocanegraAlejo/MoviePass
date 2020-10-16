@@ -1,4 +1,4 @@
-
+<script src="<?php echo JS_PATH ?>jquery-3.5.1.min.js"  crossorigin="anonymous"></script>
 <script src="<?php echo JS_PATH ?>bootstrap.min.js"></script>
 
 
