@@ -1,13 +1,13 @@
 <?php
     namespace Controllers;
     use models\Cine;
-    use DAO\CineDAOjson;
+    use DAO\CineDAO;
 
     class CineController {
         private $CineDAO;
         
         public function __construct() {
-            $this->CineDAO = new CineDAOjson();
+            $this->CineDAO = new CineDAO();
             UsuarioController::verifUserLogueado();
             
         }
@@ -21,8 +21,8 @@
         }
 
         public function ShowAdministraCine() {
-            $CineController = new CineController();
-            $arrCines = $CineController->getAllCines();
+           
+            $arrCines = $this->getAllCines();
             require_once(VIEWS_PATH."administra_cines.php");
         }
         
@@ -39,12 +39,13 @@
         public function ModificaCine($id) {
             
             $resultado = $this->CineDAO->BuscarId($id);
-           
+            
             if(!empty($resultado))
             {
                 $ObjectCine = new Cine($resultado['id_cine'],$resultado['nombre'],$resultado['direccion'],$resultado['horario_apertura'],$resultado['horario_cierre'],$resultado['valor_entrada'],$resultado['capacidad_total']);
-                require_once(VIEWS_PATH."modify_cine.php");
+
             }
+            return $ObjectCine;
         }
 
         public function ModificarCine2($id,$nombre, $direccion, $horario_apertura, $horario_cierre, $valor_entrada, $capacidad_total) {
