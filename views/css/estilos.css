@@ -168,15 +168,9 @@ html, body {
 /** ============== FIN NAVEGADOR PAGINAS====================*/
 
 /** ============== FORM ADD  CINE====================*/
-.formulario-add {
-     
-     margin: auto auto auto auto;
-     max-width: 650px;
-     padding: 20px;
-     
-}
+
 .formulario-add button[type="submit"] {
-    margin-left: 260px;
+  margin-left: 190px;
 }
 
 /** ============== FIN FORM ADD  CINE====================*/

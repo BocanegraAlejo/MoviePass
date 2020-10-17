@@ -1,7 +1,7 @@
 <?php
     namespace Controllers;
     use Models\Usuario;
-    use DAO\UsuarioDAOjson;
+    use DAO\UsuarioDAO;
 
     class UsuarioController {
         private $UsuarioDAO;
@@ -9,7 +9,7 @@
         public function __construct()
         {
             
-            $this->UsuarioDAO = new UsuarioDAOjson();
+            $this->UsuarioDAO = new UsuarioDAO();
         }
 
         public function Index($message = "")
