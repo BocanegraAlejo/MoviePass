@@ -4,11 +4,13 @@
     class Usuario {
         private $email;
         private $clave;
+        private $nombre;
         private $admin;
         
-        public function __construct($email = '', $clave = '', $admin = 0) {
+        public function __construct($email = '', $clave = '', $nombre = '', $admin = 0) {
             $this->email = $email;
             $this->clave = $clave;
+            $this->nombre = $nombre;
             $this->admin = $admin;
         }
 
@@ -46,6 +48,16 @@
         {
             $this->admin = $admin;
         }
+
+            public function getNombre()
+            {
+                return $this->nombre;
+            }
+
+            public function setNombre($nombre)
+            {
+                $this->nombre = $nombre;
+            }
     }
 
 ?>

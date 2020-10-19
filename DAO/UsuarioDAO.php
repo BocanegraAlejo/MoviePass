@@ -12,10 +12,11 @@
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (recordId, firstName, lastName) VALUES (:recordId, :firstName, :lastName);";
+                $query = "INSERT INTO ".$this->tableName." (email, clave, nombre, admin) VALUES (:email, :clave, :nombre, :admin);";
                 
                 $parameters["email"] = $usuario->getEmail();
                 $parameters["clave"] = $usuario->getClave();
+                $parameters["nombre"] = $usuario->getNombre();
                 $parameters["admin"] = $usuario->getAdmin();
 
                 $this->connection = Connection::GetInstance();
@@ -45,6 +46,7 @@
                     $usuario = new Usuario();
                     $usuario->setEmail($row["email"]);
                     $usuario->setClave($row["clave"]);
+                    $usuario->setNombre($row["nombre"]);
                     $usuario->setAdmin($row["admin"]);
 
                     array_push($usuariosList, $usuario);
@@ -75,7 +77,6 @@
                 throw $ex;
             }
         }
-        
 
     }
 

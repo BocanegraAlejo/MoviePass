@@ -59,6 +59,7 @@ html, body {
      margin-bottom: 14px;
  }
  #logreg-forms .social-btn{
+     display: inline-block;
      font-weight: 100;
      color:white;
      width:190px;

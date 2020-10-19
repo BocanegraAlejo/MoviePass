@@ -1,5 +1,5 @@
 <?php
-    namespace models;
+    namespace Models;
 
     class Cine {
         private $id_cine;
