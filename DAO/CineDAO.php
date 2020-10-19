@@ -42,7 +42,6 @@ class CineDAO implements ICineDAO {
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
-
             return $resultSet[0];
            
            
