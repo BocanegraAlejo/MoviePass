@@ -1,7 +1,9 @@
 <?php
-require_once(VIEWS_PATH.'navAdmin.php');
+
+use Controllers\UsuarioController;
+
+UsuarioController::verifUserLogueado();
 require_once(VIEWS_PATH.'add_cine.php');
-//require_once(VIEWS_PATH.'modify_cine.php');
 
 ?>
 

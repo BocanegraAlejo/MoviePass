@@ -17,18 +17,20 @@
 
         public function Index($message = "")
         {
-            UsuarioController::verifUserLogueado();
             
+            UsuarioController::verifUserLogueado();
         }   
         
         public function ShowLoginView()
         {
+            
             require_once(VIEWS_PATH."login.php");
         }
 
         public function ShowDashboard() {
             
             require_once(VIEWS_PATH."dashboard.php");
+            $this->mostrarAlerta();
         }
         public function ShowRegisterView()
         {
@@ -109,11 +111,10 @@
                 
                 if(!empty($existe))
                 { 
-                    var_dump($_SESSION['loggedUser']);
-                    echo "<br>";
+                    
                     $_SESSION['loggedUser'] = $usuario;
                     
-                    
+                    header("location: /TP_LabIV/Usuario/ShowDashboard");
                     
                 }
                 else
@@ -124,20 +125,18 @@
                 // Get logout url
                 $logoutURL = $helper->getLogoutUrl($accessToken, FB_REDIRECT_URL.'logout.php');
                 
-                // Render Facebook profile data
-                
             }else{
                 // Get login url
               $permissions = ['email']; // Optional permissions
               
               $this->loginURL = $helper->getLoginUrl(FB_REDIRECT_URL, $permissions);
-             
+              
             }     
         }
     
         public function destroySession() {
             session_destroy();
-            $this->ShowLoginView();
+            header('location: /TP_LabIV');
         }
 
         public function mostrarAlerta() {
@@ -149,15 +148,18 @@
         public function getloginURL() {
             return $this->loginURL;
         }
+
         //  ### VERIFICA SI USUARIO ESTA LOGUEADO ### 
         public static function verifUserLogueado() {
             if(isset($_SESSION['loggedUser'])) {
                 
                 if($_SESSION['loggedUser']->getAdmin()==1) {
                     require_once(VIEWS_PATH."navAdmin.php");
+                    
                 }
                 else {
                     require_once(VIEWS_PATH."nav.php");
+                    
                 }
             }else {
                // echo "<script>alert('ERROR! DEBE ESTAR LOGUEADO')</script>";

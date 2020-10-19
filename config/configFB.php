@@ -11,7 +11,7 @@
     // Facebook API configuration
     define('FB_APP_ID', '2579962598960993');
     define('FB_APP_SECRET', 'dadac282873a99ce4592680c6f18497c');
-    define('FB_REDIRECT_URL', 'http://localhost/TP_LabIV/Usuario/ShowDashboard');
+    define('FB_REDIRECT_URL', 'http://localhost/TP_LabIV/Usuario');
     
     $fb = new Facebook([
     'app_id' => FB_APP_ID, // Replace {app-id} with your app id
@@ -25,6 +25,7 @@
     try {
         if(isset($_SESSION['fb_access_token'])){
             $accessToken = $_SESSION['fb_access_token'];
+            
         }else{
             $accessToken = $helper->getAccessToken();
            
@@ -33,7 +34,6 @@
         echo 'Graph returned an error: ' . $e->getMessage();
         exit;
     } catch(FacebookSDKException $e) {
-        
         echo 'Facebook SDK returned an error: ' . $e->getMessage();
         exit;
     }

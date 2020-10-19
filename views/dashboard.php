@@ -2,7 +2,7 @@
 <?php
     use Controllers\UsuarioController;
     UsuarioController::verifUserLogueado();
-       
+    
 ?>
 
 <main>
@@ -10,4 +10,3 @@
     
    
 </main>
-
