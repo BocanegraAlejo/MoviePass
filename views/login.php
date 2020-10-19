@@ -1,11 +1,15 @@
+<?php 
+require_once(VIEWS_PATH."Helper.php"); 
+?>
+
 <div class="bg-login">
 <div class="container">
     <div id="logreg-forms">
         <form class="form-signin" method="post" action="<?php echo FRONT_ROOT ?>Usuario/loguear">
             <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">LOGIN</h1>
             <div class="social-login">
-                <button class="btn facebook-btn social-btn" type="button"><span> Loguear con Facebook</span> </button>
-                <button class="btn google-btn social-btn" type="button"><span> Loguear con Google</span> </button>
+                <a class="btn facebook-btn social-btn" id="btnFace" href="<?= $loginURL?>"><span> Loguear con Facebook</span> </a>
+                <a class="btn google-btn social-btn" href=""><span> Loguear con Google</span></a>
             </div>
             <p style="text-align:center">O</p>
             <input type="email" id="inputEmail" name="user" class="form-control" placeholder="Nombre de Usuario.." required>

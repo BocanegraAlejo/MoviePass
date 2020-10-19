@@ -18,5 +18,6 @@
         </ul>
     </div>
 </nav>
+<?php require_once(VIEWS_PATH.'dashboard.php')?>
 
 

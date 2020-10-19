@@ -1,5 +1,7 @@
 <?php namespace Config;
 
+
+
 define("ROOT", dirname(__DIR__) . "/");
 //Path to your project's root folder
 define("FRONT_ROOT", "/TP_LabIV/");
@@ -12,6 +14,8 @@ define("DB_HOST", "localhost");
 define("DB_NAME", "moviepass");
 define("DB_USER", "root");
 define("DB_PASS", "");
+
+
 ?>
 
 
