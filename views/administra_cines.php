@@ -1,9 +1,7 @@
 <?php
-
-use Controllers\UsuarioController;
-
-UsuarioController::verifUserLogueado();
+require_once(VIEWS_PATH.'navAdmin.php');
 require_once(VIEWS_PATH.'add_cine.php');
+//require_once(VIEWS_PATH.'modify_cine.php');
 
 ?>
 
@@ -41,7 +39,6 @@ require_once(VIEWS_PATH.'add_cine.php');
                         <td><?= '$  '.$value->getValorEntrada(); ?></td>
                         <td><?= $value->getCapacidadTotal(); ?></td>
                         <td>
-                        <?= $value->getId(); ?>
                             
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalModify<?=$value->getId()?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>  
                         </td>
@@ -66,7 +63,7 @@ require_once(VIEWS_PATH.'add_cine.php');
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">MODIFICAR UN CINE <?=$ObjectCine->getId();?></h5>
+        <h5 class="modal-title" id="exampleModalLabel">MODIFICAR UN CINE </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

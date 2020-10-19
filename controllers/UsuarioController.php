@@ -17,7 +17,6 @@
 
         public function Index($message = "")
         {
-            
             UsuarioController::verifUserLogueado();
         }   
         
@@ -114,8 +113,7 @@
                     
                     $_SESSION['loggedUser'] = $usuario;
                     
-                    header("location: /TP_LabIV/Usuario/ShowDashboard");
-                    
+                    header("location: /TP_LabIV/Usuario/ShowDashboard");    
                 }
                 else
                 {

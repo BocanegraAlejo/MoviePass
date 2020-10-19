@@ -8,7 +8,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cine/ShowAdministraCine"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Administrar Cines</a>
             </li>
-            
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Pelicula/getPeliculasActuales"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Peliculas Actuales</a>
+            </li>
         </ul>
         <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
             
@@ -18,6 +20,6 @@
         </ul>
     </div>
 </nav>
-<?php require_once(VIEWS_PATH.'dashboard.php')?>
+
 
 
