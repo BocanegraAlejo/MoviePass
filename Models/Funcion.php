@@ -6,18 +6,18 @@
         private $id_cine;       
         private $id_sala;
         private $id_pelicula;
-        private $dia;
-        private $hora;
+        private $horaYdia;
+       
         
 
-        function __construct($id_funcion = '',$id_cine = '',$id_sala = '', $id_pelicula = '', $dia = '', $hora = '')
+        function __construct($id_funcion = '',$id_cine = '',$id_sala = '', $id_pelicula = '', $horaYdia = '')
         {  
             $this->id_funcion = $id_funcion;
             $this->id_cine = $id_cine;
             $this->id_sala = $id_sala;
             $this->id_pelicula = $id_pelicula;
-            $this->dia = $dia;
-            $this->hora = $hora;           
+            $this->horaYdia = $horaYdia;
+                       
         }               
 
        
@@ -59,29 +59,16 @@
                
         }
  
-        public function getDia()
+        public function gethoraYdia()
         {
                 return $this->dia;
         }
 
        
-        public function setDia($dia)
+        public function sethoraYdia($dia)
         {
                 $this->dia = $dia;
                
-        }
-
-         
-        public function getHora()
-        {
-                return $this->hora;
-        }
-
-        
-        public function setHora($hora)
-        {
-                $this->hora = $hora;
-                
         }
 
         public function getId_cine()

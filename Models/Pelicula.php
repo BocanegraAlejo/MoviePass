@@ -3,12 +3,12 @@
 
     class Pelicula {
         private $id_pelicula;
-        private $duracion;
-        private $imagen;
-        private $lenguaje;
         private $titulo;
         private $descripcion;
         private $genero;
+        private $duracion;
+        private $imagen;
+        private $lenguaje;
         private $fecha;
 
         public function __construct($id_pelicula = '', $duracion = "", $imagen = '', $lenguaje = '', $titulo = '', $descripcion = '', $genero = '', $fecha = '')

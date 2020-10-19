@@ -2,6 +2,9 @@
     namespace Controllers;
     use Models\Usuario;
     use DAO\UsuarioDAO;
+    use Facebook\Facebook;
+    use Facebook\Exceptions\FacebookResponseException;
+    use Facebook\Exceptions\FacebookSDKException;
 
     class UsuarioController {
         private $UsuarioDAO;
@@ -42,6 +45,7 @@
                 $_SESSION['loggedUser'] = $userObject;
                 $this->mostrarAlerta();
                 require_once(VIEWS_PATH."dashboard.php");
+                
             }
             else {
                 
