@@ -1,6 +1,8 @@
 <?php
     namespace Controllers;
-    use Models\Usuario;
+
+use DAO\CineDAO;
+use Models\Usuario;
     use DAO\UsuarioDAO;
     use Facebook\Facebook;
     use Facebook\Exceptions\FacebookResponseException;
@@ -8,11 +10,12 @@
 
     class UsuarioController {
         private $UsuarioDAO;
+        private $cineDAO;
         private $loginURL;
         public function __construct()
         {
-            
             $this->UsuarioDAO = new UsuarioDAO();
+            
         }
 
         public function Index($message = "")
@@ -153,6 +156,8 @@
             if(isset($_SESSION['loggedUser'])) {
                 
                 if($_SESSION['loggedUser']->getAdmin()==1) {
+                    $cineDAO = new CineDAO();
+                    $arrCines = $cineDAO->GetAll();
                     require_once(VIEWS_PATH."navAdmin.php");
                     
                 }

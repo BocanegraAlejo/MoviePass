@@ -3,84 +3,87 @@
    
     class Funcion {
         private $id_funcion;
-        private $id_cine;       
-        private $id_sala;
-        private $id_pelicula;
-        private $horaYdia;
-       
+        private $titulo_pelicula;
+        private $idioma;
+        private $duracion;
+        private $fechaYhora;
         
-
-        function __construct($id_funcion = '',$id_cine = '',$id_sala = '', $id_pelicula = '', $horaYdia = '')
+        function __construct($id_funcion = '',$titulo_pelicula = '',$idioma = '', $duracion = '', $fechaYhora = '')
         {  
             $this->id_funcion = $id_funcion;
-            $this->id_cine = $id_cine;
-            $this->id_sala = $id_sala;
-            $this->id_pelicula = $id_pelicula;
-            $this->horaYdia = $horaYdia;
+            $this->titulo_pelicula = $titulo_pelicula;
+            $this->idioma = $idioma;
+            $this->duracion = $duracion;
+            $this->fechaYhora = $fechaYhora;
                        
         }               
 
-       
         public function getId_funcion()
         {
-                return $this->id_funcion;
+            return $this->id_funcion;
         }
 
         
         public function setId_funcion($id_funcion)
         {
-                $this->id_funcion = $id_funcion;
-               
+            $this->id_funcion = $id_funcion;  
         }
 
-         
-        public function getId_sala()
+        public function getTitulo_pelicula()
         {
-                return $this->id_sala;
+            return $this->titulo_pelicula;
         }
 
-       
-        public function setId_sala($id_sala)
+        public function setTitulo_pelicula($titulo_pelicula)
         {
-                $this->id_sala = $id_sala;
-              
-        }
-
-         
-        public function getId_pelicula()
-        {
-                return $this->id_pelicula;
-        }
-
-        
-        public function setId_pelicula($id_pelicula)
-        {
-                $this->id_pelicula = $id_pelicula;
-               
-        }
- 
-        public function gethoraYdia()
-        {
-                return $this->dia;
+            $this->titulo_pelicula = $titulo_pelicula;
         }
 
        
-        public function sethoraYdia($dia)
+        public function getIdioma()
         {
-                $this->dia = $dia;
-               
+            return $this->idioma;
         }
 
-        public function getId_cine()
+     
+        public function setIdioma($idioma)
         {
-                return $this->id_cine;
+            $this->idioma = $idioma;
         }
 
         
-        public function setId_cine($id_cine)
+        public function getDuracion()
         {
-                $this->id_cine = $id_cine;
-               
+                return $this->duracion;
+        }
+
+        public function setDuracion($duracion)
+        {
+                $this->duracion = $duracion;
+
+                return $this;
+        }
+
+        public function getFechaYhora()
+        {
+                return $this->fechaYhora;
+        }
+
+        public function setFechaYhora($fechaYhora)
+        {
+            $this->fechaYhora = $fechaYhora;
+        }
+
+        public function getFecha()
+        {
+            $aux = explode(" ",$this->fechaYhora);
+            return $aux[0];
+        }
+
+        public function getHora()
+        {
+            $aux = explode(" ",$this->fechaYhora);
+            return $aux[1];
         }
     }
 

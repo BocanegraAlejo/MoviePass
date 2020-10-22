@@ -5,7 +5,7 @@
         private $id_pelicula;
         private $titulo;
         private $descripcion;
-        private $genero;
+        private $genero = array();
         private $duracion;
         private $imagen;
         private $lenguaje;
