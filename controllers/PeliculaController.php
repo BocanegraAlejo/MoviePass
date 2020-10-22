@@ -12,8 +12,6 @@
           private $pagActual;
           private $fecha_ini;
           private $fecha_fin;
-          private $cineActual;
-          private $salaActual;
 
           public function __construct()
           {
@@ -31,11 +29,6 @@
               //$this->getPeliculasActuales(1);
           }
           
-          public function vistaPeliculasActuales($cine_actual, $sala_actual) {
-            $this->cineActual = $cine_actual;
-            $this->salaActual = $sala_actual;
-            $this->getPeliculasActuales();
-          }
           public function getPeliculasActuales($page = 1, $genero = '', $fecha_ini = '', $fecha_fin = '')
           {
               $this->fecha_ini = $fecha_ini;

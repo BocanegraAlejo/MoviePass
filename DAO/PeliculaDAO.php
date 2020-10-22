@@ -33,30 +33,16 @@
             }
         }
 
-        public function obtenerUltimoID() {
+        public function obtenerIDXtitulo($titulo) {
             try
             {
-                $funcionList = array();
-    
-                $query = "";
+                $query = "SELECT id_pelicula FROM `".$this->tableName."` WHERE titulo='$titulo'";
     
                 $this->connection = Connection::GetInstance();
     
                 $resultSet = $this->connection->Execute($query);
     
-                foreach ($resultSet as $row)
-                {
-                    $funcion = new Funcion();
-                    $funcion->setId_funcion($row["id_funcion"]);
-                    $funcion->setTitulo_pelicula($row["titulo"]);
-                    $funcion->setIdioma($row["idioma"]);
-                    $funcion->setDuracion($row["duracion"]);
-                    $funcion->setFechaYhora($row["horaYdia"]);
-    
-                    array_push($funcionList, $funcion);
-                }
-    
-                return $funcionList;
+                return $resultSet;
     
             }
             catch(Exception $ex)
@@ -81,7 +67,7 @@
 
         public function GetPeliculaByID($id)
         {
-            $api = file_get_contents("https://api.themoviedb.org/3/movie/$id".CONFIG_API, true);
+            $api = file_get_contents("https://api.themoviedb.org/3/movie/$id?".CONFIG_API, true);
             $data = json_decode($api);
             return $data;
         }

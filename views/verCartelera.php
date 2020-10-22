@@ -1,16 +1,16 @@
 <div class="container">
     <div class="d-flex justify-content-center">
-    <a class="btn btn-warning btn-lg mt-3 mb-3" href="<?php echo FRONT_ROOT ?>Pelicula/vistaPeliculasActuales/<?=$this->cineActual?>/<?=$this->salaActual?>"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Funcion a Sala</a>
+    <a class="btn btn-warning btn-lg mt-3 mb-3" href="<?php echo FRONT_ROOT ?>Pelicula/getPeliculasActuales"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Funcion a Sala</a>
     </div>
     <section class="busqueda col-md-12">
         <form method="get" class="form-inline" action="<?php echo FRONT_ROOT?>Cartelera/verCarteleraOneSala">       
-              <input type="hidden" value="<?=$id_cine?>" name="id_cine">  
+              
               <label for="sala">Sala:</label>  
                 <select class="form-control mb-2 mr-sm-2 mb-sm-0" onchange="this.form.submit()" id="sala" name="sala" >
                     <option value="">-- Seleccione una Sala --</option>
                     <?php
                       foreach ($arrSalas as $key => $value) {
-                        ?> <option value="<?=$value->getId_sala();?>" <?php if($value->getId_sala() == $this->salaActual){ echo 'selected="selected"'; } ?>><?= $value->getNombre_sala(); ?></option><?php
+                        ?> <option value="<?=$value->getId_sala();?>" <?php if($value->getId_sala() == $_SESSION['salaActual']){ echo 'selected="selected"'; } ?>><?= $value->getNombre_sala(); ?></option><?php
                       }
                     ?>
                 </select>
