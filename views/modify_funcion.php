@@ -1,8 +1,8 @@
-<div class="modal fade" id="ModalModify<?= $value->getId()?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="ModalModify<?= $value->getId_funcion()?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">MODIFICAR UN CINE <?=$ObjectCine->getId();?></h5>
+        <h5 class="modal-title" id="exampleModalLabel">MODIFICAR UNA FUNCION</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -11,7 +11,7 @@
           <form class="formulario-add" method="post" action="<?php echo FRONT_ROOT ?>Cine/ModificarCine2">
         <input type="hidden" name="id" value="<?=$ObjectCine->getId();?>">
         <div class="form-group">
-          <label for="nombre">Nombre:</label>
+          <label for="nombre">Pelicula:</label>
           <input type="text" name="nombre" class="form-control" id="nombre" value="<?= $ObjectCine->getNombre();?>">
         </div>
         <div class="form-group">

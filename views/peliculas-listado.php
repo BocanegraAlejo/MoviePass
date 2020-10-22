@@ -1,4 +1,5 @@
-    <div class="container"> 
+ 
+<div class="container"> 
     <div class="row">
     <section class="busqueda col-md-12">
         <form method="get" class="form-inline" action="<?php echo FRONT_ROOT?>Pelicula/getPeliculasActuales">
@@ -23,7 +24,9 @@
     </div>
     <section>
     <div class="card-deck">
-        <?php foreach ($this->arrPeliculas as $key => $value) { ?>
+        <?php foreach ($this->arrPeliculas as $key => $value) { 
+            require(VIEWS_PATH.'add_peliculaToCartelera.php');
+           ?>
            <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card card_" style="width: 300px">
                     <img class="card-img-top" src="<?='https://image.tmdb.org/t/p/w500'.$value->{'poster_path'} ?>" alt="Card image cap">
@@ -33,11 +36,14 @@
                         <blockquote class="blockquote mb-0">
                             <footer class="blockquote-footer"><?=$value->{'release_date'}?></footer>
                         </blockquote>
+                        <button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#addCartelera<?=$key?>" ><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
                 
           </div>
-        <?php } ?>
+        <?php
+        
+        }    ?>
         </div>
     </div>
     <?php

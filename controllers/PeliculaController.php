@@ -28,7 +28,7 @@
             UsuarioController::verifUserLogueado();
               //$this->getPeliculasActuales(1);
           }
-  
+          
           public function getPeliculasActuales($page = 1, $genero = '', $fecha_ini = '', $fecha_fin = '')
           {
               $this->fecha_ini = $fecha_ini;
@@ -37,7 +37,7 @@
               $this->pagActual = $page;
               $this->cantPaginas = $this->getCantidadPaginas($genero, $fecha_ini, $fecha_fin);
               $this->arrPeliculas = $this->PeliculaDAO->GetAllPeliculasActuales($page, $genero, $fecha_ini, $fecha_fin);
-            
+              
               require_once(VIEWS_PATH."peliculas-listado.php");
           }
           
