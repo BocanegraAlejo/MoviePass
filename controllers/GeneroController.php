@@ -3,7 +3,7 @@
     use models\Cine;
     use DAO\CineDAO;
 
-    class CineController {
+    class GeneroController {
         private $CineDAO;
         
         public function __construct() {
