@@ -61,13 +61,13 @@
  
         public function gethoraYdia()
         {
-                return $this->dia;
+                return $this->horaYdia;
         }
 
        
-        public function sethoraYdia($dia)
+        public function sethoraYdia($horaYdia)
         {
-                $this->dia = $dia;
+                $this->horaYdia = $horaYdia;
                
         }
 
@@ -81,6 +81,17 @@
         {
                 $this->id_cine = $id_cine;
                
+        }
+        public function getFecha()
+        {
+            $aux = explode(" ",$this->horaYdia);
+            return $aux[0];
+        }
+
+        public function getHora()
+        {
+            $aux = explode(" ",$this->horaYdia);
+            return $aux[1];
         }
     }
 

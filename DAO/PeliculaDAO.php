@@ -13,8 +13,8 @@
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (titulo, descripcion, id_genero, duracion, imagen, id_lenguaje, fecha_lanzamiento) VALUES (:titulo, :descripcion, :id_genero, :duracion, :imagen, :id_lenguaje, :fecha_lanzamiento);";
-               
+                $query = "INSERT INTO ".$this->tableName." (id_pelicula, titulo, descripcion, id_genero, duracion, imagen, id_lenguaje, fecha_lanzamiento) VALUES (:id_pelicula, :titulo, :descripcion, :id_genero, :duracion, :imagen, :id_lenguaje, :fecha_lanzamiento);";
+                $parameters["id_pelicula"] = $pelicula->getId_pelicula();
                 $parameters["titulo"] = $pelicula->getTitulo();
                 $parameters["descripcion"] = $pelicula->getDescripcion();
                 $parameters["id_genero"] = $pelicula->getGenero();
@@ -33,10 +33,10 @@
             }
         }
 
-        public function obtenerIDXtitulo($titulo) {
+        public function buscarPelicula($id_pelicula) {
             try
             {
-                $query = "SELECT id_pelicula FROM `".$this->tableName."` WHERE titulo='$titulo'";
+                $query = "SELECT id_pelicula FROM `".$this->tableName."` WHERE id_pelicula='$id_pelicula'";
     
                 $this->connection = Connection::GetInstance();
     

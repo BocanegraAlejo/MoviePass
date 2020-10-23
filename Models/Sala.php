@@ -7,7 +7,7 @@
         private $capacidad;
         private $nombre_sala;
 
-        function __construct($id_sala = '',$id_cine = '',$capacidad = '',$nombre_sala = '')
+        function __construct($id_sala = '',$id_cine = '',$nombre_sala = '', $capacidad = '')
         {
             $this->id_sala = $id_sala;
             $this->id_cine = $id_cine;

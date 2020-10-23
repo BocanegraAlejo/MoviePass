@@ -1,4 +1,4 @@
-<div class="modal fade" id="elegirCineCartelera" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="elegirCineFuncion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-      <form class="formulario-add" method="post" action="<?php echo FRONT_ROOT ?>Cartelera/verCarteleraAllSalas">
+      <form class="formulario-add" method="post" action="<?php echo FRONT_ROOT ?>Funcion/verFuncionAllSalas">
         <div class="form-group">
           <label for="cine">Cine:</label>
           <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="cine" name="cines" >

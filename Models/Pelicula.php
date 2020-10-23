@@ -5,21 +5,21 @@
         private $id_pelicula;
         private $titulo;
         private $descripcion;
-        private $genero = array();
+        private $genero;
         private $duracion;
         private $imagen;
         private $lenguaje;
         private $fecha;
 
-        public function __construct($id_pelicula = '', $duracion = "", $imagen = '', $lenguaje = '', $titulo = '', $descripcion = '', $genero = '', $fecha = '')
+        public function __construct($id_pelicula = '',$titulo = '',$descripcion = '',$genero = '', $duracion = "", $imagen = '', $lenguaje = '',    $fecha = '')
         {
-            $this->id_peliculas = $id_pelicula;
+            $this->id_pelicula = $id_pelicula;
+            $this->titulo = $titulo;  
+            $this->descripcion = $descripcion; 
+            $this->genero = $genero;
             $this->duracion = $duracion;
             $this->imagen = $imagen;
             $this->lenguaje = $lenguaje;
-            $this->titulo = $titulo;
-            $this->descripcion = $descripcion;
-            $this->genero = $genero;
             $this->fecha = $fecha;
         }
 

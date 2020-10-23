@@ -103,6 +103,41 @@ class FuncionDAO implements IFuncionDAO {
         }
     }
     
+    public function BuscarFuncionXid($id_funcion) {
+        try
+        {
+            $query = "SELECT * FROM `".$this->tableName."` WHERE id_funcion='$id_funcion'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            return $resultSet[0];
+           
+           
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function modificarFuncion($funcion) {
+        try
+        {
+            $query = "UPDATE ".$this->tableName." SET horaYdia=:horaYdia where id_funcion= :id";
+            
+            $parameters["id"] = $funcion->getId_Funcion();
+            $parameters["horaYdia"] = $funcion->gethoraYdia();
+            
+            $this->connection = Connection::GetInstance();
+            
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
     public function eliminarFuncion($id_funcion) {
         try
         {

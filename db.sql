@@ -17,6 +17,9 @@ CREATE TABLE if not exists cine (
     valor_entrada float(10),
     constraint `PK-id_cine` PRIMARY KEY(id_cine)
 );
+SET FOREIGN_KEY_CHECKS=1;
+ALTER TABLE cine 
+ADD constraint `FK-id_usuario` FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario);
 
 CREATE TABLE if not exists genero_x_pelicula (
 	id_genero int(5) NOT NULL AUTO_INCREMENT,
@@ -65,7 +68,16 @@ CREATE TABLE if not exists funcion (
     constraint `FK-id_pelicula` FOREIGN KEY(id_pelicula) references pelicula(id_pelicula)
 );
 
-select p.titulo, lxp.nombre, p.duracion, f.horaYdia
-from 
+select f.id_funcion,p.titulo, lxp.nombre as `idioma`, p.duracion, f.horaYdia
+from funcion f
+INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=p.id_lenguaje
+WHERE id_cine=47;
+
+select f.id_funcion,p.titulo, lxp.nombre as `idioma`, p.duracion, f.horaYdia
+from funcion f
+INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=p.id_lenguaje
+WHERE id_sala=
 
 
