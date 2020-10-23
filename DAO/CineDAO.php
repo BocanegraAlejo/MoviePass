@@ -15,8 +15,8 @@ class CineDAO implements ICineDAO {
     {
         try
         {
-            $query = "INSERT INTO ".$this->tableName." (nombre, direccion, horario_apertura, horario_cierre, valor_entrada, capacidad_total) VALUES (:nombre, :direccion, :horario_apertura, :horario_cierre, :valor_entrada, :capacidad_total);";
-            
+            $query = "INSERT INTO ".$this->tableName." (id_usuario, nombre, direccion, horario_apertura, horario_cierre, valor_entrada, capacidad_total) VALUES (:id_usuario, :nombre, :direccion, :horario_apertura, :horario_cierre, :valor_entrada, :capacidad_total);";
+            $parameters["id_usuario"] = $cine->getId_usuario();
             $parameters["nombre"] = $cine->getNombre();
             $parameters["direccion"] = $cine->getDireccion();
             $parameters["horario_apertura"] = $cine->getHorario_apertura();
@@ -34,10 +34,10 @@ class CineDAO implements ICineDAO {
             throw $ex;
         }
     }
-    public function BuscarId($id) {
+    public function BuscarId($id_cine) {
         try
         {
-            $query = "SELECT * FROM `".$this->tableName."` WHERE id_cine='$id'";
+            $query = "SELECT * FROM `".$this->tableName."` WHERE id_cine='$id_cine'";
 
             $this->connection = Connection::GetInstance();
 
@@ -99,7 +99,7 @@ class CineDAO implements ICineDAO {
         {
             $cinesList = array();
 
-            $query = "SELECT * FROM ".$this->tableName;
+            $query = "SELECT * FROM $this->tableName WHERE id_usuario= ".$_SESSION['loggedUser']->getId_usuario();
 
             $this->connection = Connection::GetInstance();
 

@@ -3,6 +3,7 @@
 
     class Cine {
         private $id_cine;
+        private $id_usuario;
         private $nombre;
         private $direccion;
         private $horario_apertura;
@@ -10,8 +11,9 @@
         private $capacidadTotal;
         private $valorEntrada;
 
-        public function __construct($id_cine = '', $nombre = '',$direccion = '', $horario_apertura = '', $horario_cierre = '',  $valorEntrada = '', $capacidadTotal = '') {
+        public function __construct($id_cine = '',$id_usuario = '', $nombre = '',$direccion = '', $horario_apertura = '', $horario_cierre = '',  $valorEntrada = '', $capacidadTotal = '') {
             $this->id_cine = $id_cine;
+            $this->id_usuario = $id_usuario;
             $this->nombre = $nombre;
             $this->direccion = $direccion;
             $this->horario_apertura = $horario_apertura;
@@ -99,6 +101,16 @@
         public function setId($id_cine)
         {
             $this->id_cine = $id_cine;
+        }
+
+        public function getId_usuario()
+        {
+            return $this->id_usuario;
+        }
+
+        public function setId_usuario($id_usuario)
+        {
+            $this->id_usuario = $id_usuario;
         }
     }
 

@@ -1,8 +1,8 @@
 <?php
     namespace Controllers;
 
-use DAO\CineDAO;
-use Models\Usuario;
+    use DAO\CineDAO;
+    use Models\Usuario;
     use DAO\UsuarioDAO;
     use Facebook\Facebook;
     use Facebook\Exceptions\FacebookResponseException;
@@ -44,7 +44,7 @@ use Models\Usuario;
             //var_dump($userAux);
             if(!empty($userAux) && $userAux[0]['clave'] == $clave)
             {
-                $userObject = new Usuario($userAux[0]['email'],$userAux[0]['clave'],'',$userAux[0]['admin']);
+                $userObject = new Usuario($userAux[0]['id_usuario'],$userAux[0]['email'],$userAux[0]['clave'],'',$userAux[0]['admin']);
                 $_SESSION['loggedUser'] = $userObject;
                 $this->mostrarAlerta();
                 require_once(VIEWS_PATH."dashboard.php");
@@ -160,6 +160,11 @@ use Models\Usuario;
                     $arrCines = $cineDAO->GetAll();
                     require_once(VIEWS_PATH."navAdmin.php");
                     
+                }
+                else if($_SESSION['loggedUser']->getAdmin()==2) {
+                    $cineDAO = new CineDAO();       //sacar despues
+                    $arrCines = $cineDAO->GetAll(); //sacar
+                    require_once(VIEWS_PATH."navSuperAdmin.php");
                 }
                 else {
                     require_once(VIEWS_PATH."nav.php");

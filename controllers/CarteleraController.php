@@ -40,15 +40,15 @@
             
           }
 
-          public function verCarteleraOneSala($id_cine = '', $id_sala = '') {
+          public function verCarteleraOneSala($id_sala = '') {
             
             if($id_sala == "") {
-              $this->verCarteleraAllSalas($id_cine);
+              $this->verCarteleraAllSalas($_SESSION['cineActual']);
             }
-            $_SESSION['cineActual'] = $id_cine;
             $_SESSION['salaActual'] = $id_sala;
-            $arrSalas = $this->salaDAO->getAllSalasXcine($id_cine);
-            $arrFunciones = $this->funcionDAO->getAllFuncionesXsala($id_sala, $id_cine);
+            
+            $arrSalas = $this->salaDAO->getAllSalasXcine($_SESSION['cineActual']);
+            $arrFunciones = $this->funcionDAO->getAllFuncionesXsala($id_sala, $_SESSION['cineActual']);
             require_once(VIEWS_PATH.'verCartelera.php'); 
             
           }

@@ -9,9 +9,14 @@
                 <select class="form-control mb-2 mr-sm-2 mb-sm-0" onchange="this.form.submit()" id="sala" name="sala" >
                     <option value="">-- Seleccione una Sala --</option>
                     <?php
+                        
                       foreach ($arrSalas as $key => $value) {
-                        ?> <option value="<?=$value->getId_sala();?>" <?php if($value->getId_sala() == $_SESSION['salaActual']){ echo 'selected="selected"'; } ?>><?= $value->getNombre_sala(); ?></option><?php
-                      }
+                        ?> <option value="<?=$value->getId_sala();?>" <?php if($value->getId_sala() == $_SESSION['salaActual']){ echo 'selected="selected"'; } ?>><?= $value->getNombre_sala(); ?></option>
+
+                        <?php
+                        
+                    }
+
                     ?>
                 </select>
         </form>
