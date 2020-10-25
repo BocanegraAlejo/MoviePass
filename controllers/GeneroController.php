@@ -7,7 +7,7 @@
         private $CineDAO;
         
         public function __construct() {
-            $this->CineDAO = new CineDAO();
+           
             UsuarioController::verifUserLogueado();
             
         }

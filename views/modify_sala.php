@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
           <label for="capacidad">Capacidad:</label>
-          <input type="text" name="capacidad" class="form-control" id="capacidad" value="<?= $ObjectSala->getCapacidad();?>">
+          <input type="number" name="capacidad" min="1" class="form-control" id="capacidad" value="<?= $ObjectSala->getCapacidad();?>">
         </div>
         <button type="submit" class="btn btn-success">Enviar</button>
       </form>

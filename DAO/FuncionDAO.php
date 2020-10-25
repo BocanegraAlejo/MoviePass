@@ -30,7 +30,7 @@ class FuncionDAO implements IFuncionDAO {
             throw $ex;
         }
     }
-
+    
     public function getAllFuncionesXsala($id_sala, $id_cine) {
         try
         {
@@ -103,6 +103,41 @@ class FuncionDAO implements IFuncionDAO {
         }
     }
     
+    public function BuscarFuncionXid($id_funcion) {
+        try
+        {
+            $query = "SELECT * FROM `".$this->tableName."` WHERE id_funcion='$id_funcion'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            return $resultSet[0];
+           
+           
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function modificarFuncion($funcion) {
+        try
+        {
+            $query = "UPDATE ".$this->tableName." SET horaYdia=:horaYdia where id_funcion= :id";
+            
+            $parameters["id"] = $funcion->getId_Funcion();
+            $parameters["horaYdia"] = $funcion->gethoraYdia();
+            
+            $this->connection = Connection::GetInstance();
+            
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
     public function eliminarFuncion($id_funcion) {
         try
         {
@@ -113,6 +148,28 @@ class FuncionDAO implements IFuncionDAO {
             $this->connection = Connection::GetInstance();
             
             $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+
+       
+    }
+
+    // Retorna un Array con Todas las fechas de peliculas correspondientes a un dia en un cine
+    public function BuscarDiasXPelicula($id_cine, $id_pelicula) {
+        try
+        {
+            $query = "SELECT  DISTINCT DATE(horaYdia) horaYdia FROM `".$this->tableName."` WHERE id_cine='$id_cine' and id_pelicula='$id_pelicula'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            
+            return $resultSet;
+           
+           
         }
         catch(Exception $ex)
         {

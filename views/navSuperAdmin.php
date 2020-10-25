@@ -9,7 +9,7 @@
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cine/ShowAdministraCine"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Administrar Cines</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="" data-toggle="modal" data-target="#elegirCineCartelera" ><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Administrar Carteleras</a>
+                <a class="nav-link" href="" data-toggle="modal" data-target="#elegirCineFuncion" ><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Administrar Funcions</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Pelicula/getPeliculasActuales"><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Ver Peliculas</a>
@@ -22,4 +22,4 @@
         </ul>
     </div>
 </nav>
-<?php require_once(VIEWS_PATH.'elegirCineCartelera.php'); ?>
+<?php require_once(VIEWS_PATH.'elegirCineFuncion.php'); ?>
