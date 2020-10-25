@@ -8,11 +8,25 @@
         </button>
       </div>
       <div class="modal-body">
-      <form class="formulario-add" method="post" action="<?php echo FRONT_ROOT ?>Funcion/addFuncionToCartelera">
+      <?php 
+        $daoFuncion = new DAO\FuncionDAO();
+        
+        
+              $arrDias = array_column($daoFuncion->BuscarDiasXPelicula($_SESSION['cineActual'],$value->{'id'}),0);
+             
+              $arrDiasString = "['".implode(" ','",$arrDias)."']";
+           
+              var_dump($arrDiasString);
+       
+      ?>
+      
+      <form class="formulario-add"  method="post" action="<?php echo FRONT_ROOT ?>Funcion/addFuncionToCartelera">
         <input type="hidden"  name="id_pelicula" value="<?= $value->{'id'} ?>">
         <div class="form-group">
-          <label for="dia">Dia de Proyección</label>
-          <input type="date"  name="dia" class="form-control" id="dia" required>
+            <label for="dia">Dia de Proyección</label>
+            <div class="input-group date">
+              <input type="text" class="form-control" id="dia<?=$key?>" name="dia">
+            </div>
         </div>
         <div class="form-group">
           <label for="horario">Horario de Proyección</label>
@@ -20,8 +34,20 @@
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
-      
     </form>
     </div>
   </div>
 </div>
+<script>
+    
+   $('#dia<?=$key?>').datepicker({
+        language: "es",
+        format: "yyyy/mm/dd",
+        autoclose: true,
+        multidate: false,
+        todayHighlight: true,
+        datesDisabled: <?=$arrDiasString ?>
+        
+    });
+   
+</script>

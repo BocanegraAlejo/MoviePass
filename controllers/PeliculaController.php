@@ -1,6 +1,8 @@
 <?php
       namespace Controllers;
-      use DAO\PeliculaDAO;
+
+use DAO\FuncionDAO;
+use DAO\PeliculaDAO;
       
       class PeliculaController
       {
@@ -37,7 +39,6 @@
               $this->pagActual = $page;
               $this->cantPaginas = $this->getCantidadPaginas($genero, $fecha_ini, $fecha_fin);
               $this->arrPeliculas = $this->PeliculaDAO->GetAllPeliculasActuales($page, $genero, $fecha_ini, $fecha_fin);
-              
               require_once(VIEWS_PATH."peliculas-listado.php");
           }
           

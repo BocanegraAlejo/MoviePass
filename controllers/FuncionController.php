@@ -8,7 +8,8 @@
       use DAO\IdiomaDAO;
       use Models\FuncionDB;
       use Models\Funcion;
-    use Models\Idioma;
+      use Models\Idioma;
+      use helpers\FuncionesUtiles;
 
 class FuncionController
       {
@@ -18,16 +19,17 @@ class FuncionController
           private $generoDAO;
           private $idiomaDAO;
           private $arrSalas;
-         
 
           public function __construct()
           {
+            
             UsuarioController::verifUserLogueado();
             $this->salaDAO = new SalaDAO();
             $this->funcionDAO = new FuncionDAO();
             $this->peliculaDAO = new PeliculaDAO();
             $this->generoDAO = new GeneroDAO();
             $this->idiomaDAO = new IdiomaDAO();
+            
           }
 
           public function index() {
@@ -59,7 +61,7 @@ class FuncionController
           }
         
           public function addFuncionToCartelera($id_pelicula,  $dia, $horario) {
-             
+           
               $peliculaAPI = $this->peliculaDAO->GetPeliculaByID($id_pelicula);
               //$this->generoDAO->PasarAllgenerosToDB();
               $objectPeli = $this->peliculaDAO->buscarPelicula($id_pelicula);
@@ -68,19 +70,25 @@ class FuncionController
                   $tempIdioma = new Idioma($peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'spoken_languages'}[0]->{'name'});
                   $this->idiomaDAO->Add($tempIdioma);
                 }
-              
-                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},$peliculaAPI->{'genres'}[0]->{'id'},$peliculaAPI->{'runtime'},'https://image.tmdb.org/t/p/w500'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'release_date'});
+                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},$peliculaAPI->{'genres'}[0]->{'id'}, date("i:s", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w500'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'release_date'});
                 $this->peliculaDAO->Add($pelicula);
               }
               
               $diaYhora = $dia." ".$horario;
-              $funcion = new FuncionDB('', $_SESSION['cineActual'], $_SESSION['salaActual'], $id_pelicula,$diaYhora);
-              $this->funcionDAO->AddFuncion($funcion);
+             
+                $funcion = new FuncionDB('', $_SESSION['cineActual'], $_SESSION['salaActual'], $id_pelicula,$diaYhora);
+                
+                $this->funcionDAO->AddFuncion($funcion);
+             
+              
 
               $this->verFuncionOneSala($_SESSION['salaActual']);
 
           }
 
+          public function buscarFuncionesXdia($id_pelicula, $dia) {
+              return $this->funcionDAO->BuscarDiasXPelicula($_SESSION['cineActual'],$id_pelicula,$dia);
+          }
           public function modificaFuncion($id_funcion) {
             $resultado = $this->funcionDAO->BuscarFuncionXid($id_funcion);
             if(!empty($resultado))
