@@ -12,7 +12,7 @@
         $controllerFuncion = new Controllers\FuncionController();
         $arrDias = $controllerFuncion->BuscarDiasXPelicula($value->{'id'}); 
         $arrDiasString = "['".implode(" ','",$arrDias)."']";
-        //Cambiar esto en un futuro
+        //Cambiar esto en un futuro.
       ?>
       
       <form class="formulario-add"  method="post" action="<?php echo FRONT_ROOT ?>Funcion/addFuncionToCartelera">
