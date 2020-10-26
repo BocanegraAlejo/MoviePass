@@ -13,7 +13,7 @@
         
         
               $arrDias = array_column($daoFuncion->BuscarDiasXPelicula($_SESSION['cineActual'],$value->{'id'}),0);
-             
+              ///Cambiar
               $arrDiasString = "['".implode(" ','",$arrDias)."']";
            
               var_dump($arrDiasString);
