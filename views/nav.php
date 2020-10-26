@@ -6,7 +6,7 @@
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
         <ul class="navbar-nav w-100 justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Pelicula/getPeliculasActuales"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Peliculas Actuales</a>
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cartelera/ShowCartelera"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Peliculas Actuales</a>
             </li>
         </ul>
         <ul class="nav navbar-nav ml-auto w-100 justify-content-end">

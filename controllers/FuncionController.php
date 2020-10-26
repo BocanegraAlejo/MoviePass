@@ -70,7 +70,7 @@ class FuncionController
                   $tempIdioma = new Idioma($peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'spoken_languages'}[0]->{'name'});
                   $this->idiomaDAO->Add($tempIdioma);
                 }
-                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},$peliculaAPI->{'genres'}[0]->{'id'}, date("i:s", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w500'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'release_date'});
+                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},$peliculaAPI->{'genres'}[0]->{'id'}, date("i:s", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w500/'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'release_date'});
                 $this->peliculaDAO->Add($pelicula);
               }
               
@@ -112,6 +112,10 @@ class FuncionController
 
           public function getAllCines() {
               return $this->cineDAO->getAll();
+          }
+
+          public function BuscarDiasXPelicula($id) {
+            return array_column($this->funcionDAO->BuscarDiasXPelicula($_SESSION['cineActual'],$id),0);
           }
           
     }

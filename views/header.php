@@ -11,10 +11,11 @@
 	 <link rel="stylesheet" href="<?php echo CSS_PATH ?>bootstrap-datepicker.standalone.css">
 	 <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>estilos.css">
 	 <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>toastr.min.css">
-	 
+	 <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>slick.css">
+	 <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>slick-theme.css"/>
 	 
 	 <script src="<?php echo JS_PATH ?>jquery-3.5.1.min.js"  crossorigin="anonymous"></script>
-	 
+	 <script src="<?php echo JS_PATH ?>slick.min.js"></script>
 	 <script type="text/javascript" src="<?php echo JS_PATH ?>toastr.min.js" ></script>
 	 
 	 <script type="text/javascript" >
@@ -37,10 +38,10 @@
 				'showMethod': 'fadeIn',
 				'hideMethod': 'fadeOut',
 			}
-			
+
 		});
 	</script>
-	 <script src="https://kit.fontawesome.com/a48a758cbb.js" crossorigin="anonymous" defer></script>
+	 <script src="https://kit.fontawesome.com/a48a758cbb.js" crossorigin="anonymous" ></script>
 	 <script src="<?php echo JS_PATH ?>bootstrap.min.js" ></script>
 	 <script src="<?php echo JS_PATH ?>bootstrap-datepicker.min.js" ></script>
      <script src="<?php echo JS_PATH ?>bootstrap-datepicker.es.min.js"></script>

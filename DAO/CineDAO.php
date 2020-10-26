@@ -126,6 +126,40 @@ class CineDAO implements ICineDAO {
             throw $ex;
         }
     }
+
+    public function GetAllCines()
+    {
+        try
+        {
+            $cinesList = array();
+
+            $query = "SELECT * FROM $this->tableName";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            
+            foreach ($resultSet as $row)
+            {               
+                $cine = new Cine();
+                $cine->setId($row["id_cine"]);
+                $cine->setNombre($row["nombre"]);
+                $cine->setDireccion($row["direccion"]);
+                $cine->setHorario_apertura($row["horario_apertura"]);
+                $cine->setHorario_cierre($row["horario_cierre"]);
+                $cine->setValorEntrada($row["valor_entrada"]);
+                $cine->setCapacidadTotal($row["capacidad_total"]);
+                
+                array_push($cinesList, $cine);
+            }
+
+            return $cinesList;
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
 }
 
 

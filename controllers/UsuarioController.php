@@ -109,7 +109,7 @@
                 $fbUserData['link']       = !empty($fbUser['link'])?$fbUser['link']:'';
                 
               
-                $usuario = new Usuario($fbUserData['email'],'',$fbUserData['first_name'],0);
+                $usuario = new Usuario('',$fbUserData['email'],'',$fbUserData['first_name'],0);
                 $existe = $this->UsuarioDAO->VerifExistenciaUser($fbUserData['email']);
                 
                 if(!empty($existe))

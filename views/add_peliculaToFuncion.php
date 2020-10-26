@@ -9,15 +9,10 @@
       </div>
       <div class="modal-body">
       <?php 
-        $daoFuncion = new DAO\FuncionDAO();
-        
-        
-              $arrDias = array_column($daoFuncion->BuscarDiasXPelicula($_SESSION['cineActual'],$value->{'id'}),0);
-              ///Cambiar
-              $arrDiasString = "['".implode(" ','",$arrDias)."']";
-           
-              var_dump($arrDiasString);
-       
+        $controllerFuncion = new Controllers\FuncionController();
+        $arrDias = $controllerFuncion->BuscarDiasXPelicula($value->{'id'}); 
+        $arrDiasString = "['".implode(" ','",$arrDias)."']";
+        //Cambiar esto en un futuro..
       ?>
       
       <form class="formulario-add"  method="post" action="<?php echo FRONT_ROOT ?>Funcion/addFuncionToCartelera">
@@ -25,12 +20,12 @@
         <div class="form-group">
             <label for="dia">Dia de Proyección</label>
             <div class="input-group date">
-              <input type="text" class="form-control" id="dia<?=$key?>" name="dia">
+              <input type="text" autocomplete="off" class="form-control" id="dia<?=$key?>" name="dia">
             </div>
         </div>
         <div class="form-group">
           <label for="horario">Horario de Proyección</label>
-          <input type="time"  name="horario" class="form-control" id="horario" required>
+          <input type="time" autocomplete="off"  name="horario" class="form-control" id="horario" required>
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
