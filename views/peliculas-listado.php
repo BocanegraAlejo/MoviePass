@@ -29,6 +29,7 @@
            ?>
            <div class="col-sm-12 col-md-6 col-lg-4">
                 <div class="card card_" style="width: 300px">
+                
                     <img class="card-img-top" src="<?='https://image.tmdb.org/t/p/w500'.$value->{'poster_path'} ?>" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title"><?=$value->{'title'}?></h5>
@@ -47,7 +48,7 @@
         </div>
     </div>
     <?php
-        // calculamos la primera y última página a mostrar
+        // paginacion
         
         $primera = $this->pagActual - ($this->pagActual % 10) + 1;
         if ($primera > $this->pagActual) { $primera = $primera - 10; }

@@ -102,7 +102,29 @@ class FuncionDAO implements IFuncionDAO {
             throw $ex;
         }
     }
-    
+    //retorna hora y dia de funcion + datos pelicula
+    public function getAll_FuncionconDatosPeli_XCine($id_cine) {
+        try
+        {
+            $query = "SELECT f.id_funcion, p.id_pelicula,p.titulo,p.descripcion,p.id_genero,p.duracion, p.imagen, lxp.nombre as `idioma`, p.fecha_lanzamiento, f.horaYdia as `horaYdia_funcion`
+            FROM ".$this->tableName." f
+            INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=p.id_lenguaje
+            WHERE id_cine='$id_cine' GROUP BY p.id_pelicula";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            return $resultSet;
+
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
     public function BuscarFuncionXid($id_funcion) {
         try
         {
@@ -152,10 +174,47 @@ class FuncionDAO implements IFuncionDAO {
         catch(Exception $ex)
         {
             throw $ex;
-        }
-
-       
+        }  
     }
+
+    public function getAllPeliculasXcine($id_cine) {
+        try
+        {
+            $peliculasList = array();
+
+            $query = "SELECT *
+            FROM ".$this->tableName." f
+            INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=p.id_lenguaje
+            WHERE id_cine='$id_cine'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row)
+            {
+                $funcion = new Funcion();
+                $funcion->setId_funcion($row["id_funcion"]);
+                $funcion->setTitulo_pelicula($row["titulo"]);
+                $funcion->setIdioma($row["idioma"]);
+                $funcion->setDuracion($row["duracion"]);
+                $funcion->setFechaYhora($row["horaYdia"]);
+
+                array_push($funcionList, $funcion);
+            }
+
+            return $funcionList;
+
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+
+
 
     // Retorna un Array con Todas las fechas de peliculas correspondientes a un dia en un cine
     public function BuscarDiasXPelicula($id_cine, $id_pelicula) {
