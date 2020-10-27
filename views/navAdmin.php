@@ -13,7 +13,7 @@
                 <a class="nav-link" href="" data-toggle="modal" data-target="#elegirCineFuncion" ><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Administrar Carteleras</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Pelicula/getPeliculasActuales"><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Ver Peliculas</a>
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Pelicula/getPeliculasActualesBTN"><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Ver Peliculas</a>
             </li>
         </ul>
         <ul class="nav navbar-nav ml-auto w-100 justify-content-end">

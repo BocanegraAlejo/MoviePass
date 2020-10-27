@@ -25,7 +25,15 @@
         </div>
         <div class="form-group">
           <label for="horario">Horario de Proyección</label>
-          <input type="time" autocomplete="off"  name="horario" class="form-control" id="horario" required>
+          <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="horario" name="horario" >
+                <?php
+                  for($h=0; $h<24; $h++) {
+                    for($m=0; $m<60; $m+=5)
+                    {
+                       ?><option value=""><?php echo date('G:i',strtotime($h.":".$m))."    Hs."?></option><?php
+                    }
+                  } ?>
+          </select>
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
@@ -42,7 +50,6 @@
         multidate: false,
         todayHighlight: true,
         datesDisabled: <?=$arrDiasString ?>
-        
     });
-   
+
 </script>

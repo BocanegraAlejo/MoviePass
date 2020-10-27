@@ -37,7 +37,15 @@
                         <blockquote class="blockquote mb-0">
                             <footer class="blockquote-footer"><?=$value->{'release_date'}?></footer>
                         </blockquote>
-                        <button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#addFuncion<?=$key?>" ><i class="fas fa-plus"></i></button>
+                        <?php
+                        if($_SESSION['btnPeli']!=1) {
+                            ?>
+                            <button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#addFuncion<?=$key?>" ><i class="fas fa-plus"></i></button>
+                            <?php
+                        
+                        }
+                            
+                        ?>
                     </div>
                 </div>
                 

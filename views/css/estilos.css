@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600');
-@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
 html, body {
      height: 100%;
      background: url('../img/bg-dark.png');
@@ -241,7 +241,24 @@ html, body {
 
 .title-cine {
     color:orange;
-    font-family:  'Staatliches', cursive;
+    font-family: 'Oswald', sans-serif;
 
 }
-
+.busqueda label {
+    color: #fff;
+}
+.select_cine {
+    width: 300px;
+    margin: 30px auto 30px auto;
+    background-color: transparent;
+    border-radius: 0px;
+    font-family: 'Oswald', sans-serif;
+    color: #fff;
+   
+}
+.option_cine {
+    background-color: #000;
+    border-radius: 0px;
+    font-family: 'Oswald', sans-serif;
+    color: #fff;
+}

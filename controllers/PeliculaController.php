@@ -31,8 +31,13 @@ use DAO\PeliculaDAO;
               //$this->getPeliculasActuales(1);
           }
           
+          public function getPeliculasActualesBTN() {
+              $_SESSION['btnPeli'] = 1;
+              $this->getPeliculasActuales();
+          }
           public function getPeliculasActuales($page = 1, $genero = '', $fecha_ini = '', $fecha_fin = '')
           {
+             
               $this->fecha_ini = $fecha_ini;
               $this->fecha_fin = $fecha_fin;
               $this->generoActual = $genero;
