@@ -213,8 +213,39 @@ class FuncionDAO implements IFuncionDAO {
         }
     }
 
+    // retorna todos los rangos de horas ocupadas de un cine en un determinado dia
+    public function BuscarHorasOcupadasCine($id_cine) {
+        try
+        {
 
+            $horasList = array();
 
+            $query = "SELECT  DISTINCT TIME(horaYdia) horaYdia FROM `".$this->tableName."` WHERE id_cine='$id_cine'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            
+            
+            foreach ($resultSet as $row)
+            {
+                $funcion = new Funcion();
+                $funcion->setId_funcion($row["id_funcion"]);
+                $funcion->setTitulo_pelicula($row["titulo"]);
+                $funcion->setIdioma($row["idioma"]);
+                $funcion->setDuracion($row["duracion"]);
+                $funcion->setFechaYhora($row["horaYdia"]);
+
+                array_push($funcionList, $funcion);
+            }
+            return $resultSet;
+           
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
 
     // Retorna un Array con Todas las fechas de peliculas correspondientes a un dia en un cine
     public function BuscarDiasXPelicula($id_cine, $id_pelicula) {

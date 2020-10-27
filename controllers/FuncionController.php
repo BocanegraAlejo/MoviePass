@@ -89,6 +89,8 @@ class FuncionController
           public function buscarFuncionesXdia($id_pelicula, $dia) {
               return $this->funcionDAO->BuscarDiasXPelicula($_SESSION['cineActual'],$id_pelicula,$dia);
           }
+
+
           public function modificaFuncion($id_funcion) {
             $resultado = $this->funcionDAO->BuscarFuncionXid($id_funcion);
             if(!empty($resultado))
@@ -113,7 +115,8 @@ class FuncionController
           public function getAllCines() {
               return $this->cineDAO->getAll();
           }
-
+          
+          
           public function BuscarDiasXPelicula($id) {
             return array_column($this->funcionDAO->BuscarDiasXPelicula($_SESSION['cineActual'],$id),0);
           }
