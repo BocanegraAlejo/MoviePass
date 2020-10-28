@@ -13,7 +13,7 @@ class CarteleraController
 
         public function __construct()
         {
-            UsuarioController::verifUserLogueado();
+            
             $this->cineDAO = new CineDAO();
             $this->funcionDAO = new FuncionDAO();
             $this->peliculaDAO = new PeliculaDAO();
@@ -21,7 +21,7 @@ class CarteleraController
         }
 
         public function index() {
-            UsuarioController::verifUserLogueado();
+            
             $this->ShowCartelera();
         }
 

@@ -15,12 +15,11 @@
         public function __construct()
         {
             $this->UsuarioDAO = new UsuarioDAO();
-            
         }
 
         public function Index($message = "")
         {
-            UsuarioController::verifUserLogueado();
+            require_once(VIEWS_PATH.'dashboard.php');
         }   
         
         public function ShowLoginView()

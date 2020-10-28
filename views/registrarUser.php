@@ -1,4 +1,6 @@
 <?php
+require_once(VIEWS_PATH.'header.php');
+Controllers\UsuarioController::verifUserLogueado();
 ?>
  <form action="/signup/" class="form-signup">
                 <div class="social-login">
@@ -18,3 +20,4 @@
                 <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
                 <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
             </form>
+<?php require_once(VIEWS_PATH.'footer.php'); ?>

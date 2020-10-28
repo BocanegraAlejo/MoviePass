@@ -17,7 +17,7 @@ use DAO\PeliculaDAO;
 
           public function __construct()
           {
-              UsuarioController::verifUserLogueado();
+              
               $this->PeliculaDAO = new PeliculaDAO();
               $this->arrGeneros = $this->PeliculaDAO->GetAllGeneros();
               $this->cantPaginas = $this->getCantidadPaginas();
@@ -27,7 +27,7 @@ use DAO\PeliculaDAO;
           }
 
           public function index() {
-            UsuarioController::verifUserLogueado();
+            
               //$this->getPeliculasActuales(1);
           }
           

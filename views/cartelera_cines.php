@@ -1,3 +1,6 @@
+<?php require_once(VIEWS_PATH.'header.php'); 
+Controllers\UsuarioController::verifUserLogueado();
+?>
 <div class="container">
         <form method="post" action="<?= FRONT_ROOT ?>Cartelera/verCarteleraCine">
                 <select onchange="location.href='ShowCartelera#' + this.value" class="form-control select_cine" id="cine" name="cine" >
@@ -58,3 +61,5 @@
       });
     });
 </script>
+
+<?php require_once(VIEWS_PATH.'footer.php'); ?>

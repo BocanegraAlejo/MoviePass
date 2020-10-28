@@ -20,7 +20,7 @@
         <div class="form-group">
             <label for="dia">Dia de Proyección</label>
             <div class="input-group date">
-              <input type="text" autocomplete="off" class="form-control" id="dia<?=$key?>" name="dia">
+              <input type="text" onchange="validarHoraXfecha(this.value)" autocomplete="off" class="form-control" id="dia<?=$key?>" name="dia">
             </div>
         </div>
         <div class="form-group">
@@ -42,7 +42,6 @@
   </div>
 </div>
 <script>
-    
    $('#dia<?=$key?>').datepicker({
         language: "es",
         format: "yyyy/mm/dd",
@@ -52,4 +51,5 @@
         datesDisabled: <?=$arrDiasString ?>
     });
 
+ 
 </script>

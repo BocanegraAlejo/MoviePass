@@ -1,5 +1,7 @@
 <?php
-    require_once('nav.php');
+     require_once(VIEWS_PATH.'header.php');
+     Controllers\UsuarioController::verifUserLogueado();
+    
 ?>
 <main class="py-5">
      <section id="listado" class="mb-5">
@@ -31,3 +33,4 @@
           </div>
      </section>
 </main>
+<?php require_once(VIEWS_PATH.'footer.php'); ?>

@@ -43,7 +43,8 @@
 	 <script src="https://kit.fontawesome.com/a48a758cbb.js" crossorigin="anonymous" ></script>
 	 <script src="<?php echo JS_PATH ?>bootstrap.min.js" ></script>
 	 <script src="<?php echo JS_PATH ?>bootstrap-datepicker.min.js" ></script>
-     <script src="<?php echo JS_PATH ?>bootstrap-datepicker.es.min.js"></script>
+	 <script src="<?php echo JS_PATH ?>bootstrap-datepicker.es.min.js"></script>
+	 <script src="<?php echo JS_PATH ?>FuncionesUtiles.js"></script>
 	 <title>MoviePass</title>
      
 	 

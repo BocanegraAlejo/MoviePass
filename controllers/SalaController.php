@@ -8,7 +8,7 @@
         private $SalaDAO;
         public function __construct()
         {
-            UsuarioController::verifUserLogueado();
+            
             $this->SalaDAO = new SalaDAO();
            
         }

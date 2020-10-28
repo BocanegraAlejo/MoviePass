@@ -8,7 +8,7 @@
         
         public function __construct() {
            
-            UsuarioController::verifUserLogueado();
+           
             
         }
 

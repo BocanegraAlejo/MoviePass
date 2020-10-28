@@ -8,12 +8,12 @@
         
         public function __construct() {
             $this->CineDAO = new CineDAO();
-            UsuarioController::verifUserLogueado();
+            
             
         }
 
         public function index() {
-            UsuarioController::verifUserLogueado();
+            
         }
 
         public function ShowAltaView() {

@@ -1,4 +1,7 @@
- 
+<?php 
+require_once(VIEWS_PATH."header.php"); 
+Controllers\UsuarioController::verifUserLogueado();
+?>
 <div class="container"> 
     <div class="row">
     <section class="busqueda col-md-12">
@@ -80,3 +83,4 @@
     </nav>
 </section>
 </div>
+<?php require_once(VIEWS_PATH."footer.php"); ?>

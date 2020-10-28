@@ -1,4 +1,8 @@
-<?php require_once(VIEWS_PATH.'add_sala.php'); ?>
+<?php 
+require_once(VIEWS_PATH.'header.php');
+Controllers\UsuarioController::verifUserLogueado();
+require_once(VIEWS_PATH.'add_sala.php'); 
+?>
 
 <div class="container">
     <div class="d-flex justify-content-center">
@@ -42,3 +46,4 @@
         </tbody>
     </table>          
 </div>
+<?php require_once(VIEWS_PATH.'footer.php'); ?>

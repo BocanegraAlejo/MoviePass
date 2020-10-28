@@ -1,4 +1,6 @@
-<?php 
+<?php
+require_once(VIEWS_PATH.'header.php');
+
 require_once(VIEWS_PATH."Helper.php"); 
 ?>
 
@@ -24,3 +26,4 @@ require_once(VIEWS_PATH."Helper.php");
     </div>
 </div>
 </div>
+<?php require_once(VIEWS_PATH.'footer.php'); ?>

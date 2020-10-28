@@ -1,4 +1,5 @@
 <?php
+
       namespace Controllers;
       use Models\Pelicula;
       use DAO\FuncionDAO;
@@ -10,7 +11,6 @@
       use Models\Funcion;
       use Models\Idioma;
       use helpers\FuncionesUtiles;
-
 class FuncionController
       {
           private $salaDAO;
@@ -22,8 +22,6 @@ class FuncionController
 
           public function __construct()
           {
-            
-            UsuarioController::verifUserLogueado();
             $this->salaDAO = new SalaDAO();
             $this->funcionDAO = new FuncionDAO();
             $this->peliculaDAO = new PeliculaDAO();
@@ -33,7 +31,7 @@ class FuncionController
           }
 
           public function index() {
-            UsuarioController::verifUserLogueado();
+            //UsuarioController::verifUserLogueado();
            
 
           }
@@ -104,8 +102,8 @@ class FuncionController
             $ObjectFuncion = new FuncionDB($id_funcion,'','','',$fecha." ".$hora);
             $this->funcionDAO->ModificarFuncion($ObjectFuncion);
             $this->verFuncionOneSala($_SESSION['salaActual']);
-           
         }
+
 
           public function ElimFuncion($id_funcion) {
             $this->funcionDAO->eliminarFuncion($id_funcion);
@@ -119,6 +117,18 @@ class FuncionController
           
           public function BuscarDiasXPelicula($id) {
             return array_column($this->funcionDAO->BuscarDiasXPelicula($_SESSION['cineActual'],$id),0);
+          }
+
+          public function BuscarHorariosXdia($dia) {
+           
+            
+            $datos[] = array("llega" => "correcto");
+         
+            
+            echo json_encode($datos);die();
+            
+            
+           
           }
           
     }

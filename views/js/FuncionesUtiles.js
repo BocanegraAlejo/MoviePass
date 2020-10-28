@@ -33,6 +33,18 @@ function validarSala() {
     }
 }
 
-
+function validarHoraXfecha(dia) {
+    $.ajax({
+      type: 'POST',
+      url: '/TP_LabIV/Funcion/BuscarHorariosXdia',
+      dataType: 'json',
+      data: {dia:dia},
+       
+      }).done(function(data) {
+        console.log(data); // imprimimos la respuesta
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown);
+      });
+}
 
  

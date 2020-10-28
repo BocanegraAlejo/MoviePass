@@ -1,4 +1,6 @@
 <?php
+require_once(VIEWS_PATH.'header.php');
+Controllers\UsuarioController::verifUserLogueado();
 require_once(VIEWS_PATH.'add_cine.php');
 
 ?>
@@ -64,3 +66,4 @@ require_once(VIEWS_PATH.'add_cine.php');
         </tbody>
     </table>          
 </div>
+<?php require_once(VIEWS_PATH.'footer.php'); ?>

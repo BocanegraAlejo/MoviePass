@@ -1,4 +1,9 @@
-<?php  $_SESSION['btnPeli'] = 0?>
+<?php  
+require_once(VIEWS_PATH.'header.php');
+Controllers\UsuarioController::verifUserLogueado();
+$_SESSION['btnPeli'] = 0
+
+?>
 <div class="container">
     <div class="d-flex justify-content-center">
     <button class="btn btn-warning btn-lg mt-3 mb-3" onclick="validarSala()"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Funcion a Sala</button>
@@ -70,7 +75,7 @@
     </table>
     <section>        
 </div>
-
+<?php require_once(VIEWS_PATH.'footer.php');
 
 
 

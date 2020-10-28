@@ -1,8 +1,7 @@
 
 <?php
-    use Controllers\UsuarioController;
-    UsuarioController::verifUserLogueado();
-    
+    require_once(VIEWS_PATH.'header.php');
+    Controllers\UsuarioController::verifUserLogueado();
 ?>
 
 <main>
@@ -10,3 +9,4 @@
     
    
 </main>
+<?php require_once(VIEWS_PATH.'footer.php'); ?>
