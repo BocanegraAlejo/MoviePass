@@ -20,20 +20,12 @@
         <div class="form-group">
             <label for="dia">Dia de Proyección</label>
             <div class="input-group date">
-              <input type="text" onchange="validarHoraXfecha(this.value)" autocomplete="off" class="form-control" id="dia<?=$key?>" name="dia">
+              <input type="text" onchange="validarHoraXfecha(this.value,<?=$value->{'id'}?>)" autocomplete="off" class="form-control" id="dia<?=$key?>" name="dia">
             </div>
         </div>
         <div class="form-group">
           <label for="horario">Horario de Proyección</label>
-          <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="horario" name="horario" >
-                <?php
-                  for($h=0; $h<24; $h++) {
-                    for($m=0; $m<60; $m+=5)
-                    {
-                       ?><option value=""><?php echo date('G:i',strtotime($h.":".$m))."    Hs."?></option><?php
-                    }
-                  } ?>
-          </select>
+          <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="horario<?=$value->{'id'}?>" name="horario"></select>
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
@@ -50,6 +42,5 @@
         todayHighlight: true,
         datesDisabled: <?=$arrDiasString ?>
     });
-
  
 </script>

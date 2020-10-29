@@ -5,6 +5,7 @@ use DAO\Connection as Connection;
 use \Exception as Exception;
 use models\Funcion;
 use models\FuncionDB;
+use models\HorarioFuncion;
 use DAO\PDO;
 
 
@@ -212,33 +213,33 @@ class FuncionDAO implements IFuncionDAO {
             throw $ex;
         }
     }
-
+   
     // retorna todos los rangos de horas ocupadas de un cine en un determinado dia
-    public function BuscarHorasOcupadasCine($id_cine) {
+    public function BuscarHorasOcupadasSala($id_sala, $dia) {
         try
         {
-
-            $horasList = array();
-
-            $query = "SELECT  DISTINCT TIME(horaYdia) horaYdia FROM `".$this->tableName."` WHERE id_cine='$id_cine'";
+           
+            $horarioFuncionList = array();
+            
+            $query = "SELECT  DISTINCT TIME(horaYdia) horaYdia, p.duracion  FROM `".$this->tableName."`f  INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+             WHERE id_sala='$id_sala' and DATE(horaYdia)='$dia'";
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
             
-            
             foreach ($resultSet as $row)
             {
-                $funcion = new Funcion();
-                $funcion->setId_funcion($row["id_funcion"]);
-                $funcion->setTitulo_pelicula($row["titulo"]);
-                $funcion->setIdioma($row["idioma"]);
-                $funcion->setDuracion($row["duracion"]);
-                $funcion->setFechaYhora($row["horaYdia"]);
+                $HorarioFuncion = new HorarioFuncion();
+                $HorarioFuncion->sethora_inicio($row["horaYdia"]);
+                $HorarioFuncion->sethora_fin($this->calcularHoras($row["horaYdia"],$row["duracion"]));
+                $HorarioFuncion->setDuracion($row["duracion"]);
 
-                array_push($funcionList, $funcion);
+
+                array_push($horarioFuncionList, $HorarioFuncion);
             }
-            return $resultSet;
+          
+            return $horarioFuncionList;
            
         }
         catch(Exception $ex)
@@ -251,7 +252,7 @@ class FuncionDAO implements IFuncionDAO {
     public function BuscarDiasXPelicula($id_cine, $id_pelicula) {
         try
         {
-            $query = "SELECT  DISTINCT DATE(horaYdia) horaYdia FROM `".$this->tableName."` WHERE id_cine='$id_cine' and id_pelicula='$id_pelicula'";
+            $query = "SELECT  DISTINCT DATE(horaYdia)  FROM `".$this->tableName."` WHERE id_cine='$id_cine' and id_pelicula='$id_pelicula'";
 
             $this->connection = Connection::GetInstance();
 
@@ -265,6 +266,13 @@ class FuncionDAO implements IFuncionDAO {
         {
             throw $ex;
         }
+    }
+    private function calcularHoras($hora1, $hora2) {
+        
+        $hora2 = strtotime($hora2) - strtotime('today');//convertir los minutos a agregar en segundos
+        $hora1 = strtotime('+'.$hora2.' seconds', strtotime($hora1));//agregar los segundos
+        $horaFinal = strtotime('+15 minute',$hora1);
+        return date('H:i:s', $horaFinal);//imprimir la hora de destino
     }
 
 }

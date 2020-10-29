@@ -7,7 +7,8 @@
       use DAO\PeliculaDAO;
       use DAO\GeneroDAO;
       use DAO\IdiomaDAO;
-      use Models\FuncionDB;
+use DateTime;
+use Models\FuncionDB;
       use Models\Funcion;
       use Models\Idioma;
       use helpers\FuncionesUtiles;
@@ -68,12 +69,12 @@ class FuncionController
                   $tempIdioma = new Idioma($peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'spoken_languages'}[0]->{'name'});
                   $this->idiomaDAO->Add($tempIdioma);
                 }
-                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},$peliculaAPI->{'genres'}[0]->{'id'}, date("i:s", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w500/'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'release_date'});
+                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},$peliculaAPI->{'genres'}[0]->{'id'}, date("G:i", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w500/'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'spoken_languages'}[0]->{'iso_639_1'},$peliculaAPI->{'release_date'});
                 $this->peliculaDAO->Add($pelicula);
               }
               
               $diaYhora = $dia." ".$horario;
-             
+               
                 $funcion = new FuncionDB('', $_SESSION['cineActual'], $_SESSION['salaActual'], $id_pelicula,$diaYhora);
                 
                 $this->funcionDAO->AddFuncion($funcion);
@@ -119,16 +120,65 @@ class FuncionController
             return array_column($this->funcionDAO->BuscarDiasXPelicula($_SESSION['cineActual'],$id),0);
           }
 
-          public function BuscarHorariosXdia($dia) {
+          public function BuscarHorariosXdia($dia, $id_pelicula) {
+            $pelicula = $this->peliculaDAO->GetPeliculaByID($id_pelicula);
            
+            $duracionPelicula = date("i:s", $pelicula->{'runtime'}+15);
+            $arrHorarioFuncion = $this->funcionDAO->BuscarHorasOcupadasSala($_SESSION['salaActual'],$dia);
+            $arr24horas = $this->cargarArr24Hs();
+            $arrdefinitivo = array();
             
-            $datos[] = array("llega" => "correcto");
-         
+            foreach ($arrHorarioFuncion as $key => $valueHorario) {
+              
+              foreach( $arr24horas as $key => $value24hs ){
+                  if((strtotime($this->FuncionRestarHoras($valueHorario->gethora_inicio(),$duracionPelicula)) <  strtotime($value24hs)) && (strtotime($value24hs) < strtotime($valueHorario->getHora_fin()))) //mas15
+                  {
+                 //   echo "entro al if";
+                    
+                    unset($arr24horas[$key]);
+                  }
+                  else {
+                      array_push($arrdefinitivo,$value24hs);
+                  }
+              }
+            }
+            if(empty($arrHorarioFuncion))
+            {
+              echo json_encode($arr24horas);
+            }
+            else {
+              echo json_encode($arrdefinitivo);
+            }
             
-            echo json_encode($datos);die();
+          }
+
+          private function FuncionRestarHoras($horarioInic,$duracionPelicula){
+            //echo 'horarioInic:'.$horarioInic;
+            //echo '<br>';
+            //echo 'duracionPelicula:'. $duracionPelicula;
+            //echo '<br>';
+
+              $horarioInic = new DateTime($horarioInic);
+              $duracionPelicula = new DateTime($duracionPelicula);
             
-            
-           
+              
+              $result = $horarioInic->diff($duracionPelicula);
+             // echo 'resultado:'.$result->format('%H:%i:%s');
+              return $result->format('%H:%i:%s0');
+              
+          }
+
+          private function cargarArr24Hs() {
+            $arr24horas = array();
+            $pos = 0;
+            for($h=0; $h<24; $h++) {
+              for($m=0; $m<60; $m+=5)
+              {
+                $arr24horas[$pos] = date('H:i:s',strtotime($h.":".$m.':00'));
+                $pos++;
+              }
+            }
+            return $arr24horas; 
           }
           
     }
