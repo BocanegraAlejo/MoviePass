@@ -28,7 +28,6 @@ class FuncionController
             $this->peliculaDAO = new PeliculaDAO();
             $this->generoDAO = new GeneroDAO();
             $this->idiomaDAO = new IdiomaDAO();
-            
           }
 
           public function index() {
@@ -54,12 +53,12 @@ class FuncionController
             $_SESSION['salaActual'] = $id_sala;
             
             $arrSalas = $this->salaDAO->getAllSalasXcine($_SESSION['cineActual']);
-            $arrFunciones = $this->funcionDAO->getAllFuncionesXsala($id_sala, $_SESSION['cineActual']);
+            $arrFunciones = $this->funcionDAO->getAllFuncionesXsala($id_sala);
             require_once(VIEWS_PATH.'verCartelera.php'); 
             
           }
         
-          public function addFuncionToCartelera($id_pelicula,  $dia, $horario) {
+          public function addFuncionToCartelera($id_pelicula,  $dia, $horario, $idioma) {
            
               $peliculaAPI = $this->peliculaDAO->GetPeliculaByID($id_pelicula);
               //$this->generoDAO->PasarAllgenerosToDB();
@@ -75,7 +74,7 @@ class FuncionController
               
               $diaYhora = $dia." ".$horario;
                
-                $funcion = new FuncionDB('', $_SESSION['cineActual'], $_SESSION['salaActual'], $id_pelicula,$diaYhora);
+                $funcion = new FuncionDB('', $_SESSION['salaActual'], $id_pelicula,$diaYhora);
                 
                 $this->funcionDAO->AddFuncion($funcion);
              
@@ -94,13 +93,13 @@ class FuncionController
             $resultado = $this->funcionDAO->BuscarFuncionXid($id_funcion);
             if(!empty($resultado))
             {
-                $ObjectFuncion = new FuncionDB($resultado['id_funcion'],$resultado['id_cine'],$resultado['id_sala'],$resultado['id_pelicula'],$resultado['horaYdia']);
+                $ObjectFuncion = new FuncionDB($resultado['id_funcion'],$resultado['id_sala'],$resultado['id_pelicula'],$resultado['horaYdia']);
             }
             return $ObjectFuncion;
         }
         
         public function ModificarFuncion2($id_funcion,$fecha, $hora) {
-            $ObjectFuncion = new FuncionDB($id_funcion,'','','',$fecha." ".$hora);
+            $ObjectFuncion = new FuncionDB($id_funcion,'','',$fecha." ".$hora);
             $this->funcionDAO->ModificarFuncion($ObjectFuncion);
             $this->verFuncionOneSala($_SESSION['salaActual']);
         }
