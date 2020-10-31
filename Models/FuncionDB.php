@@ -2,19 +2,19 @@
     namespace Models;
    
     class FuncionDB {
-        private $id_funcion;
-        private $id_cine;       
+        private $id_funcion;    
         private $id_sala;
+        private $id_idioma;
         private $id_pelicula;
         private $horaYdia;
        
         
 
-        function __construct($id_funcion = '',$id_cine = '',$id_sala = '', $id_pelicula = '', $horaYdia = '')
+        function __construct($id_funcion = '',$id_sala = '', $id_idioma, $id_pelicula = '', $horaYdia = '')
         {  
             $this->id_funcion = $id_funcion;
-            $this->id_cine = $id_cine;
             $this->id_sala = $id_sala;
+            $this->id_idioma = $id_idioma;
             $this->id_pelicula = $id_pelicula;
             $this->horaYdia = $horaYdia;
                        
@@ -71,17 +71,6 @@
                
         }
 
-        public function getId_cine()
-        {
-                return $this->id_cine;
-        }
-
-        
-        public function setId_cine($id_cine)
-        {
-                $this->id_cine = $id_cine;
-               
-        }
         public function getFecha()
         {
             $aux = explode(" ",$this->horaYdia);
@@ -92,6 +81,16 @@
         {
             $aux = explode(" ",$this->horaYdia);
             return $aux[1];
+        }
+
+        public function getId_idioma()
+        {
+                return $this->id_idioma;
+        }
+
+        public function setId_idioma($id_idioma)
+        {
+                $this->id_idioma = $id_idioma;
         }
     }
 

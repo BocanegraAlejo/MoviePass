@@ -16,10 +16,11 @@ class FuncionDAO implements IFuncionDAO {
     public function AddFuncion(FuncionDB $funcion) {
         try
         {
-            $query = "INSERT INTO ".$this->tableName." (id_cine, id_sala, id_pelicula, horaYdia) VALUES (:id_cine, :id_sala, :id_pelicula, :horaYdia);";
+            $query = "INSERT INTO ".$this->tableName." (id_sala, id_lenguaje, id_pelicula, horaYdia) VALUES (:id_sala, :id_lenguaje, :id_pelicula, :horaYdia);";
             
-            $parameters["id_cine"] = $funcion->getId_cine();
+            
             $parameters["id_sala"] = $funcion->getId_sala();
+            $parameters["id_lenguaje"] = $funcion->getId_idioma();
             $parameters["id_pelicula"] = $funcion->getId_pelicula();
             $parameters["horaYdia"] = $funcion->gethoraYdia();
             
@@ -32,16 +33,16 @@ class FuncionDAO implements IFuncionDAO {
         }
     }
     
-    public function getAllFuncionesXsala($id_sala, $id_cine) {
+    public function getAllFuncionesXsala($id_sala) {
         try
         {
             $funcionList = array();
 
-            $query = "SELECT f.id_funcion, p.titulo, lxp.nombre as `idioma`, p.duracion, f.horaYdia
+            $query = "SELECT f.id_funcion, p.titulo, l.nombre as `idioma`, p.duracion, f.horaYdia
             FROM ".$this->tableName." f
             INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
-            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=p.id_lenguaje
-            WHERE id_sala='$id_sala' AND id_cine='$id_cine'";
+            INNER JOIN lenguaje l ON l.id_lenguaje=f.id_lenguaje
+            WHERE id_sala='$id_sala'";
 
             $this->connection = Connection::GetInstance();
 
@@ -58,7 +59,7 @@ class FuncionDAO implements IFuncionDAO {
 
                 array_push($funcionList, $funcion);
             }
-
+            
             return $funcionList;
 
         }
@@ -68,16 +69,18 @@ class FuncionDAO implements IFuncionDAO {
         }
     }
 
+
     public function getAllFuncionesXCine($id_cine) {
         try
         {
             $funcionList = array();
 
-            $query = "SELECT f.id_funcion, p.titulo, lxp.nombre as `idioma`, p.duracion, f.horaYdia
-            FROM ".$this->tableName." f
+            $query = "SELECT f.id_funcion, s.id_cine, p.titulo, l.nombre as `idioma`, p.duracion, f.horaYdia
+            FROM funcion f
             INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
-            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=p.id_lenguaje
-            WHERE id_cine='$id_cine'";
+            INNER JOIN lenguaje l ON l.id_lenguaje=f.id_lenguaje
+            INNER JOIN sala s ON s.id_sala=f.id_sala
+            WHERE s.id_cine='$id_cine'";
 
             $this->connection = Connection::GetInstance();
 
@@ -110,8 +113,9 @@ class FuncionDAO implements IFuncionDAO {
             $query = "SELECT f.id_funcion, p.id_pelicula,p.titulo,p.descripcion,p.id_genero,p.duracion, p.imagen, lxp.nombre as `idioma`, p.fecha_lanzamiento, f.horaYdia as `horaYdia_funcion`
             FROM ".$this->tableName." f
             INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
-            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=p.id_lenguaje
-            WHERE id_cine='$id_cine' GROUP BY p.id_pelicula";
+            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=f.id_lenguaje
+            INNER JOIN sala s ON s.id_sala=f.id_sala
+            WHERE s.id_cine='$id_cine' GROUP BY p.id_pelicula";
 
             $this->connection = Connection::GetInstance();
 
@@ -186,8 +190,9 @@ class FuncionDAO implements IFuncionDAO {
             $query = "SELECT *
             FROM ".$this->tableName." f
             INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
-            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=p.id_lenguaje
-            WHERE id_cine='$id_cine'";
+            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=f.id_lenguaje
+            INNER JOIN sala s ON s.id_sala=f.id_sala
+            WHERE s.id_cine='$id_cine'";
 
             $this->connection = Connection::GetInstance();
 
@@ -252,7 +257,9 @@ class FuncionDAO implements IFuncionDAO {
     public function BuscarDiasXPelicula($id_cine, $id_pelicula) {
         try
         {
-            $query = "SELECT  DISTINCT DATE(horaYdia)  FROM `".$this->tableName."` WHERE id_cine='$id_cine' and id_pelicula='$id_pelicula'";
+            $query = "SELECT  DISTINCT DATE(horaYdia)  FROM `".$this->tableName."`f 
+            INNER JOIN sala s ON s.id_sala=f.id_sala
+            WHERE s.id_cine='$id_cine' and id_pelicula='$id_pelicula'";
 
             $this->connection = Connection::GetInstance();
 
@@ -267,6 +274,7 @@ class FuncionDAO implements IFuncionDAO {
             throw $ex;
         }
     }
+    
     private function calcularHoras($hora1, $hora2) {
         
         $hora2 = strtotime($hora2) - strtotime('today');//convertir los minutos a agregar en segundos

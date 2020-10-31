@@ -42,6 +42,7 @@ $_SESSION['btnPeli'] = 0
         </thead>
         <tbody>
             <?php
+              
                 foreach ($arrFunciones as $key => $value) {
 
                     

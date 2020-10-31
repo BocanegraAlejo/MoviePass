@@ -7,7 +7,7 @@
     class IdiomaDAO 
     {
         private $connection;
-        private $tableName = "lenguaje_x_pelicula";
+        private $tableName = "lenguaje";
 
         public function Add(Idioma $idioma)
         {
@@ -27,7 +27,14 @@
                 throw $ex;
             }
         }
-
+        public function pasarAllIdiomasAPItoDB() {
+            $api = file_get_contents("https://api.themoviedb.org/3/configuration/languages?".CONFIG_API, true);
+            $data = json_decode($api);
+            foreach ($data as $key => $value) {
+                $Idioma = new Idioma($value->{'iso_639_1'}, $value->{'english_name'});
+                $this->Add($Idioma);
+             }
+        }
         public function buscarIdiomaXid($id_idioma) {
             try
             {
@@ -36,7 +43,7 @@
                 $this->connection = Connection::GetInstance();
     
                 $resultSet = $this->connection->Execute($query);
-                return $resultSet;
+                return $resultSet[0];
                
                
             }

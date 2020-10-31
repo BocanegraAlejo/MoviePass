@@ -44,6 +44,7 @@ function validarHoraXfecha(dia,id_pelicula) {
       }).done(function(data) {
         console.log(data); // imprimimos la respuesta
         $("#horario"+id_pelicula).empty();
+        
         for(let x=0; x<data.length; x++) {
             $("#horario"+id_pelicula).append("<option value=" + data[x] + ">" + data[x] + "</option>");
         }
@@ -51,6 +52,25 @@ function validarHoraXfecha(dia,id_pelicula) {
         console.log(errorThrown);
       });
     
+}
+
+function getLenguajesAjax(id_pelicula) {
+   console.log(id_pelicula);
+    $.ajax({
+      type: 'POST',
+      url: '/TP_LabIV/Pelicula/getLenguajesFromPelicula',
+      dataType: 'json',
+      data: {id_pelicula:id_pelicula},
+       
+      }).done(function(data) {
+        console.log(data); // imprimimos la respuesta
+        $("idioma"+id_pelicula).empty();
+        for(let x=0; x<data.length; x++) {
+            $("#idioma"+id_pelicula).append("<option value=" + data[x].id_lenguaje + ">" + data[x].nombre + "</option>");
+        }
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown);
+      });
 }
 
  

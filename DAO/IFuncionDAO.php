@@ -3,7 +3,7 @@
     
 
 interface IFuncionDAO {
-    function getAllFuncionesXsala($id_sala, $id_cine);
+    function getAllFuncionesXsala($id_sala);
 
 }
 

@@ -13,14 +13,12 @@
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (id_pelicula, titulo, descripcion, id_genero, duracion, imagen, id_lenguaje, fecha_lanzamiento) VALUES (:id_pelicula, :titulo, :descripcion, :id_genero, :duracion, :imagen, :id_lenguaje, :fecha_lanzamiento);";
+                $query = "INSERT INTO ".$this->tableName." (id_pelicula, titulo, descripcion, duracion, imagen, fecha_lanzamiento) VALUES (:id_pelicula, :titulo, :descripcion, :duracion, :imagen, :fecha_lanzamiento);";
                 $parameters["id_pelicula"] = $pelicula->getId_pelicula();
                 $parameters["titulo"] = $pelicula->getTitulo();
                 $parameters["descripcion"] = $pelicula->getDescripcion();
-                $parameters["id_genero"] = $pelicula->getGenero();
                 $parameters["duracion"] = $pelicula->getDuracion();
                 $parameters["imagen"] = $pelicula->getImagen();
-                $parameters["id_lenguaje"] = $pelicula->getLenguaje();
                 $parameters["fecha_lanzamiento"] = $pelicula->getFecha();
 
                 $this->connection = Connection::GetInstance();
@@ -32,7 +30,7 @@
                 throw $ex;
             }
         }
-
+        
         public function buscarPelicula($id_pelicula) {
             try
             {
@@ -73,6 +71,29 @@
         }
 
         
+        public function GetIdiomasByIDpelicula($id)
+        {
+            $api = file_get_contents("https://api.themoviedb.org/3/movie/$id?".CONFIG_API, true);
+            $data = json_decode($api);
+               $originalLanguage = $data->{'original_language'};
+                $x=0; $flag = 0;
+               while($x<count($data->{'spoken_languages'}) && $flag == 0) {
+                   if($originalLanguage == $data->{'spoken_languages'}[$x]->{'iso_639_1'}) {
+                        $flag = 1;
+                   }
+                   $x++;
+               }
+               $arrIdiomas = array();
+               foreach ($data->{'spoken_languages'} as $key => $value) {
+                   array_push($arrIdiomas,$data->{'spoken_languages'}[$key]->{'iso_639_1'});
+               }
+               if($flag == 0) {
+                   array_push($arrIdiomas,$originalLanguage);
+               }
+
+            return $arrIdiomas;
+        }
+
         public function getCantidadPaginas($genero = '', $fecha_ini = '', $fecha_fin = '') {
             $api = file_get_contents("https://api.themoviedb.org/3/movie/now_playing?with_genres=$genero&primary_release_date.gte=$fecha_ini&primary_release_date.lte=$fecha_fin".CONFIG_API, true);
             $data = json_decode($api);

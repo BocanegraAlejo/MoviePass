@@ -3,10 +3,11 @@
 
 use DAO\FuncionDAO;
 use DAO\PeliculaDAO;
-      
+use DAO\IdiomaDAO;   
       class PeliculaController
       {
           private $PeliculaDAO;
+          private $idiomaDAO;
           private $arrGeneros;
           private $cantPaginas;
           private $arrPeliculas;
@@ -19,6 +20,7 @@ use DAO\PeliculaDAO;
           {
               
               $this->PeliculaDAO = new PeliculaDAO();
+              $this->idiomaDAO = new IdiomaDAO();
               $this->arrGeneros = $this->PeliculaDAO->GetAllGeneros();
               $this->cantPaginas = $this->getCantidadPaginas();
               $this->arrPeliculas = array();
@@ -31,6 +33,32 @@ use DAO\PeliculaDAO;
               //$this->getPeliculasActuales(1);
           }
           
+          public function getLenguajesFromPelicula($id_pelicula) {
+
+               $datos =  $this->PeliculaDAO->GetPeliculaByID($id_pelicula);
+               $originalLanguage = $datos->{'original_language'};
+                $x=0; $flag = 0;
+
+               while($x<count($datos->{'spoken_languages'}) && $flag == 0) {
+                   if($originalLanguage == $datos->{'spoken_languages'}[$x]->{'iso_639_1'}) {
+                        $flag = 1;
+                   }
+                   $x++;
+               }
+               $arrIdiomas = array();
+               foreach ($datos->{'spoken_languages'} as $key => $value) {
+                   $objectIdioma = $this->idiomaDAO->buscarIdiomaXid($datos->{'spoken_languages'}[$key]->{'iso_639_1'});
+                   array_push($arrIdiomas,$objectIdioma);
+               }
+               if($flag == 0) {
+                   $objectIdioma = $this->idiomaDAO->buscarIdiomaXid($datos->{'original_language'});
+                   array_push($arrIdiomas,$objectIdioma);
+               }
+              // print_r($arrIdiomas);
+               echo json_encode($arrIdiomas);
+               
+          }
+
           public function getPeliculasActualesBTN() {
               $_SESSION['btnPeli'] = 1;
               $this->getPeliculasActuales();
@@ -51,6 +79,7 @@ use DAO\PeliculaDAO;
               return $this->PeliculaDAO->getCantidadPaginas($genero, $fecha_ini, $fecha_fin);
           }
           
+
           public function cortarCadena($cadena,$limite) {
                 // Si la longitud es mayor que el límite...
                 if(strlen($cadena) > $limite){

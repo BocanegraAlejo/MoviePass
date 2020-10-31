@@ -43,7 +43,7 @@ Controllers\UsuarioController::verifUserLogueado();
                         <?php
                         if($_SESSION['btnPeli']!=1) {
                             ?>
-                            <button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#addFuncion<?=$key?>" ><i class="fas fa-plus"></i></button>
+                            <button type="button" onclick="getLenguajesAjax(<?=$value->{'id'}?>)" class="btn btn-warning btn-md" data-toggle="modal" data-target="#addFuncion<?=$key?>" ><i class="fas fa-plus"></i></button>
                             <?php
                         
                         }

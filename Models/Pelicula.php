@@ -5,21 +5,17 @@
         private $id_pelicula;
         private $titulo;
         private $descripcion;
-        private $genero;
         private $duracion;
         private $imagen;
-        private $lenguaje;
         private $fecha;
 
-        public function __construct($id_pelicula = '',$titulo = '',$descripcion = '',$genero = '', $duracion = "", $imagen = '', $lenguaje = '',    $fecha = '')
+        public function __construct($id_pelicula = '',$titulo = '',$descripcion = '', $duracion = "", $imagen = '', $fecha = '')
         {
             $this->id_pelicula = $id_pelicula;
             $this->titulo = $titulo;  
             $this->descripcion = $descripcion; 
-            $this->genero = $genero;
             $this->duracion = $duracion;
             $this->imagen = $imagen;
-            $this->lenguaje = $lenguaje;
             $this->fecha = $fecha;
         }
 
@@ -63,18 +59,6 @@
 
         }
 
-       
-        public function getLenguaje()
-        {
-                return $this->lenguaje;
-        }
-
-       
-        public function setLenguaje($lenguaje)
-        {
-                $this->lenguaje = $lenguaje;
-               
-        }
 
         
         public function getTitulo()
@@ -101,17 +85,6 @@
               
         }
         
-        public function getGenero()
-        {
-                return $this->genero;
-        }
-
-        
-        public function setGenero($genero)
-        {
-                $this->genero = $genero;
-                
-        }
 
          
         public function getFecha()

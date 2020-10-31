@@ -13,7 +13,7 @@
         
         <div class="form-group">
           <label for="fecha">Fecha de Proyeccion</label>
-          <input type="date" min="0" name="fecha_proyeccion" class="form-control" id="fecha" value="<?=$objectFuncion->getFecha(); ?>">
+          <input type="date" min="<?=date("Y-m-d"); ?>" name="fecha_proyeccion" class="form-control" id="fecha" value="<?=$objectFuncion->getFecha(); ?>">
         </div>
         <div class="form-group">
           <label for="horario">Horario Proyeccion</label>

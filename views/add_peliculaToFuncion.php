@@ -27,6 +27,10 @@
           <label for="horario">Horario de Proyección</label>
           <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="horario<?=$value->{'id'}?>" name="horario"></select>
         </div>
+        <div class="form-group">
+          <label for="idioma">Idioma de la Pelicula</label>
+          <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="idioma<?=$value->{'id'}?>" name="idioma"></select>
+        </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
     </form>
@@ -34,13 +38,14 @@
   </div>
 </div>
 <script>
+  
    $('#dia<?=$key?>').datepicker({
         language: "es",
         format: "yyyy/mm/dd",
         autoclose: true,
         multidate: false,
         todayHighlight: true,
+        startDate: "<?=date("Y/m/d");?>",
         datesDisabled: <?=$arrDiasString ?>
     });
- 
 </script>
