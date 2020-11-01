@@ -134,7 +134,21 @@
               
             }     
         }
-    
+        
+        public function registrarUsuario($nombre, $email, $pass) {
+            $Objectuser = $this->UsuarioDAO->VerifExistenciaUser($email);
+            if(empty($Objectuser)) {
+                $newUsuario = new Usuario('',$email,$pass,$nombre,0);
+                $this->UsuarioDAO->Add($newUsuario);
+                echo "<script>alert('REGISTRO DE USUARIO EXITOSO')</script>";
+                $this->ShowLoginView();
+            }
+            else {
+                echo "<script>alert('ERROR! Ya existe una cuenta registrada con ese email!')</script>";
+                $this->ShowLoginView();
+            }
+        }
+
         public function destroySession() {
             session_destroy();
             header('location: /TP_LabIV');

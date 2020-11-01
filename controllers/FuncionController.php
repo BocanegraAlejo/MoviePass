@@ -8,6 +8,7 @@
       use DAO\GeneroDAO;
       use DAO\IdiomaDAO;
       use DAO\Lenguaje_x_peliculaDAO;
+      use DAO\Genero_x_peliculaDAO;
       use Models\FuncionDB;
       use DateTime;
 class FuncionController
@@ -16,6 +17,7 @@ class FuncionController
           private $funcionDAO;
           private $peliculaDAO;
           private $generoDAO;
+          private $genero_x_peliculaDAO;
           private $idiomaDAO;
           private $lenguaje_x_peliculaDAO;
           private $arrSalas;
@@ -28,6 +30,7 @@ class FuncionController
             $this->generoDAO = new GeneroDAO();
             $this->idiomaDAO = new IdiomaDAO();
             $this->lenguaje_x_peliculaDAO = new Lenguaje_x_peliculaDAO();
+            $this->genero_x_peliculaDAO = new Genero_x_peliculaDAO();
           }
 
           public function index() {
@@ -73,7 +76,7 @@ class FuncionController
                 $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},date("G:i", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w500/'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'release_date'});
                 $this->peliculaDAO->Add($pelicula);
                 $this->AddIdiomasByIDPelicula($id_pelicula);
-                
+                $this->AddGenerosByIDPelicula($id_pelicula,$peliculaAPI->{'genres'});
               }
               
               $diaYhora = $dia." ".$horario;
@@ -84,13 +87,18 @@ class FuncionController
 
           }
 
-
+          private function AddGenerosByIDPelicula($id_pelicula, $generos) {
+              foreach ($generos as $key => $value) {
+                  $this->genero_x_peliculaDAO->add($value->{'id'}, $id_pelicula);
+              }
+          }
           private function AddIdiomasByIDPelicula($id_pelicula) {
               $arrIdiomas = $this->peliculaDAO->GetIdiomasByIDpelicula($id_pelicula);
               foreach ($arrIdiomas as $key => $value) {
                   $this->lenguaje_x_peliculaDAO->add($value,$id_pelicula);
               }
           }
+          
 
 
           public function buscarFuncionesXdia($id_pelicula, $dia) {

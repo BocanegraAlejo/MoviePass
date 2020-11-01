@@ -24,6 +24,7 @@ Controllers\UsuarioController::verifUserLogueado();
         
         foreach ($arrFunciones as $key => $value) {
         ?><div class="carousel-div">
+            
             <img src="<?=$value["imagen"] ?>">
             <h3 class="titleCarousel"><?=$value["titulo"]?></h3>
           

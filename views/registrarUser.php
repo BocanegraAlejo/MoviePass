@@ -1,23 +1,29 @@
-<?php
-require_once(VIEWS_PATH.'header.php');
-Controllers\UsuarioController::verifUserLogueado();
-?>
- <form action="/signup/" class="form-signup">
-                <div class="social-login">
-                    <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign up with Facebook</span> </button>
-                </div>
-                <div class="social-login">
-                    <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign up with Google+</span> </button>
-                </div>
-                
-                <p style="text-align:center">OR</p>
-
-                <input type="text" id="user-name" class="form-control" placeholder="Full name" required="" autofocus="">
-                <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
-                <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
-                <input type="password" id="user-repeatpass" class="form-control" placeholder="Repeat Password" required autofocus="">
-
-                <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
-                <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
-            </form>
-<?php require_once(VIEWS_PATH.'footer.php'); ?>
+<div class="modal fade" id="registrarUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE USUARIO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form class="formulario-add"  method="post" action="<?php echo FRONT_ROOT ?>Usuario/registrarUsuario">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="clave">Clave:</label>
+            <input type="password" class="form-control" id="clave" name="clave">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>

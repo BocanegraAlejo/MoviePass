@@ -18,7 +18,7 @@ $_SESSION['btnPeli'] = 0
                         
                       foreach ($arrSalas as $key => $value) {
                         ?> <option value="<?=$value->getId_sala();?>" <?php if($value->getId_sala() == $_SESSION['salaActual']){ echo 'selected="selected"'; } ?>><?= $value->getNombre_sala(); ?></option>
-
+                            
                         <?php
                         
                     }

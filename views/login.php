@@ -1,6 +1,6 @@
 <?php
 require_once(VIEWS_PATH.'header.php');
-
+require_once(VIEWS_PATH.'registrarUser.php');
 require_once(VIEWS_PATH."Helper.php"); 
 ?>
 
@@ -20,7 +20,7 @@ require_once(VIEWS_PATH."Helper.php");
             <button id="btn-loguear" class="btn btn-success btn-block" type="submit"> Loguear</button>
             <hr>
             
-            <a href="<?php echo FRONT_ROOT ?>Usuario/ShowRegisterView"><button class="btn btn-primary btn-block" type="button" id="btn-signup">si no tenes una cuenta, registrate!</button></a>
+            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#registrarUser" type="button" id="btn-signup">si no tenes una cuenta, registrate!</button>
         </form>
         <br>   
     </div>

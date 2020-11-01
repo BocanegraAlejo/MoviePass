@@ -112,10 +112,10 @@ class FuncionDAO implements IFuncionDAO {
     public function getAll_FuncionconDatosPeli_XCine($id_cine) {
         try
         {
-            $query = "SELECT f.id_funcion, p.id_pelicula,p.titulo,p.descripcion,p.id_genero,p.duracion, p.imagen, lxp.nombre as `idioma`, p.fecha_lanzamiento, f.horaYdia as `horaYdia_funcion`
+            $query = "SELECT f.id_funcion, p.id_pelicula, p.titulo, p.descripcion,p.duracion, p.imagen, l.nombre as `idioma`, p.fecha_lanzamiento, f.horaYdia as `horaYdia_funcion`
             FROM ".$this->tableName." f
             INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
-            INNER JOIN lenguaje_x_pelicula lxp ON lxp.id_lenguaje=f.id_lenguaje
+            INNER JOIN lenguaje l ON l.id_lenguaje=f.id_lenguaje
             INNER JOIN sala s ON s.id_sala=f.id_sala
             WHERE s.id_cine='$id_cine' GROUP BY p.id_pelicula";
 
