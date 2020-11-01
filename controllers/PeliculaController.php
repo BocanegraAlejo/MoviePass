@@ -3,11 +3,13 @@
 
 use DAO\FuncionDAO;
 use DAO\PeliculaDAO;
-use DAO\IdiomaDAO;   
+use DAO\IdiomaDAO;  
+use DAO\Lenguaje_x_peliculaDAO; 
       class PeliculaController
       {
           private $PeliculaDAO;
           private $idiomaDAO;
+          private $lenguaje_x_peliculaDAO;
           private $arrGeneros;
           private $cantPaginas;
           private $arrPeliculas;
@@ -21,6 +23,7 @@ use DAO\IdiomaDAO;
               
               $this->PeliculaDAO = new PeliculaDAO();
               $this->idiomaDAO = new IdiomaDAO();
+              $this->lenguaje_x_peliculaDAO = new Lenguaje_x_peliculaDAO();
               $this->arrGeneros = $this->PeliculaDAO->GetAllGeneros();
               $this->cantPaginas = $this->getCantidadPaginas();
               $this->arrPeliculas = array();
@@ -32,7 +35,9 @@ use DAO\IdiomaDAO;
             
               //$this->getPeliculasActuales(1);
           }
-          
+
+       
+
           public function getLenguajesFromPelicula($id_pelicula) {
 
                $datos =  $this->PeliculaDAO->GetPeliculaByID($id_pelicula);

@@ -8,19 +8,12 @@
         </button>
       </div>
       <div class="modal-body">
-      <?php 
-        $controllerFuncion = new Controllers\FuncionController();
-        $arrDias = $controllerFuncion->BuscarDiasXPelicula($value->{'id'}); 
-        $arrDiasString = "['".implode(" ','",$arrDias)."']";
-        //Cambiar esto en un futuro..
-      ?>
-      
       <form class="formulario-add"  method="post" action="<?php echo FRONT_ROOT ?>Funcion/addFuncionToCartelera">
         <input type="hidden"  name="id_pelicula" value="<?= $value->{'id'} ?>">
         <div class="form-group">
             <label for="dia">Dia de Proyección</label>
             <div class="input-group date">
-              <input type="text" onchange="validarHoraXfecha(this.value,<?=$value->{'id'}?>)" autocomplete="off" class="form-control" id="dia<?=$key?>" name="dia">
+              <input type="text" onchange="validarHoraXfecha(this.value,<?=$value->{'id'}?>,'')" autocomplete="off" class="form-control" id="dia<?=$key?>" name="dia">
             </div>
         </div>
         <div class="form-group">
@@ -38,14 +31,13 @@
   </div>
 </div>
 <script>
-  
-   $('#dia<?=$key?>').datepicker({
+    $('#dia<?=$key?>').datepicker({
         language: "es",
         format: "yyyy/mm/dd",
         autoclose: true,
         multidate: false,
         todayHighlight: true,
         startDate: "<?=date("Y/m/d");?>",
-        datesDisabled: <?=$arrDiasString ?>
+        datesDisabled: buscarDiasXpelicula(<?=$value->{'id'}?>)
     });
 </script>

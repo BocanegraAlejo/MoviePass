@@ -2,7 +2,7 @@
     namespace DAO;
     use DAO\Connection as Connection;
     use \Exception as Exception;
-
+    use models\Idioma;
     class Lenguaje_x_peliculaDAO 
     {
         private $connection;
@@ -29,12 +29,23 @@
         public function buscarLenguajesXidPelicula($id_pelicula) {
             try
             {
-                $query = "SELECT * FROM `".$this->tableName."` WHERE id_pelicula='$id_pelicula'";
+                $query = "SELECT l.id_lenguaje, l.nombre  FROM `".$this->tableName."`lxp
+                INNER JOIN lenguaje l ON lxp.id_lenguaje=l.id_lenguaje
+                 WHERE id_pelicula='$id_pelicula'";
     
                 $this->connection = Connection::GetInstance();
-    
+                
                 $resultSet = $this->connection->Execute($query);
-                return $resultSet;
+                
+                $listIdiomas = array();
+                foreach ($resultSet as $key => $row) {
+                    $idioma = new Idioma();
+                    $idioma->setId_lenguaje($row["id_lenguaje"]);
+                    $idioma->setNombre($row["nombre"]);
+
+                    array_push($listIdiomas,$idioma);
+                }
+                return $listIdiomas;
                
                
             }

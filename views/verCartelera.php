@@ -44,8 +44,7 @@ $_SESSION['btnPeli'] = 0
             <?php
               
                 foreach ($arrFunciones as $key => $value) {
-
-                    
+                    $arrIdiomas = $this->buscarLenguajesXidPelicula($value->getId_pelicula());
                     $objectFuncion = $this->modificaFuncion($value->getId_funcion());
                     require(VIEWS_PATH.'modify_funcion.php');
                     ?>
@@ -56,7 +55,7 @@ $_SESSION['btnPeli'] = 0
                         <td><?= $value->getFecha(); ?></td>
                         <td><?= $value->getHora(); ?></td>
                         <td>
-                          <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModalModify<?=$value->getId_funcion()?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>  
+                          <button class="btn btn-primary" onclick="validarSalaModificar(<?=$value->getId_funcion()?>)" type="button" data-toggle="modal" ><i class="fa fa-pencil" aria-hidden="true"></i></button>  
                         </td>
                         <td>
                             <form method="post" onsubmit="return confirm('¿Seguro que quiere Eliminar esa funcion?');" name="formCine" action="<?php echo FRONT_ROOT ?>Funcion/ElimFuncion">

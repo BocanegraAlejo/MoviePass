@@ -33,7 +33,38 @@ function validarSala() {
     }
 }
 
-function validarHoraXfecha(dia,id_pelicula) {
+function validarSalaModificar(id) {
+    let selectSala = document.getElementById('Selectsala').value;
+    if(selectSala == "") {
+        alert("Por una cuestion de Seguridad, antes de editar una funcion, primero debe seleccionar la sala a la que corresponde la misma..");
+    }
+    else
+    {
+        $('#ModalModify'+id).modal('show');
+    }
+}
+
+function buscarDiasXpelicula(id_pelicula) {
+   let obj;
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: '/TP_LabIV/Funcion/BuscarDiasXPelicula',
+        dataType: 'json',
+        data: {id_pelicula:id_pelicula},
+        
+        }).done(function(data) {
+          //console.log(data); // imprimimos la respuesta
+          obj = data;
+          
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+         
+    });
+    return obj;
+}
+
+function validarHoraXfecha(dia,id_pelicula, id_funcion) {
    
     $.ajax({
       type: 'POST',
@@ -43,10 +74,13 @@ function validarHoraXfecha(dia,id_pelicula) {
        
       }).done(function(data) {
         console.log(data); // imprimimos la respuesta
-        $("#horario"+id_pelicula).empty();
+        if(id_funcion == "") {
+            id_funcion = id_pelicula;
+        }
+        $("#horario"+id_funcion).empty();
         
         for(let x=0; x<data.length; x++) {
-            $("#horario"+id_pelicula).append("<option value=" + data[x] + ">" + data[x] + "</option>");
+            $("#horario"+id_funcion).append("<option value=" + data[x] + ">" + data[x] + "</option>");
         }
       }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(errorThrown);

@@ -13,14 +13,38 @@
         
         <div class="form-group">
           <label for="fecha">Fecha de Proyeccion</label>
-          <input type="date" min="<?=date("Y-m-d"); ?>" name="fecha_proyeccion" class="form-control" id="fecha" value="<?=$objectFuncion->getFecha(); ?>">
+          <div class="input-group date">
+              <input type="text" value="<?=$objectFuncion->getFecha()?>" onchange="validarHoraXfecha(this.value,<?=$value->getId_pelicula()?>,<?=$value->getId_funcion()?>)" autocomplete="off" class="form-control" id="dia<?=$value->getId_funcion()?>" name="dia">
+          </div>
         </div>
         <div class="form-group">
-          <label for="horario">Horario Proyeccion</label>
-          <input type="time" min="0" name="horario" class="form-control" id="horario" value="<?=$objectFuncion->getHora(); ?>">
+          <label for="horario">Horario de Proyección</label>
+          <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="horario<?=$value->getId_funcion()?>" name="horario">
+            <option value=""><?=$objectFuncion->getHora() ?></option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="idioma">Idioma de la Pelicula</label>
+          <select class="form-control mb-2 mr-sm-2 mb-sm-0" id="idioma<?=$value->getId_funcion()?>" name="idioma">
+              <?php foreach ($arrIdiomas as $key => $valueIdioma) {
+                ?><option value=<?=$valueIdioma->getId_lenguaje()?> <?php if($valueIdioma->getId_lenguaje() == $objectFuncion->getId_idioma()){ echo 'selected="selected"'; } ?> ><?=$valueIdioma->getNombre()?></option><?php
+              }
+           ?>
+          </select>
         </div>
         <button type="submit" class="btn btn-success">Enviar</button>
       </form>
     </div>
   </div>
 </div>
+<script>
+    $('#dia<?=$value->getId_funcion()?>').datepicker({
+        language: "es",
+        format: "yyyy/mm/dd",
+        autoclose: true,
+        multidate: false,
+        todayHighlight: true,
+        startDate: "<?=date("Y/m/d");?>",
+        datesDisabled: buscarDiasXpelicula(<?=$value->getId_pelicula()?>)
+    });
+</script>
