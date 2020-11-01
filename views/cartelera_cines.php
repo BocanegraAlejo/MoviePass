@@ -13,22 +13,24 @@ Controllers\UsuarioController::verifUserLogueado();
                 </select>
         </form>
 
-    <?php foreach ($this->arrCines as $key => $value) {
-      $arrFunciones = $this->funcionDAO->getAll_FuncionconDatosPeli_XCine($value->getId());
+    <?php foreach ($this->arrCines as $key => $valueCine) {
+      $arrFunciones = $this->funcionDAO->getAll_FuncionconDatosPeli_XCine($valueCine->getId());
       ?>
-      <section id="<?= $value->getId() ?>">
-      <h3 class="title-cine"><?=$value->getNombre() ?>:</h3>
+      <section id="<?= $valueCine->getId() ?>">
+      <h3 class="title-cine"><?=$valueCine->getNombre() ?>:</h3>
       <?php if(!empty($arrFunciones)) { ?>
       <div class="carousel">
         <?php
         
         foreach ($arrFunciones as $key => $value) {
+          
         ?><div class="carousel-div">
-            
+          <a href="<?=FRONT_ROOT?>Cartelera/VerUnaFuncionEnCartelera/<?=$valueCine->getId()?>/<?=$value["id_pelicula"]?>">
             <img src="<?=$value["imagen"] ?>">
             <h3 class="titleCarousel"><?=$value["titulo"]?></h3>
+          </a>  
+          </div>  <?php
           
-          </div><?php
         }
       
         ?>   

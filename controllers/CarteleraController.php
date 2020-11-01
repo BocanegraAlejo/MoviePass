@@ -29,6 +29,11 @@ class CarteleraController
             require_once(VIEWS_PATH.'cartelera_cines.php');
         }
 
+        public function VerUnaFuncionEnCartelera($id_cine, $id_pelicula) {
+            
+            require_once(VIEWS_PATH.'verUnaFuncionEnCartelera.php');
+        }
+        
         public function verCarteleraCine($id_cine) {
             $_SESSION['cineActual'] = $id_cine;
             $arrFunciones = $this->funcionDAO->getAll_FuncionconDatosPeli_XCine($id_cine);

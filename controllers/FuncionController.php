@@ -11,7 +11,7 @@
       use DAO\Genero_x_peliculaDAO;
       use Models\FuncionDB;
       use DateTime;
-class FuncionController
+    class FuncionController
       {
           private $salaDAO;
           private $funcionDAO;
@@ -73,7 +73,7 @@ class FuncionController
               $peliculaAPI = $this->peliculaDAO->GetPeliculaByID($id_pelicula);
               $objectPeli = $this->peliculaDAO->buscarPelicula($id_pelicula);
               if(empty($objectPeli)) {
-                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},date("G:i", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w500/'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'release_date'});
+                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},date("G:i", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w400/'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'release_date'});
                 $this->peliculaDAO->Add($pelicula);
                 $this->AddIdiomasByIDPelicula($id_pelicula);
                 $this->AddGenerosByIDPelicula($id_pelicula,$peliculaAPI->{'genres'});

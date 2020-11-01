@@ -108,6 +108,48 @@ class FuncionDAO implements IFuncionDAO {
             throw $ex;
         }
     }
+
+    public function buscaFuncionesXpeliculaEncine($id_cine, $id_pelicula) {
+        try
+        {
+            $funcionList = array();
+
+            $query = "SELECT f.id_funcion, p.id_pelicula, p.titulo, p.descripcion, p.fecha_lanzamiento, l.nombre as `idioma`, p.duracion, f.horaYdia
+            FROM funcion f
+            INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+            INNER JOIN lenguaje l ON l.id_lenguaje=f.id_lenguaje
+            INNER JOIN sala s ON s.id_sala=f.id_sala
+            WHERE s.id_cine='$id_cine' and f.id_pelicula='$id_pelicula'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row)
+            {
+                $funcion = new Funcion();
+                $funcion->setId_funcion($row["id_funcion"]);
+                $funcion->setId_pelicula($row["id_pelicula"]);
+                $funcion->setTitulo_pelicula($row["titulo"]);
+                $funcion->setDescripcion_pelicula($row["descripcion"]);
+                $funcion->setFecha_lanzamiento_pelicula($row["fecha_lanzamiento"]);
+                $funcion->setIdioma($row["idioma"]);
+                $funcion->setDuracion($row["duracion"]);
+                $funcion->setFechaYhora($row["horaYdia"]);
+
+                array_push($funcionList, $funcion);
+            }
+
+            return $funcionList;
+
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+
     //retorna hora y dia de funcion + datos pelicula
     public function getAll_FuncionconDatosPeli_XCine($id_cine) {
         try
