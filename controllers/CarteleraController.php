@@ -30,7 +30,9 @@ class CarteleraController
         }
 
         public function VerUnaFuncionEnCartelera($id_cine, $id_pelicula) {
-            
+            $arrFunciones = $this->funcionDAO->buscaFuncionesXpeliculaEncine($id_cine,$id_pelicula);
+            $cine = $this->cineDAO->BuscarId($id_cine);
+            $pelicula = $this->peliculaDAO->getOnePelicula($id_pelicula);
             require_once(VIEWS_PATH.'verUnaFuncionEnCartelera.php');
         }
         

@@ -52,6 +52,7 @@ class CineDAO implements ICineDAO {
         }
 
     }
+ 
     public function ModificarCine(Cine $cine)
     {
         try

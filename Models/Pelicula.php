@@ -8,8 +8,11 @@
         private $duracion;
         private $imagen;
         private $fecha;
+        private $adultos;
+        private $trailer;
+        private $vote_average;
 
-        public function __construct($id_pelicula = '',$titulo = '',$descripcion = '', $duracion = "", $imagen = '', $fecha = '')
+        public function __construct($id_pelicula = '',$titulo = '',$descripcion = '', $duracion = "", $imagen = '', $fecha = '', $adultos = '', $trailer = '', $vote_average = '')
         {
             $this->id_pelicula = $id_pelicula;
             $this->titulo = $titulo;  
@@ -17,6 +20,9 @@
             $this->duracion = $duracion;
             $this->imagen = $imagen;
             $this->fecha = $fecha;
+            $this->adultos = $adultos;
+            $this->trailer = $trailer;
+            $this->vote_average = $vote_average;
         }
 
 
@@ -100,7 +106,39 @@
         }
 
          
-       
+
+        public function getAdultos()
+        {
+                return $this->adultos;
+        }
+
+        public function setAdultos($adultos)
+        {
+                $this->adultos = $adultos;
+        }
+
+   
+        public function getTrailer()
+        {
+                return $this->trailer;
+        }
+
+     
+        public function setTrailer($trailer)
+        {
+                $this->trailer = $trailer;
+        }
+
+    
+        public function getVote_average()
+        {
+                return $this->vote_average;
+        }
+
+        public function setVote_average($vote_average)
+        {
+                $this->vote_average = $vote_average;
+        }
     }
 
     

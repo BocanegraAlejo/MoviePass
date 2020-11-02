@@ -269,3 +269,28 @@ a:link, a:visited, a:active {
     font-family: 'Oswald', sans-serif;
     color: #fff;
 }
+
+.contenedor-verFuncion {
+    *background-color: #efefef;
+    height: 100vh;
+}
+
+.card-funcion {
+    margin-top: 50px;
+    width: 60%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5%;
+}
+
+.img-cardfuncion {
+    width: 100%;
+}
+.card-funcion h4 {
+    text-align: center;
+    margin-top: 10px;
+}
+.card-funcion p {
+    
+    font-size: 13px;
+}

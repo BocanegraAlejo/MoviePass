@@ -114,7 +114,7 @@ class FuncionDAO implements IFuncionDAO {
         {
             $funcionList = array();
 
-            $query = "SELECT f.id_funcion, p.id_pelicula, p.titulo, p.descripcion, p.fecha_lanzamiento, l.nombre as `idioma`, p.duracion, f.horaYdia
+            $query = "SELECT f.id_funcion, l.nombre as `idioma`, f.horaYdia
             FROM funcion f
             INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
             INNER JOIN lenguaje l ON l.id_lenguaje=f.id_lenguaje
@@ -129,12 +129,7 @@ class FuncionDAO implements IFuncionDAO {
             {
                 $funcion = new Funcion();
                 $funcion->setId_funcion($row["id_funcion"]);
-                $funcion->setId_pelicula($row["id_pelicula"]);
-                $funcion->setTitulo_pelicula($row["titulo"]);
-                $funcion->setDescripcion_pelicula($row["descripcion"]);
-                $funcion->setFecha_lanzamiento_pelicula($row["fecha_lanzamiento"]);
                 $funcion->setIdioma($row["idioma"]);
-                $funcion->setDuracion($row["duracion"]);
                 $funcion->setFechaYhora($row["horaYdia"]);
 
                 array_push($funcionList, $funcion);
