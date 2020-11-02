@@ -64,13 +64,13 @@ use DAO\Lenguaje_x_peliculaDAO;
                
           }
 
-          public function getPeliculasActualesBTN() {
+          public function getPeliculasActualesBTN($id_cine) {
               $_SESSION['btnPeli'] = 1;
-              $this->getPeliculasActuales();
+              $this->getPeliculasActuales($id_cine);
           }
-          public function getPeliculasActuales($page = 1, $genero = '', $fecha_ini = '', $fecha_fin = '')
+          public function getPeliculasActuales($id_cine = '', $page = 1, $genero = '', $fecha_ini = '', $fecha_fin = '')
           {
-             
+              
               $this->fecha_ini = $fecha_ini;
               $this->fecha_fin = $fecha_fin;
               $this->generoActual = $genero;

@@ -9,6 +9,7 @@
       </div>
       <div class="modal-body">
       <form class="formulario-add"  method="post" action="<?php echo FRONT_ROOT ?>Funcion/addFuncionToCartelera">
+        <input type="hidden"  name="id_cine" value="<?= $id_cine ?>">
         <input type="hidden"  name="id_pelicula" value="<?= $value->{'id'} ?>">
         <div class="form-group">
             <label for="dia">Dia de Proyección</label>
@@ -38,6 +39,6 @@
         multidate: false,
         todayHighlight: true,
         startDate: "<?=date("Y/m/d");?>",
-        datesDisabled: buscarDiasXpelicula(<?=$value->{'id'}?>)
+        datesDisabled: buscarDiasXpelicula(<?=$id_cine?>,<?=$value->{'id'}?>)
     });
 </script>

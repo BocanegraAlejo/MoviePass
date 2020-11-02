@@ -20,18 +20,14 @@
 
         public function ShowAdministraSalas($id_cine = "")
         {
-            if($id_cine != "") { 
-                $_SESSION['cineActual'] = $id_cine; 
-            }
-            
             $arrSalas = $this->SalaDAO->getAllSalasXcine($id_cine);
             require_once(VIEWS_PATH."administra_salas.php");
         }
 
-        public function altaSala($nombre, $capacidad) {
-            $sala = new Sala('',$_SESSION['cineActual'],$nombre,$capacidad);
+        public function altaSala($id_cine, $nombre, $capacidad) {
+            $sala = new Sala('',$id_cine,$nombre,$capacidad);
             $this->SalaDAO->addSala($sala);
-            $this->ShowAdministraSalas($_SESSION['cineActual']);
+            $this->ShowAdministraSalas($id_cine);
         }
 
         public function modificaSala($id_sala) {
@@ -45,10 +41,10 @@
             return $ObjectSala;
         }
         
-        public function ModificarSala2($id_sala,$nombre, $capacidad) {
-            $ObjectSala = new Sala($id_sala,$_SESSION['cineActual'],$nombre,$capacidad);
+        public function ModificarSala2($id_cine, $id_sala,$nombre, $capacidad) {
+            $ObjectSala = new Sala($id_sala,$id_cine,$nombre,$capacidad);
             $this->SalaDAO->ModificarSala($ObjectSala);
-            $this->ShowAdministraSalas($_SESSION['cineActual']);
+            $this->ShowAdministraSalas($id_cine);
            
         }
 

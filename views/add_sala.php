@@ -10,6 +10,7 @@
       <div class="modal-body">
           
       <form class="formulario-add" method="post" action="<?php echo FRONT_ROOT ?>Sala/altaSala">
+        <input type="hidden" name="id_cine" value="<?=$id_cine ?>">
         <div class="form-group">
           <label for="nombre">Nombre de la Sala:</label>
           <input type="text" name="nombre" class="form-control" id="nombre" required>

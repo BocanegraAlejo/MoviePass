@@ -41,7 +41,6 @@ class CarteleraController
         }
         
         public function verCarteleraCine($id_cine) {
-            $_SESSION['cineActual'] = $id_cine;
             $arrFunciones = $this->funcionDAO->getAll_FuncionconDatosPeli_XCine($id_cine);
             $this->ShowCartelera();
             

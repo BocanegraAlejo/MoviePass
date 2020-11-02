@@ -6,11 +6,12 @@ $_SESSION['btnPeli'] = 0
 ?>
 <div class="container">
     <div class="d-flex justify-content-center">
-    <button class="btn btn-warning btn-lg mt-3 mb-3" onclick="validarSala()"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Funcion a Sala</button>
+    <button class="btn btn-warning btn-lg mt-3 mb-3" onclick="validarSala(<?=$id_cine?>)"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Funcion a Sala</button>
     </div>
     <section class="busqueda col-md-12">
-        <form method="get" class="form-inline" action="<?php echo FRONT_ROOT?>Funcion/verFuncionOneSala">       
-              
+        <form method="get" class="form-inline" action="<?php echo FRONT_ROOT?>Funcion/verFuncionOneSala">    
+                
+              <input type="hidden" name="id_cine" value="<?=$id_cine ?>">
               <label for="sala">Sala:</label>  
                 <select class="form-control mb-2 mr-sm-2 mb-sm-0"  onchange="this.form.submit()" id="Selectsala" name="sala" >
                     <option value="">-- Seleccione una Sala --</option>
@@ -59,6 +60,7 @@ $_SESSION['btnPeli'] = 0
                         </td>
                         <td>
                             <form method="post" onsubmit="return confirm('¿Seguro que quiere Eliminar esa funcion?');" name="formCine" action="<?php echo FRONT_ROOT ?>Funcion/ElimFuncion">
+                            <input type="hidden" name="id_cine"  value=<?= $id_cine?>> 
                             <input type="hidden" name="id_funcion"  value=<?= $value->getId_funcion(); ?>> 
                                 <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </form>

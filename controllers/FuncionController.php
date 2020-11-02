@@ -40,7 +40,7 @@
           }
           
           public function verFuncionAllSalas($id_cine = '') {
-            $_SESSION['cineActual'] = $id_cine;
+            
             $_SESSION['salaActual'] = "";
             $arrSalas = $this->salaDAO->getAllSalasXcine($id_cine);
             $arrFunciones = $this->funcionDAO->getAllFuncionesXCine($id_cine);
@@ -48,14 +48,14 @@
             
           }
 
-          public function verFuncionOneSala($id_sala = '') {
+          public function verFuncionOneSala($id_cine = '', $id_sala = '') {
             
             if($id_sala == "") {
-              $this->verFuncionAllSalas($_SESSION['cineActual']);
+              $this->verFuncionAllSalas($id_cine);
             }
             $_SESSION['salaActual'] = $id_sala;
             
-            $arrSalas = $this->salaDAO->getAllSalasXcine($_SESSION['cineActual']);
+            $arrSalas = $this->salaDAO->getAllSalasXcine($id_cine);
             
             $arrFunciones = $this->funcionDAO->getAllFuncionesXsala($id_sala);
             
@@ -67,8 +67,8 @@
             return $this->lenguaje_x_peliculaDAO->buscarLenguajesXidPelicula($id_pelicula);
         }
         
-          public function addFuncionToCartelera($id_pelicula,  $dia, $horario, $idioma) {
-             
+          public function addFuncionToCartelera($id_cine, $id_pelicula,  $dia, $horario, $idioma) {
+             echo "id_cine: $id_cine";
             
               $peliculaAPI = $this->peliculaDAO->GetPeliculaByID($id_pelicula);
              
@@ -89,7 +89,7 @@
                
                 $funcion = new FuncionDB('', $_SESSION['salaActual'], $idioma, $id_pelicula,$diaYhora);
                 $this->funcionDAO->AddFuncion($funcion);
-              $this->verFuncionOneSala($_SESSION['salaActual']);
+              $this->verFuncionOneSala($id_cine, $_SESSION['salaActual']);
 
           }
 
@@ -105,13 +105,6 @@
               }
           }
           
-
-
-          public function buscarFuncionesXdia($id_pelicula, $dia) {
-              return $this->funcionDAO->BuscarDiasXPelicula($_SESSION['cineActual'],$id_pelicula,$dia);
-          }
-
-
           public function modificaFuncion($id_funcion) {
             $resultado = $this->funcionDAO->BuscarFuncionXid($id_funcion);
             if(!empty($resultado))
@@ -121,19 +114,19 @@
             return $ObjectFuncion;
         }
         
-        public function ModificarFuncion2($id_funcion,$fecha, $hora, $idioma) {
+        public function ModificarFuncion2($id_cine, $id_funcion,$fecha, $hora, $idioma) {
           
             $diaYhora = $fecha." ".$hora;
             
             $ObjectFuncion = new FuncionDB($id_funcion,'',$idioma,'',$diaYhora);
             $this->funcionDAO->ModificarFuncion($ObjectFuncion);
-            $this->verFuncionOneSala($_SESSION['salaActual']);
+            $this->verFuncionOneSala($id_cine, $_SESSION['salaActual']);
         }
 
 
-          public function ElimFuncion($id_funcion) {
+          public function ElimFuncion($id_cine, $id_funcion) {
             $this->funcionDAO->eliminarFuncion($id_funcion);
-            $this->verFuncionAllSalas($_SESSION['cineActual']); 
+            $this->verFuncionAllSalas($id_cine); 
           }
 
           public function getAllCines() {
@@ -141,9 +134,9 @@
           }
           
         
-          public function BuscarDiasXPelicula($id) {
+          public function BuscarDiasXPelicula($id_cine, $id_pelicula) {
 
-            $arrDias =  array_column($this->funcionDAO->BuscarDiasXPelicula($_SESSION['cineActual'],$id),0);
+            $arrDias =  array_column($this->funcionDAO->BuscarDiasXPelicula($id_cine,$id_pelicula),0);
             //$arrDiasString = "['".implode(" ','",$arrDias)."']";
             
             echo json_encode($arrDias);

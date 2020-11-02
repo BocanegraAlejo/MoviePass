@@ -9,6 +9,7 @@
       </div>
       <div class="modal-body">
           <form class="formulario-add" method="post" action="<?php echo FRONT_ROOT ?>Funcion/ModificarFuncion2">
+          <input type="hidden" name="id_cine" value="<?=$id_cine?>">
         <input type="hidden" name="id" value="<?=$objectFuncion->getId_funcion();?>">
         
         <div class="form-group">
@@ -45,6 +46,6 @@
         multidate: false,
         todayHighlight: true,
         startDate: "<?=date("Y/m/d");?>",
-        datesDisabled: buscarDiasXpelicula(<?=$value->getId_pelicula()?>)
+        datesDisabled: buscarDiasXpelicula(<?=$id_cine?>,<?=$value->getId_pelicula()?>)
     });
 </script>
