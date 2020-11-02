@@ -79,7 +79,7 @@
                 } else {
                   $trailer = $peliculaAPI->{'videos'}->{'results'}[0]->{'key'};
                 }
-                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},date("G:i", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w400/'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'release_date'},$peliculaAPI->{'adult'},$trailer,$peliculaAPI->{'vote_average'});
+                $pelicula = new Pelicula($id_pelicula,$peliculaAPI->{'title'},$peliculaAPI->{'overview'},date("i:s", $peliculaAPI->{'runtime'}),'https://image.tmdb.org/t/p/w400/'.$peliculaAPI->{'poster_path'},$peliculaAPI->{'release_date'},$peliculaAPI->{'adult'},$trailer,$peliculaAPI->{'vote_average'});
                 $this->peliculaDAO->Add($pelicula);
                 $this->AddIdiomasByIDPelicula($id_pelicula);
                 $this->AddGenerosByIDPelicula($id_pelicula,$peliculaAPI->{'genres'});

@@ -141,6 +141,7 @@
                 $newUsuario = new Usuario('',$email,$pass,$nombre,0);
                 $this->UsuarioDAO->Add($newUsuario);
                 echo "<script>alert('REGISTRO DE USUARIO EXITOSO')</script>";
+                // crear variable error o message 
                 $this->ShowLoginView();
             }
             else {

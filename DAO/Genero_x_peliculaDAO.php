@@ -26,6 +26,31 @@
             }
         }
 
+        public function getGenerosOnePelicula($id_pelicula) {
+            try
+            {
+                $funcionList = array();
+    
+                $query = "SELECT g.nombre FROM ".$this->tableName." gxp INNER JOIN genero g ON gxp.id_genero=g.id_genero
+                WHERE gxp.id_pelicula='$id_pelicula'";
+    
+                $this->connection = Connection::GetInstance();
+    
+                $resultSet = $this->connection->Execute($query);
+                $arrGeneros = array();
+                foreach ($resultSet as $row)
+                {
+                    array_push($arrGeneros, $row["nombre"]);
+                }
+    
+                return $arrGeneros;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
        
 
     }

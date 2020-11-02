@@ -276,21 +276,40 @@ a:link, a:visited, a:active {
 }
 
 .card-funcion {
+   
     margin-top: 50px;
-    width: 60%;
+    *width: 60%;
     background-color: #fff;
     padding: 20px;
     border-radius: 5%;
+    align-items: center;
 }
-
+.card-funcion2 {
+    
+    margin-top: 50px;
+    *width: 40%;
+    height: 535px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5%;
+    align-items: center;
+}
 .img-cardfuncion {
-    width: 100%;
+    width: 290px;
+    height: 370px;
 }
 .card-funcion h4 {
     text-align: center;
     margin-top: 10px;
+    font-size: 17px;
+    font-weight: bold;
 }
 .card-funcion p {
     
     font-size: 13px;
 }
+.datos-peli {
+    margin-top: 10px;
+    font-size: 13px;
+}
+

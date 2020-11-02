@@ -101,7 +101,7 @@
             $data = json_decode($api);
             return $data;
         }
-
+        
         
         public function GetIdiomasByIDpelicula($id)
         {

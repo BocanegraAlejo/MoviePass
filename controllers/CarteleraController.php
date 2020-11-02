@@ -2,7 +2,8 @@
     namespace Controllers;
     use DAO\CineDAO;
     use DAO\FuncionDAO;
-    use DAO\PeliculaDAO;
+use DAO\Genero_x_peliculaDAO;
+use DAO\PeliculaDAO;
 
 class CarteleraController
     {
@@ -10,13 +11,14 @@ class CarteleraController
         private $cineDAO;
         private $funcionDAO;
         private $peliculaDAO;
-
+        private $genero_x_peliculaDAO;
         public function __construct()
         {
             
             $this->cineDAO = new CineDAO();
             $this->funcionDAO = new FuncionDAO();
             $this->peliculaDAO = new PeliculaDAO();
+            $this->genero_x_peliculaDAO = new Genero_x_peliculaDAO();
             $this->arrCines = $this->cineDAO->GetAllCines();
         }
 
@@ -33,6 +35,8 @@ class CarteleraController
             $arrFunciones = $this->funcionDAO->buscaFuncionesXpeliculaEncine($id_cine,$id_pelicula);
             $cine = $this->cineDAO->BuscarId($id_cine);
             $pelicula = $this->peliculaDAO->getOnePelicula($id_pelicula);
+            $generosDePeli = implode(", ",$this->genero_x_peliculaDAO->getGenerosOnePelicula($id_pelicula));
+            
             require_once(VIEWS_PATH.'verUnaFuncionEnCartelera.php');
         }
         
