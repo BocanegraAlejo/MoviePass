@@ -1,12 +1,12 @@
 <?php  
 require_once(VIEWS_PATH.'header.php');
 Controllers\UsuarioController::verifUserLogueado();
-$_SESSION['btnPeli'] = 0
-
+$_SESSION['btnPeli'] = 0;
+var_dump($id_sala);
 ?>
 <div class="container">
     <div class="d-flex justify-content-center">
-    <button class="btn btn-warning btn-lg mt-3 mb-3" onclick="validarSala(<?=$id_cine?>)"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Funcion a Sala</button>
+    <button class="btn btn-warning btn-lg mt-3 mb-3" onclick="validarSala(<?=$id_cine?>,<?=$id_sala ?>)"><i class="fas fa-plus"></i>&nbsp;&nbsp;Agregar Funcion a Sala</button>
     </div>
     <section class="busqueda col-md-12">
         <form method="get" class="form-inline" action="<?php echo FRONT_ROOT?>Funcion/verFuncionOneSala">    
@@ -18,7 +18,7 @@ $_SESSION['btnPeli'] = 0
                     <?php
                         
                       foreach ($arrSalas as $key => $value) {
-                        ?> <option value="<?=$value->getId_sala();?>" <?php if($value->getId_sala() == $_SESSION['salaActual']){ echo 'selected="selected"'; } ?>><?= $value->getNombre_sala(); ?></option>
+                        ?> <option value="<?=$value->getId_sala();?>" <?php if($value->getId_sala() == $id_sala){ echo 'selected="selected"'; } ?>><?= $value->getNombre_sala(); ?></option>
                             
                         <?php
                         
@@ -60,7 +60,8 @@ $_SESSION['btnPeli'] = 0
                         </td>
                         <td>
                             <form method="post" onsubmit="return confirm('¿Seguro que quiere Eliminar esa funcion?');" name="formCine" action="<?php echo FRONT_ROOT ?>Funcion/ElimFuncion">
-                            <input type="hidden" name="id_cine"  value=<?= $id_cine?>> 
+                            <input type="hidden" name="id_cine"  value="<?= $id_cine?>">
+                            <input type="hidden" name="id_sala" value="<?= $id_sala?>"> 
                             <input type="hidden" name="id_funcion"  value=<?= $value->getId_funcion(); ?>> 
                                 <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </form>

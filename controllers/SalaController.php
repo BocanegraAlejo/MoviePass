@@ -48,9 +48,9 @@
            
         }
 
-        public function elimSala($id_sala) {
+        public function elimSala($id_cine,$id_sala) {
             $this->SalaDAO->elimSala($id_sala);
-            $this->ShowAdministraSalas($_SESSION['cineActual']);
+            $this->ShowAdministraSalas($id_cine);
         }
 
     }

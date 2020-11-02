@@ -10,12 +10,13 @@
       <div class="modal-body">
           <form class="formulario-add" method="post" action="<?php echo FRONT_ROOT ?>Funcion/ModificarFuncion2">
           <input type="hidden" name="id_cine" value="<?=$id_cine?>">
-        <input type="hidden" name="id" value="<?=$objectFuncion->getId_funcion();?>">
+          <input type="hidden" name="id_Sala" value="<?=$id_sala?>">
+          <input type="hidden" name="id" value="<?=$objectFuncion->getId_funcion();?>">
         
         <div class="form-group">
           <label for="fecha">Fecha de Proyeccion</label>
           <div class="input-group date">
-              <input type="text" value="<?=$objectFuncion->getFecha()?>" onchange="validarHoraXfecha(this.value,<?=$value->getId_pelicula()?>,<?=$value->getId_funcion()?>)" autocomplete="off" class="form-control" id="dia<?=$value->getId_funcion()?>" name="dia">
+              <input type="text" value="<?=$objectFuncion->getFecha()?>" onchange="validarHoraXfecha(<?=$id_sala?>,this.value,<?=$value->getId_pelicula()?>,<?=$value->getId_funcion()?>)" autocomplete="off" class="form-control" id="dia<?=$value->getId_funcion()?>" name="dia">
           </div>
         </div>
         <div class="form-group">

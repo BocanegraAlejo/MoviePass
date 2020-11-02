@@ -24,13 +24,13 @@ $('#carousel-example').on('slide.bs.carousel', function (e) {
     }
 });
 
-function validarSala(id_cine) {
+function validarSala(id_cine, id_sala) {
     let selectSala = document.getElementById('Selectsala').value;
     if(selectSala == "") {
         alert("ERROR! DEBE SELECCIONAR UNA SALA PRIMERO!");
     } else {
        
-        location.href = "/TP_LabIV/Pelicula/getPeliculasActuales/"+id_cine;
+        location.href = "/TP_LabIV/Pelicula/getPeliculasActuales/"+id_cine+"/"+id_sala;
     }
 }
 
@@ -65,13 +65,13 @@ function buscarDiasXpelicula(id_cine,id_pelicula) {
     return obj;
 }
 
-function validarHoraXfecha(dia,id_pelicula, id_funcion) {
+function validarHoraXfecha(id_sala,dia,id_pelicula, id_funcion) {
    
     $.ajax({
       type: 'POST',
       url: '/TP_LabIV/Funcion/BuscarHorariosXdia',
       dataType: 'json',
-      data: {dia:dia,id_pelicula:id_pelicula},
+      data: {id_sala:id_sala,dia:dia,id_pelicula:id_pelicula},
        
       }).done(function(data) {
         console.log(data); // imprimimos la respuesta

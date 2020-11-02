@@ -33,6 +33,7 @@ require_once(VIEWS_PATH.'add_sala.php');
                         </td>
                         <td>
                             <form method="post" onsubmit="return confirm('¿Seguro que quiere Eliminar?');" name="formElimSala" action="<?php echo FRONT_ROOT ?>Sala/ElimSala">
+                                <input type="hidden" name="id_cine" value=<?=$id_cine?>>
                                 <input type="hidden" name="id_sala" value=<?= $value->getId_sala(); ?>>
                                 <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </form>
