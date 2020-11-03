@@ -2,6 +2,8 @@
 use Controllers\UsuarioController;
 require_once(VIEWS_PATH.'header.php'); 
 UsuarioController::verifUserLogueado();
+
+
 ?>
 
 <div class="container">
@@ -41,10 +43,27 @@ UsuarioController::verifUserLogueado();
             <div class="card-funcion2">
                 <div class="row">
                     <div class="col-md-12">
-                    <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore praesentium nam cum eius dolore atque pro quibusdam molestiae. Unde quia temporibus illum veniam qui. Distinctio deserunt nemo modi ut.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, error temporibus autem, omnis iste dignissimos suscipit natus alias, quasi earum unde quae minima nisi nulla? Harum dolores atque minus. Earum?
-                    </p>
+                        <h3 class="">Compra tus Entradas!</h3>
+                           
+                            <form method="post" action="">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect2">Seleccione la funcion deseada:</label>
+                                    <select multiple class="form-control" id="exampleFormControlSelect2">
+                                        <?php
+                                        foreach ($arrFunciones as $key => $value) {
+                                            echo "<option>".$value->getFecha(). "  --  " .$value->getHora()." || ".$value->getIdioma()."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cantidad">Cantidad a comprar:</label>
+                                    <input type="number" id="cantidad" min="1" class="form-control" value="1">
+                                </div>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#seleccButaca">Seleccionar Butacas</button>
+                                <?php require_once(VIEWS_PATH.'seleccionarButacaFuncion.php'); ?>
+                            </form>
+                        
                     </div>
                 </div>     
             </div>

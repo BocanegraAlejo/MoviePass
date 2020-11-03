@@ -2,8 +2,8 @@
     namespace Controllers;
     use DAO\CineDAO;
     use DAO\FuncionDAO;
-use DAO\Genero_x_peliculaDAO;
-use DAO\PeliculaDAO;
+    use DAO\Genero_x_peliculaDAO;
+    use DAO\PeliculaDAO;
 
 class CarteleraController
     {

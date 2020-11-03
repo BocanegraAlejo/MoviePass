@@ -40,7 +40,7 @@
 
         public function loguear($email = '', $clave = '') {
             $userAux = $this->UsuarioDAO->verifExistenciaUser($email, $clave);
-            //var_dump($userAux);
+          
             if(!empty($userAux) && $userAux[0]['clave'] == $clave)
             {
                 $userObject = new Usuario($userAux[0]['id_usuario'],$userAux[0]['email'],$userAux[0]['clave'],'',$userAux[0]['admin']);
@@ -51,7 +51,7 @@
             }
             else {
                 
-                echo "<script>alert('ERROR! USUARIO Y/O CLAVE INCORRECTOS')</script>";
+                $_SESSION["Alertmessage"] = "ERROR! USUARIO Y/O CLAVE INCORRECTOS";
                 $this->ShowLoginView();
             }
         }
@@ -140,12 +140,11 @@
             if(empty($Objectuser)) {
                 $newUsuario = new Usuario('',$email,$pass,$nombre,0);
                 $this->UsuarioDAO->Add($newUsuario);
-                echo "<script>alert('REGISTRO DE USUARIO EXITOSO')</script>";
-                // crear variable error o message 
+                $_SESSION["Alertmessage"] = "Registro de Usuario Exitoso!";
                 $this->ShowLoginView();
             }
             else {
-                echo "<script>alert('ERROR! Ya existe una cuenta registrada con ese email!')</script>";
+                $_SESSION["Alertmessage"] = "ERROR! Ya existe una cuenta registrada con ese email!";
                 $this->ShowLoginView();
             }
         }
@@ -156,9 +155,7 @@
         }
 
         public function mostrarAlerta() {
-            ?> <script>$(document).ready(function() {
-                toastr.success("Sesion: <?php if($_SESSION['loggedUser']->getAdmin() == 1) echo 'Administrador'; else echo 'Cliente';?>", "Bienvenido <?=$_SESSION['loggedUser']->getEmail() ?>");
-            });</script><?php
+            $_SESSION["Alertmessage"] = "toastr";
         }
 
         public function getloginURL() {
@@ -185,7 +182,6 @@
                     
                 }
             }else {
-               // echo "<script>alert('ERROR! DEBE ESTAR LOGUEADO')</script>";
                 require_once(VIEWS_PATH."login.php");
             }
         }

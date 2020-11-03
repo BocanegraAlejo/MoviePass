@@ -6,7 +6,7 @@ use models\Sala;
 use DAO\PDO;
 
 
-class SalaDAO implements ISalaDAO {
+class SalaDAO  {
     private $connection;
     private $tableName = "sala";
     

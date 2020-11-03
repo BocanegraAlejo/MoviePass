@@ -2,7 +2,7 @@
     namespace DAO;
     use Models\Usuario;
 
-   class UsuarioDAOjson implements IUsuarioDAO
+   class UsuarioDAOjson 
    {
        private $userList = array();
        private $fileName;

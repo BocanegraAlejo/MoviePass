@@ -2,6 +2,7 @@
 require_once(VIEWS_PATH.'header.php');
 require_once(VIEWS_PATH.'registrarUser.php');
 require_once(VIEWS_PATH."Helper.php"); 
+
 ?>
 
 <div class="bg-login">
@@ -26,4 +27,5 @@ require_once(VIEWS_PATH."Helper.php");
     </div>
 </div>
 </div>
+
 <?php require_once(VIEWS_PATH.'footer.php'); ?>

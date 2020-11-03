@@ -32,7 +32,7 @@
             
             $cine = new Cine('',$_SESSION['loggedUser']->getId_usuario(),$nombre,$direccion,$horario_apertura,$horario_cierre, $valor_entrada, $capacidad_total);
             $this->CineDAO->Add($cine);
-            echo "<script>alert('El cine se agrego correctamente!');</script>";
+            $_SESSION["Alertmessage"] = "El cine se agrego correctamente!";
             $this->ShowAdministraCine();
         }
 

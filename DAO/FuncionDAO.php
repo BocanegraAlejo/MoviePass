@@ -9,7 +9,7 @@ use models\HorarioFuncion;
 use DAO\PDO;
 
 
-class FuncionDAO implements IFuncionDAO {
+class FuncionDAO  {
     private $connection;
     private $tableName = "funcion";
 

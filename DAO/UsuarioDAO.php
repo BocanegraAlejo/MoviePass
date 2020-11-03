@@ -4,7 +4,7 @@
     use Models\Usuario;
     
 
-    class UsuarioDAO implements IUsuarioDAO {
+    class UsuarioDAO  {
         private $connection;
         private $tableName = "usuarios";
 

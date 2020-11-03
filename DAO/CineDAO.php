@@ -7,7 +7,7 @@ use models\Cine;
 use DAO\PDO;
 
 
-class CineDAO implements ICineDAO {
+class CineDAO {
     private $connection;
     private $tableName = "cine";
 

@@ -312,4 +312,40 @@ a:link, a:visited, a:active {
     margin-top: 10px;
     font-size: 13px;
 }
+.card-funcion2 h3 {
+    margin-top: 10px;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+}
+#exampleFormControlSelect2 {
+    height: 180px;
+}
 
+#exampleFormControlSelect2 option {
+    height: 40px;
+}
+.card-funcion2 #cantidad {
+    width: 80px;
+    display: inline;
+}
+.pantalla__seleccionButaca {
+    text-align: center;
+    border: 3px solid #000;
+    width: 500px;
+    margin: 0px auto 0px auto;
+}
+
+.butaca {
+    display: inline-block;
+    font-size: 30px;
+    background-color: red;
+}
+.butaca input[type="checkbox"] {
+   display: block;
+}
+
+.butaca__img {
+    text-align: center;
+   
+}

@@ -2,7 +2,7 @@
 namespace DAO;
 use Models\Cine as Cine;
 
-class CineDAOjson implements ICineDAO
+class CineDAOjson 
 {
     private $cineList = array();
     private $fileName;
