@@ -4,14 +4,16 @@
     class Sala{
         private $id_sala;
         private $id_cine;
-        private $capacidad;
+        private $cant_filas;
+        private $cant_columnas;
         private $nombre_sala;
 
-        function __construct($id_sala = '',$id_cine = '',$nombre_sala = '', $capacidad = '')
+        function __construct($id_sala = '',$id_cine = '',$nombre_sala = '', $cant_filas = '',$cant_columnas = '')
         {
             $this->id_sala = $id_sala;
             $this->id_cine = $id_cine;
-            $this->capacidad = $capacidad;
+            $this->cant_filas = $cant_filas;
+            $this->cant_columnas = $cant_columnas;
             $this->nombre_sala = $nombre_sala;
         }
 
@@ -40,18 +42,6 @@
 
         }
 
-        public function getCapacidad()
-        {
-                return $this->capacidad;
-        }
-
-       
-        public function setCapacidad($capacidad)
-        {
-                $this->capacidad = $capacidad;
-
-        }
-
         public function getNombre_sala()
         {
                 return $this->nombre_sala;
@@ -62,6 +52,29 @@
         {
                 $this->nombre_sala = $nombre_sala;
 
+        }
+
+   
+        public function getCant_filas()
+        {
+                return $this->cant_filas;
+        }
+
+   
+        public function setCant_filas($cant_filas)
+        {
+                $this->cant_filas = $cant_filas;
+
+        }
+
+        public function getCant_columnas()
+        {
+                return $this->cant_columnas;
+        }
+
+        public function setCant_columnas($cant_columnas)
+        {
+                $this->cant_columnas = $cant_columnas;
         }
     }
 

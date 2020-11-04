@@ -4,7 +4,7 @@
     use DAO\FuncionDAO;
     use DAO\Genero_x_peliculaDAO;
     use DAO\PeliculaDAO;
-
+    use DAO\SalaDAO;
 class CarteleraController
     {
         private $arrCines;
@@ -12,6 +12,7 @@ class CarteleraController
         private $funcionDAO;
         private $peliculaDAO;
         private $genero_x_peliculaDAO;
+        private $salaDAO;
         public function __construct()
         {
             
@@ -19,6 +20,7 @@ class CarteleraController
             $this->funcionDAO = new FuncionDAO();
             $this->peliculaDAO = new PeliculaDAO();
             $this->genero_x_peliculaDAO = new Genero_x_peliculaDAO();
+            $this->salaDAO = new SalaDAO();
             $this->arrCines = $this->cineDAO->GetAllCines();
         }
 
@@ -40,6 +42,13 @@ class CarteleraController
             require_once(VIEWS_PATH.'verUnaFuncionEnCartelera.php');
         }
         
+        public function obtenerButacasOcupadas($id_funcion) {
+            $Sala = $this->funcionDAO->buscarSalaXid_funcion($id_funcion);
+            $ArrButacasOcupadas = DAObutacas->getButacasOcupadas($Sala->id_sala);
+
+            echo json_encode($ArrButacasOcupadas);
+        }
+
         public function verCarteleraCine($id_cine) {
             $arrFunciones = $this->funcionDAO->getAll_FuncionconDatosPeli_XCine($id_cine);
             $this->ShowCartelera();

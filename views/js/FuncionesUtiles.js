@@ -108,4 +108,20 @@ function getLenguajesAjax(id_pelicula) {
       });
 }
 
+function obtenerButacasOcupadas(id_funcion) {
+    $.ajax({
+        type: 'POST',
+        url: '/TP_LabIV/Cartelera/obtenerButacasOcupadas',
+        dataType: 'json',
+        data: {id_funcion:id_funcion},
+         
+        }).done(function(data) {
+          console.log(data); // imprimimos la respuesta
+          
+         
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+          console.log(errorThrown);
+        });
+}
+
  

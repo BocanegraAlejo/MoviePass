@@ -12,7 +12,8 @@ require_once(VIEWS_PATH.'add_sala.php');
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Capacidad</th>
+                <th>Cantidad de filas</th>
+                <th>Cantidad de columnas</th>
                 <th>3D</th>
                 <th><i class="fa fa-pencil" aria-hidden="true"></i></th>
                 <th><i class="fa fa-trash" aria-hidden="true"></i></th>
@@ -26,7 +27,8 @@ require_once(VIEWS_PATH.'add_sala.php');
                     ?>
                     <tr>
                         <td><?= $value->getNombre_sala(); ?></td>
-                        <td><?= $value->getCapacidad(); ?></td>
+                        <td><?= $value->getCant_filas(); ?></td>
+                        <td><?= $value->getCant_columnas(); ?></td>
                         <td>No</td>
                         <td>
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#ModifySala<?=$value->getId_sala()?>"><i class="fa fa-pencil" aria-hidden="true"></i></button>  

@@ -6,6 +6,7 @@ use \Exception as Exception;
 use models\Funcion;
 use models\FuncionDB;
 use models\HorarioFuncion;
+use Models\Sala;
 use DAO\PDO;
 
 
@@ -144,6 +145,31 @@ class FuncionDAO  {
         }
     }
 
+    public function buscarSalaXid_funcion($id_funcion) {
+        try
+        {
+            $query = "SELECT * FROM `".$this->tableName."` WHERE id_funcion='$id_funcion'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            $sala = new Sala();
+            $sala->setId_sala($resultSet[0]["id_sala"]);
+            $sala->setId_cine($resultSet[0]["id_cine"]);
+            $sala->setNombre_sala($resultSet[0]["nombre_sala"]);
+            $sala->setCant_filas($resultSet[0]["cant_filas"]);
+            $sala->setCant_columnas($resultSet[0]["cant_columnas"]);
+            
+            return $sala;
+           
+           
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
 
     //retorna hora y dia de funcion + datos pelicula
     public function getAll_FuncionconDatosPeli_XCine($id_cine) {

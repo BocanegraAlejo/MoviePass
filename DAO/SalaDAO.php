@@ -15,11 +15,12 @@ class SalaDAO  {
             try
             {
              
-                $query = "INSERT INTO ".$this->tableName." (id_cine, nombre_sala,capacidad) VALUES (:id_cine, :nombre_sala, :capacidad);";
+                $query = "INSERT INTO ".$this->tableName." (id_cine, nombre_sala,cant_filas,cant_columnas) VALUES (:id_cine, :nombre_sala, :cant_filas,:cant_columnas);";
                
                 $parameters["id_cine"] = $sala->getId_cine();
                 $parameters["nombre_sala"] = $sala->getNombre_sala();
-                $parameters["capacidad"] = $sala->getCapacidad();
+                $parameters["cant_filas"] = $sala->getCant_filas();
+                $parameters["cant_columnas"] = $sala->getCant_columnas();
 
                 $this->connection = Connection::GetInstance();
 
@@ -34,12 +35,12 @@ class SalaDAO  {
     public function modificarSala($sala) {
         try
         {
-            $query = "UPDATE ".$this->tableName." SET nombre_sala=:nombre,capacidad=:capacidad where id_sala= :id";
+            $query = "UPDATE ".$this->tableName." SET nombre_sala=:nombre,cant_filas=:cant_filas, cant_columnas=:cant_columnas where id_sala= :id";
             
             $parameters["id"] = $sala->getId_sala();
             $parameters["nombre"] = $sala->getNombre_sala();
-            $parameters["capacidad"] = $sala->getCapacidad();
-            
+            $parameters["cant_filas"] = $sala->getCant_filas();
+            $parameters["cant_columnas"] = $sala->getCant_columnas();
 
             $this->connection = Connection::GetInstance();
             
@@ -85,6 +86,7 @@ class SalaDAO  {
         }
     }
 
+   
     public function getAllSalasXcine($id_cine) {
         try
         {
@@ -102,7 +104,8 @@ class SalaDAO  {
                 $sala->setId_sala($row["id_sala"]);
                 $sala->setId_cine($row["id_cine"]);
                 $sala->setNombre_sala($row["nombre_sala"]);
-                $sala->setCapacidad($row["capacidad"]);
+                $sala->setCant_filas($row["cant_filas"]);
+                $sala->setCant_columnas($row["cant_columnas"]);
 
                 array_push($salasList, $sala);
             }

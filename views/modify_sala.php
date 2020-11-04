@@ -15,9 +15,15 @@
           <label for="nombre">Nombre de Sala:</label>
           <input type="text" name="nombre" class="form-control" id="nombre" value="<?= $ObjectSala->getNombre_sala()?>">
         </div>
-        <div class="form-group">
-          <label for="capacidad">Capacidad:</label>
-          <input type="number" name="capacidad" min="1" class="form-control" id="capacidad" value="<?= $ObjectSala->getCapacidad();?>">
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="cant_filas">Cantidad de Filas:</label>
+            <input type="number" name="cant_filas" class="form-control" id="cant_filas" value="<?=$ObjectSala->getCant_filas()?>" required>
+          </div>
+          <div class="form-group col">
+            <label for="cant_columnas">Cantidad de Columnas:</label>
+            <input type="number" name="cant_columnas" class="form-control" id="cant_columnas" value="<?=$ObjectSala->getCant_columnas()?>" required>
+          </div>
         </div>
         <button type="submit" class="btn btn-success">Enviar</button>
       </form>

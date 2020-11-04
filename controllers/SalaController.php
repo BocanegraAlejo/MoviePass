@@ -24,8 +24,8 @@
             require_once(VIEWS_PATH."administra_salas.php");
         }
 
-        public function altaSala($id_cine, $nombre, $capacidad) {
-            $sala = new Sala('',$id_cine,$nombre,$capacidad);
+        public function altaSala($id_cine, $nombre, $cant_filas, $cant_columnas) {
+            $sala = new Sala('',$id_cine,$nombre,$cant_filas,$cant_columnas);
             $this->SalaDAO->addSala($sala);
             $this->ShowAdministraSalas($id_cine);
         }
@@ -35,14 +35,14 @@
             
             if(!empty($resultado))
             {
-                $ObjectSala = new Sala($resultado['id_sala'],$resultado['id_cine'],$resultado['nombre_sala'],$resultado['capacidad']);
+                $ObjectSala = new Sala($resultado['id_sala'],$resultado['id_cine'],$resultado['nombre_sala'], $resultado['cant_filas'],$resultado['cant_columnas']);
 
             }
             return $ObjectSala;
         }
         
-        public function ModificarSala2($id_cine, $id_sala,$nombre, $capacidad) {
-            $ObjectSala = new Sala($id_sala,$id_cine,$nombre,$capacidad);
+        public function ModificarSala2($id_cine, $id_sala,$nombre, $cant_filas,$cant_columnas) {
+            $ObjectSala = new Sala($id_sala,$id_cine,$nombre,$cant_filas,$cant_columnas);
             $this->SalaDAO->ModificarSala($ObjectSala);
             $this->ShowAdministraSalas($id_cine);
            

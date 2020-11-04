@@ -48,10 +48,10 @@ UsuarioController::verifUserLogueado();
                             <form method="post" action="">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect2">Seleccione la funcion deseada:</label>
-                                    <select multiple class="form-control" id="exampleFormControlSelect2">
+                                    <select multiple class="form-control" onchange="obtenerButacasOcupadas(this.value)" id="exampleFormControlSelect2">
                                         <?php
                                         foreach ($arrFunciones as $key => $value) {
-                                            echo "<option>".$value->getFecha(). "  --  " .$value->getHora()." || ".$value->getIdioma()."</option>";
+                                            echo "<option value='".$value->getId_funcion()."'>".$value->getFecha(). "  --  " .$value->getHora()." || ".$value->getIdioma()."</option>";
                                         }
                                         ?>
                                     </select>
