@@ -1,7 +1,8 @@
 <?php
     namespace Models;
+    use JsonSerializable;
 
-    class Sala{
+    class Sala implements JsonSerializable{
         private $id_sala;
         private $id_cine;
         private $cant_filas;
@@ -75,6 +76,17 @@
         public function setCant_columnas($cant_columnas)
         {
                 $this->cant_columnas = $cant_columnas;
+        }
+
+        public function jsonSerialize()
+        {
+            return array(
+                 'id_sala' => $this->id_sala,
+                 'id_cine' => $this->id_cine,
+                 'cant_filas' => $this->cant_filas,
+                 'cant_columnas' => $this->cant_columnas,
+                 'nombre_sala' => $this->nombre_sala
+            );
         }
     }
 

@@ -7,21 +7,13 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body container-butacas">
                 <div class="pantalla__seleccionButaca">
                     PANTALLA
                 </div>
-                <?php
-                    for($x=0; $x<50;$x++) { ?>
-                        <div class="butaca">
-                            <input type="checkbox"  value="first_checkbox"> 
-                            <span class="fas fa-chair"></span>
-                            <h6><?=$x ?></h6>
-                        </div>
-
-                    <?php
-                    }
-                    ?> 
+                <div>Seleccionados: <span id="seleccionados">0</span></div>
+                <div id="contenido"></div>
+               
             </div>
         </div>
     </div>

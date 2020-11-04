@@ -148,19 +148,23 @@ class FuncionDAO  {
     public function buscarSalaXid_funcion($id_funcion) {
         try
         {
-            $query = "SELECT * FROM `".$this->tableName."` WHERE id_funcion='$id_funcion'";
+            $query = "SELECT s.id_sala, s.id_cine, s.nombre_sala, s.cant_filas, s.cant_columnas FROM `".$this->tableName."`f 
+            INNER JOIN sala s ON s.id_sala=f.id_sala
+            WHERE id_funcion='$id_funcion'";
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
-
+            
             $sala = new Sala();
+            
             $sala->setId_sala($resultSet[0]["id_sala"]);
             $sala->setId_cine($resultSet[0]["id_cine"]);
             $sala->setNombre_sala($resultSet[0]["nombre_sala"]);
             $sala->setCant_filas($resultSet[0]["cant_filas"]);
             $sala->setCant_columnas($resultSet[0]["cant_columnas"]);
             
+        
             return $sala;
            
            

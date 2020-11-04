@@ -108,20 +108,83 @@ function getLenguajesAjax(id_pelicula) {
       });
 }
 
-function obtenerButacasOcupadas(id_funcion) {
+function obtenerButacasOcupadas() {
+    let id_funcion = $('#exampleFormControlSelect2').val();
     $.ajax({
         type: 'POST',
         url: '/TP_LabIV/Cartelera/obtenerButacasOcupadas',
         dataType: 'json',
-        data: {id_funcion:id_funcion},
+        data: {id_funcion:id_funcion[0]},
          
         }).done(function(data) {
-          console.log(data); // imprimimos la respuesta
-          
-         
+            console.log(data); // imprimimos la respuesta
+          let sala = data[0].sala;
+          let arrButacasOcupadas = data[0].arrButacasOcupadas;
+          let html = "";
+        
+          for(let x=0;x<sala.cant_filas; x++) {
+            html = html+ "<br>"+"f"+x;
+            for(let y=0; y<sala.cant_columnas; y++) {
+                let flag = 0;
+                let z = 0;
+                while(arrButacasOcupadas[z] && flag==0) {
+                    if(arrButacasOcupadas[z].fila == x && arrButacasOcupadas[z].columna == y) {
+                        flag = 1;
+                    }
+                    z++;
+                }
+                if(flag==0) {
+                    let cantidad = $('#cantidad').val();
+                    console.log(cantidad);
+                    html = html+`<div class='butaca' style='background-color: green;'><input type='checkbox'  value='${x}+${y}' name='butacas[]' onchange='validarButacasSeleccionadas(${cantidad})'><span class='fas fa-chair'></span></div>`;
+                }
+                else {
+                    html = html+`<div class='butaca'  style='background-color:red;'><input type='checkbox'  value='${x}+${y}' name='butacas[]'><span class='fas fa-chair'></span></div>`;
+                }
+            }
+            
+
+          }
+          console.log(html);
+         $("#contenido").html(html);
         }).fail(function(jqXHR, textStatus, errorThrown) {
           console.log(errorThrown);
         });
+}
+
+function validarButacasSeleccionadas(cantidadMaxima) {
+    	// Evento que se ejecuta al soltar una tecla en el input
+        $("#cantidad").keydown(function(){
+            $("input[type=checkbox]").prop('checked', false);
+            $("#seleccionados").html("1");
+        });
+    
+        // Evento que se ejecuta al pulsar en un checkbox
+        $("input[type=checkbox]").change(function(){
+    
+            // Cogemos el elemento actual
+            var elemento=this;
+            var contador=0;
+    
+            // Recorremos todos los checkbox para contar los que estan seleccionados
+            $("input[type=checkbox]").each(function(){
+                if($(this).is(":checked"))
+                    contador++;
+            });
+    
+            // Comprobamos si supera la cantidad máxima indicada
+            if(contador>cantidadMaxima)
+            {
+                alert("Has seleccionado mas checkbox que los indicados");
+    
+                // Desmarcamos el ultimo elemento
+                $(elemento).prop('checked', false);
+                contador--;
+            }
+    
+            $("#seleccionados").html(contador);
+        });
+
 }
 
  

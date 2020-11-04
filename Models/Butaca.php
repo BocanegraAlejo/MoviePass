@@ -1,14 +1,15 @@
 <?php
     namespace Models;
+    use JsonSerializable;
 
-    class Butaca {
+    class Butaca implements JsonSerializable {
         private $id_butaca;
         private $id_sala;
         private $fila;
         private $columna;
        
 
-        public function __construct($id_butaca,$id_sala,$fila,$columna) {
+        public function __construct($id_butaca = '',$id_sala = '',$fila = '',$columna = '') {
            $this->id_butaca = $id_butaca;
            $this->id_sala = $id_sala;
            $this->fila = $fila;
@@ -61,6 +62,17 @@
         {
             $this->columna = $columna;
         }
+
+        public function jsonSerialize()
+        {
+            return array(
+                 'id_butaca' => $this->id_butaca,
+                 'id_sala' => $this->id_sala,
+                 'fila' => $this->fila,
+                 'columna' => $this->columna
+            );
+        }
+
     }
 
 ?>

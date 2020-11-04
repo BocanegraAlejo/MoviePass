@@ -45,10 +45,10 @@ UsuarioController::verifUserLogueado();
                     <div class="col-md-12">
                         <h3 class="">Compra tus Entradas!</h3>
                            
-                            <form method="post" action="">
+                            <form method="post" action="<?=FRONT_ROOT ?>Entrada/procesaEntrada">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect2">Seleccione la funcion deseada:</label>
-                                    <select multiple class="form-control" onchange="obtenerButacasOcupadas(this.value)" id="exampleFormControlSelect2">
+                                    <select multiple class="form-control" name="funcion" id="exampleFormControlSelect2">
                                         <?php
                                         foreach ($arrFunciones as $key => $value) {
                                             echo "<option value='".$value->getId_funcion()."'>".$value->getFecha(). "  --  " .$value->getHora()." || ".$value->getIdioma()."</option>";
@@ -58,10 +58,13 @@ UsuarioController::verifUserLogueado();
                                 </div>
                                 <div class="form-group">
                                     <label for="cantidad">Cantidad a comprar:</label>
-                                    <input type="number" id="cantidad" min="1" class="form-control" value="1">
+                                    <input type="number" name="cantidad" id="cantidad" min="1" class="form-control" value="1">
                                 </div>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#seleccButaca">Seleccionar Butacas</button>
                                 <?php require_once(VIEWS_PATH.'seleccionarButacaFuncion.php'); ?>
+                                <button type="button" class="btn btn-success" onclick="obtenerButacasOcupadas()" data-toggle="modal" data-target="#seleccButaca">Seleccionar Butacas</button>
+                                <br>
+                                <br>
+                                <button type="submit" class="btn">Enviar</button>
                             </form>
                         
                     </div>
@@ -69,14 +72,9 @@ UsuarioController::verifUserLogueado();
             </div>
         </div>
                     
+    </div>  
     </div>
-    
-    </div>
-    
-
 </div>
-
-
 
 
 

@@ -338,14 +338,20 @@ a:link, a:visited, a:active {
 
 .butaca {
     display: inline-block;
-    font-size: 30px;
-    background-color: red;
+    font-size: 25px;
+    
+    margin: 10px 5px 0px 5px;
+   
 }
 .butaca input[type="checkbox"] {
    display: block;
+   margin-left: 4px;
 }
 
 .butaca__img {
     text-align: center;
    
+}
+.container-butacas {
+    text-align: center;
 }
