@@ -139,7 +139,7 @@ function obtenerButacasOcupadas() {
                     html = html+`<div class='butaca' style='background-color: green;'><input type='checkbox'  value='${x}+${y}' name='butacas[]' onchange='validarButacasSeleccionadas(${cantidad})'><span class='fas fa-chair'></span></div>`;
                 }
                 else {
-                    html = html+`<div class='butaca'  style='background-color:red;'><input type='checkbox'  value='${x}+${y}' name='butacas[]'><span class='fas fa-chair'></span></div>`;
+                    html = html+`<div class='butaca'  style='background-color:red;'><input type='checkbox'  value='${x}+${y}' name='butacas[]' disabled><span class='fas fa-chair'></span></div>`;
                 }
             }
             
