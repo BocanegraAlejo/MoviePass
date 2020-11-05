@@ -655,3 +655,12 @@ a:link, a:visited, a:active {
 .formulario-tarjeta .btn-enviar:hover {
 	background: #1850b1;
 }
+
+
+.entrada {
+    border: 8px dashed orange;
+    width: 600px;
+    height: 300px;
+    background: url('../img/spikes.png');
+    margin: 15px auto 0px auto;
+}

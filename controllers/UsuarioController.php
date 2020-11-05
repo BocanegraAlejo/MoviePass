@@ -108,18 +108,19 @@
                 $fbUserData['link']       = !empty($fbUser['link'])?$fbUser['link']:'';
                 
               
-                $usuario = new Usuario('',$fbUserData['email'],'',$fbUserData['first_name'],0);
+                
                 $existe = $this->UsuarioDAO->VerifExistenciaUser($fbUserData['email']);
                 
                 if(!empty($existe))
                 { 
-                    
+                    $usuario = new Usuario($existe[0]["id_usuario"],$fbUserData['email'],'',$fbUserData['first_name'],0);
                     $_SESSION['loggedUser'] = $usuario;
                     
                     header("location: /TP_LabIV/Usuario/ShowDashboard");    
                 }
                 else
                 {
+                    $usuario = new Usuario('',$fbUserData['email'],'',$fbUserData['first_name'],0);
                     $this->UsuarioDAO->Add($usuario);
                 }
                 

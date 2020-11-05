@@ -4,20 +4,32 @@
       use DAO\FuncionDAO;
       use DAO\TarjetaDAO;
       use DAO\ButacaDAO;
+      use DAO\CompraDAO;
+      use DAO\EntradaDAO;
       use Models\Tarjeta;
       use Models\Butaca;
-      class EntradaController
+      use Models\Compra;
+      use models\entrada;
+
+class EntradaController
       {
          private $funcionDAO;
          private $tarjetaDAO;
          private $butacaDAO;
+         private $compraDAO;
+         private $entradaDAO;
           public function __construct()
           {
             $this->funcionDAO = new FuncionDAO();
             $this->tarjetaDAO = new TarjetaDAO();
             $this->butacaDAO = new ButacaDAO();
+            $this->compraDAO = new CompraDAO();
+            $this->entradaDAO = new EntradaDAO();
           }
 
+          public function ShowViewVerMisEntradas() {
+            require_once(VIEWS_PATH.'verMisEntradas.php');
+          }
           public function procesaEntrada($id_funcion, $cantidadEntradas, $butacas) 
           {
 
@@ -31,9 +43,11 @@
             
             $tarjeta = new Tarjeta('',$numeroTarjeta,$nombreTitular,$mes,$anio,$ccv);
             if(!empty($this->tarjetaDAO->verificaTarjeta($tarjeta))) {
-              $_SESSION['Alertmessage'] = "INGRESO DE TARJETA EXITOSO!";
-              $this->ArmaArrayButacasYguarda($id_funcion, $butacas);
-              
+                $_SESSION['Alertmessage'] = "INGRESO DE TARJETA EXITOSO!";
+                $this->ArmaArrayButacasYguarda($id_funcion, $butacas);
+                $this->compraDAO->Add(new Compra('',$_SESSION['loggedUser']->getId_usuario(),count($butacas),0,$valor_entrada*count($butacas)));
+                $this->sacaEntradas($id_funcion,count($butacas));
+                require_once(VIEWS_PATH.'verMisEntradas.php');
             }else {
               //error, esa tarjeta no es valida
               
@@ -43,6 +57,13 @@
             }
           }
           
+          private function sacaEntradas($id_funcion,$cantidad) {
+            $ultimoIDcompra = $this->compraDAO->obtenerUltimoId_compra();
+            for($x=0; $x<$cantidad; $x++) {
+              $qrRandom = uniqid();
+              $this->entradaDAO->Add(new Entrada('',$ultimoIDcompra,$id_funcion,$qrRandom));
+            }
+          }
           private function ArmaArrayButacasYguarda($id_funcion,$arrButacas) {
             
             foreach ($arrButacas as $key => $value) {
