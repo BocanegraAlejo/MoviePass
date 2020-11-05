@@ -77,7 +77,7 @@ require_once(VIEWS_PATH.'CheckoutPago.php')
             </div>
 
             <!-- Formulario -->
-            <form action="<?=FRONT_ROOT?>Entrada/procesaPago" id="formulario-tarjeta" class="formulario-tarjeta">
+            <form action="<?=FRONT_ROOT?>Entrada/procesaPago" method="post" id="formulario-tarjeta" class="formulario-tarjeta">
                 <div class="grupo">
                     <label for="inputNumero">Número Tarjeta</label>
                     <input type="text" name="nro" id="inputNumero" maxlength="19" autocomplete="off">
@@ -110,7 +110,12 @@ require_once(VIEWS_PATH.'CheckoutPago.php')
                         <input type="text" name="ccv" id="inputCCV" maxlength="3">
                     </div>
                 </div>
-                <input type="hidden" name="butacas" value="<?=$butacas?>">
+                <?php 
+                    foreach ($butacas as $key => $value) {
+                        ?><input type="hidden" name="butacas[]" value="<?=$value?>"><?php
+                    }
+                ?>
+                
                 <input type="hidden" name="id_funcion" value="<?=$id_funcion?>">
                 <input type="hidden" name="valor_entrada" value="<?=$datosEntrada["valor_entrada"] ?>">
                 <button type="submit" class="btn-enviar">Enviar</button>

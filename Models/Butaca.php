@@ -4,14 +4,14 @@
 
     class Butaca implements JsonSerializable {
         private $id_butaca;
-        private $id_sala;
+        private $id_funcion;
         private $fila;
         private $columna;
        
 
-        public function __construct($id_butaca = '',$id_sala = '',$fila = '',$columna = '') {
+        public function __construct($id_butaca = '',$id_funcion = '',$fila = '',$columna = '') {
            $this->id_butaca = $id_butaca;
-           $this->id_sala = $id_sala;
+           $this->id_sala = $id_funcion;
            $this->fila = $fila;
            $this->columna = $columna;
             
@@ -30,15 +30,15 @@
         }
 
        
-        public function getId_sala()
+        public function getId_funcion()
         {
-            return $this->id_sala;
+            return $this->id_funcion;
         }
 
       
-        public function setId_sala($id_sala)
+        public function setId_funcion($id_funcion)
         {
-            $this->id_sala = $id_sala;
+            $this->id_funcion = $id_funcion;
         }
 
     

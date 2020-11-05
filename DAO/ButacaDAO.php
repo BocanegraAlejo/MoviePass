@@ -14,8 +14,8 @@ class ButacaDAO {
     {
         try
         {
-            $query = "INSERT INTO ".$this->tableName." (id_sala,fila,columna) VALUES (:id_sala, :fila, :columna);";
-            $parameters["id_sala"] = $butaca->getId_sala();
+            $query = "INSERT INTO ".$this->tableName." (id_funcion,fila,columna) VALUES (:id_funcion, :fila, :columna);";
+            $parameters["id_funcion"] = $butaca->getId_funcion();
             $parameters["fila"] = $butaca->getFila();
             $parameters["columna"] = $butaca->getColumna();
 
@@ -34,7 +34,7 @@ class ButacaDAO {
         {
             $butacasList = array();
 
-            $query = "SELECT f.id_sala, b.fila, b.columna FROM $this->tableName b
+            $query = "SELECT f.id_funcion, b.fila, b.columna FROM $this->tableName b
             INNER JOIN funcion f ON b.id_funcion=f.id_funcion
             WHERE b.id_funcion='$id_funcion'";
 
@@ -45,7 +45,7 @@ class ButacaDAO {
             foreach ($resultSet as $row)
             {               
                 $butaca = new Butaca();
-                $butaca->setId_sala($row["id_sala"]);
+                $butaca->setId_funcion($row["id_funcion"]);
                 $butaca->setFila($row["fila"]);
                 $butaca->setColumna($row["columna"]);
               

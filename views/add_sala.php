@@ -18,11 +18,11 @@
         <div class="form-row">
           <div class="form-group col">
             <label for="cant_filas">Cantidad de Filas:</label>
-            <input type="number" name="cant_filas" class="form-control" id="cant_filas" required>
+            <input type="number" min="1" max="40" name="cant_filas" class="form-control" id="cant_filas" required>
           </div>
           <div class="form-group col">
             <label for="cant_columnas">Cantidad de Columnas:</label>
-            <input type="number" name="cant_columnas" class="form-control" id="cant_columnas" required>
+            <input type="number" min="1" max="30" name="cant_columnas" class="form-control" id="cant_columnas" required>
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>

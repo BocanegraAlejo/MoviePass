@@ -13,12 +13,20 @@ class TarjetaDAO  {
     public function verificaTarjeta(Tarjeta $tarjeta) {
         try
         {
-            $query = "SELECT * FROM `".$this->tableName."` WHERE nro='$tarjeta->getNro()' and nombre='$tarjeta->getNombre()' and mes='$tarjeta->getMes()' and anio='$tarjeta->getAnio()' and ccv='$tarjeta->getCcv()'";
+            
+            $nro = $tarjeta->getNro();
+            $nombre = $tarjeta->getNombre();
+            $mes = $tarjeta->getMes();
+            $anio = $tarjeta->getAnio();
+            $ccv = $tarjeta->getCcv();
+            
+            $query = "SELECT * FROM `".$this->tableName."` WHERE nro='$nro' and nombre='$nombre' and mes='$mes' and anio='$anio' and ccv='$ccv'";
 
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
-            return $resultSet[0];
+            
+            return $resultSet;
            
            
         }
