@@ -323,6 +323,31 @@ class FuncionDAO  {
         }
     }
 
+    public function getDatosEntrada($id_funcion) {
+        try
+        {
+           
+            $horarioFuncionList = array();
+            
+            $query = "SELECT c.nombre, c.direccion, s.nombre_sala, p.titulo, c.valor_entrada, f.horaYdia
+            FROM $this->tableName f
+            INNER JOIN sala s ON f.id_sala=s.id_sala
+            INNER JOIN cine c ON s.id_cine=c.id_cine
+            INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+            WHERE f.id_funcion='$id_funcion'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            
+            return $resultSet[0];
+           
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
     // Retorna un Array con Todas las fechas de peliculas correspondientes a un dia en un cine
     public function BuscarDiasXPelicula($id_cine, $id_pelicula) {
         try

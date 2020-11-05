@@ -175,7 +175,7 @@ function validarButacasSeleccionadas(cantidadMaxima) {
             // Comprobamos si supera la cantidad máxima indicada
             if(contador>cantidadMaxima)
             {
-                alert("Has seleccionado mas checkbox que los indicados");
+                alert("Ya ha seleccionado las"+ cantidadMaxima +"butacas");
     
                 // Desmarcamos el ultimo elemento
                 $(elemento).prop('checked', false);
@@ -186,5 +186,25 @@ function validarButacasSeleccionadas(cantidadMaxima) {
         });
 
 }
+
+function validarCantidadButacas() {
+  
+    let cantidadEntradas = $('#cantidad').val();
+    let valoresCheck = [];
+    $("input[type=checkbox]:checked").each(function(){
+        valoresCheck.push(this.value);
+    });
+    
+    if(valoresCheck.length < cantidadEntradas) {
+        alert("Falta Seleccionar Butacas");
+        
+        return false;
+    }
+    else {
+        console.log('else');
+        return true;
+    }
+}
+
 
  

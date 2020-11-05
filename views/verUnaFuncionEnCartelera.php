@@ -45,10 +45,10 @@ UsuarioController::verifUserLogueado();
                     <div class="col-md-12">
                         <h3 class="">Compra tus Entradas!</h3>
                            
-                            <form method="post" action="<?=FRONT_ROOT ?>Entrada/procesaEntrada">
+                            <form method="post" onsubmit="return validarCantidadButacas(event);" action="<?=FRONT_ROOT ?>Entrada/procesaEntrada">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect2">Seleccione la funcion deseada:</label>
-                                    <select multiple class="form-control" name="funcion" id="exampleFormControlSelect2">
+                                    <select multiple class="form-control" name="funcion" id="exampleFormControlSelect2" required>
                                         <?php
                                         foreach ($arrFunciones as $key => $value) {
                                             echo "<option value='".$value->getId_funcion()."'>".$value->getFecha(). "  --  " .$value->getHora()." || ".$value->getIdioma()."</option>";
