@@ -14,7 +14,7 @@ class CompraDAO {
     {
         try
         {
-            $query = "INSERT INTO ".$this->tableName." (id_usuario,cantidad,descuento,total) VALUES (:id_usuario,:cantidad,:descuento,:total,);";
+            $query = "INSERT INTO ".$this->tableName." (id_usuario,cantidad,descuento,total) VALUES (:id_usuario,:cantidad,:descuento,:total);";
            
             $parameters["id_usuario"] = $compra->getId_usuario();
             $parameters["cantidad"] = $compra->getCantidad();

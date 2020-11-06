@@ -664,3 +664,49 @@ a:link, a:visited, a:active {
     background: url('../img/spikes.png');
     margin: 15px auto 0px auto;
 }
+
+.entrada img {
+    margin-left: 490px;
+    margin-top: -55px;
+   
+}
+
+.entrada .title-cine {
+    text-align: center;
+    color: #000;
+    font-family: 'Oswald', sans-serif;
+    font-size: 45px;
+}
+.entrada__titulo {
+    text-align: center;
+    color: #000;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 35px;
+}
+
+.entrada__horaYdia {
+    text-align: center;
+    color: #000;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.entrada__precio {
+    position: absolute;
+    right: 400px;
+    margin-top: 30px;
+    color: #000;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 45px;
+}
+
+.entrada .cine_y_sala {
+    margin-top: 30px;
+    color: #000;
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    margin-left: 10px;
+}

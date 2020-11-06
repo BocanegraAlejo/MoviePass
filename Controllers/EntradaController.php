@@ -1,6 +1,7 @@
 <?php
+
       namespace Controllers;
-     
+      
       use DAO\FuncionDAO;
       use DAO\TarjetaDAO;
       use DAO\ButacaDAO;
@@ -10,7 +11,7 @@
       use Models\Butaca;
       use Models\Compra;
       use models\entrada;
-
+      use QRcode;
 class EntradaController
       {
          private $funcionDAO;
@@ -28,6 +29,7 @@ class EntradaController
           }
 
           public function ShowViewVerMisEntradas() {
+            
             require_once(VIEWS_PATH.'verMisEntradas.php');
           }
           public function procesaEntrada($id_funcion, $cantidadEntradas, $butacas) 
@@ -46,7 +48,8 @@ class EntradaController
                 $_SESSION['Alertmessage'] = "INGRESO DE TARJETA EXITOSO!";
                 $this->ArmaArrayButacasYguarda($id_funcion, $butacas);
                 $this->compraDAO->Add(new Compra('',$_SESSION['loggedUser']->getId_usuario(),count($butacas),0,$valor_entrada*count($butacas)));
-                $this->sacaEntradas($id_funcion,count($butacas));
+                $arrEntradas = $this->sacaEntradas($id_funcion,count($butacas));
+                $datosEntrada = $this->funcionDAO->getDatosEntrada($id_funcion);
                 require_once(VIEWS_PATH.'verMisEntradas.php');
             }else {
               //error, esa tarjeta no es valida
@@ -59,10 +62,15 @@ class EntradaController
           
           private function sacaEntradas($id_funcion,$cantidad) {
             $ultimoIDcompra = $this->compraDAO->obtenerUltimoId_compra();
+            $arrEntradas = array();
             for($x=0; $x<$cantidad; $x++) {
               $qrRandom = uniqid();
-              $this->entradaDAO->Add(new Entrada('',$ultimoIDcompra,$id_funcion,$qrRandom));
+              $entrada = new Entrada('',$ultimoIDcompra,$id_funcion,$this->generaQr($qrRandom));
+              $this->entradaDAO->Add($entrada);
+              
+              array_push($arrEntradas,$entrada);
             }
+            return $arrEntradas;
           }
           private function ArmaArrayButacasYguarda($id_funcion,$arrButacas) {
             
@@ -75,6 +83,35 @@ class EntradaController
 
               $this->butacaDAO->Add($butaca);
             }
+          }
+
+          public function generaQr($codeqr) {
+            //Agregamos la libreria para genera códigos QR
+            require_once(ROOT."phpqrcode/qrlib.php");    
+            
+            //Declaramos una carpeta temporal para guardar la imagenes generadas
+            $dir = FRONT_ROOT.'views/img/temp/';
+            
+            /*Si no existe la carpeta la creamos
+            if (!file_exists($dir))
+                  mkdir($dir); */
+            
+                  //Declaramos la ruta y nombre del archivo a generar
+            $filename = 'views/img/temp/'.$codeqr.'.png';
+          
+                  //Parametros de Condiguración
+            
+            $tamaño = 4; //Tamaño de Pixel
+            $level = 'L'; //Precisión Baja
+            $framSize = 1; //Tamaño en blanco
+            $contenido = $codeqr; //Texto
+            
+                  //Enviamos los parametros a la Función para generar código QR 
+            QRcode::png($contenido, $filename, $level, $tamaño, $framSize); 
+            
+                  //Mostramos la imagen generada
+            return $dir.basename($filename);  
+           
           }
           
     }
