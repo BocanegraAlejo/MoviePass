@@ -61,10 +61,11 @@ UsuarioController::verifUserLogueado();
                                     <input type="number" name="cantidad" id="cantidad" min="1" class="form-control" value="1">
                                 </div>
                                 <?php require_once(VIEWS_PATH.'seleccionarButacaFuncion.php'); ?>
-                                <button type="button" class="btn btn-success" onclick="obtenerButacasOcupadas()" data-toggle="modal" data-target="#seleccButaca">Seleccionar Butacas</button>
+                                <button style="margin-left:110px;" type="button" class="btn btn-primary" onclick="obtenerButacasOcupadas()" data-toggle="modal" data-target="#seleccButaca">Seleccionar Butacas</button>
                                 <br>
                                 <br>
-                                <button type="submit" class="btn">Enviar</button>
+                                <br>
+                                <button type="submit"  class="btn btn-block btn-success">Enviar</button>
                             </form>
                         
                     </div>

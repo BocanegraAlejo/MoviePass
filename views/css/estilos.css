@@ -670,7 +670,11 @@ a:link, a:visited, a:active {
     margin-top: -55px;
    
 }
-
+.entrada .entrada__qrcode {
+    position: absolute;
+    left: 400px;
+    margin-top: -58px;
+}
 .entrada .title-cine {
     text-align: center;
     color: #000;
@@ -709,4 +713,11 @@ a:link, a:visited, a:active {
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
     margin-left: 10px;
+}
+
+.entrada__butaca {
+    position:absolute;
+    left: 640px;
+    text-align: center;
+    margin-top: -35px;
 }
