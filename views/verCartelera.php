@@ -2,7 +2,6 @@
 require_once(VIEWS_PATH.'header.php');
 Controllers\UsuarioController::verifUserLogueado();
 $_SESSION['btnPeli'] = 0;
-var_dump($id_sala);
 ?>
 <div class="container">
     <div class="d-flex justify-content-center">
@@ -53,7 +52,7 @@ var_dump($id_sala);
                         <td><?= $value->getTitulo_pelicula(); ?></td>
                         <td><?= $value->getIdioma(); ?></td>
                         <td><?= $value->getDuracion(); ?></td>
-                        <td><?= $value->getFecha(); ?></td>
+                        <td><?= date("d/m/Y", strtotime($value->getFecha())); ?></td>
                         <td><?= $value->getHora(); ?></td>
                         <td>
                           <button class="btn btn-primary" onclick="validarSalaModificar(<?=$value->getId_funcion()?>)" type="button" data-toggle="modal" ><i class="fa fa-pencil" aria-hidden="true"></i></button>  

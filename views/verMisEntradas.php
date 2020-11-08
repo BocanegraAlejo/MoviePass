@@ -19,7 +19,7 @@
             </div>
             <div class="d-flex flex-column">
                 <h2 class="entrada__titulo"><?= $datosEntrada["titulo"]?></h2>
-                <h2 class="entrada__horaYdia"><?= $datosEntrada["horaYdia"]?></h2>
+                <h2 class="entrada__horaYdia"><?= date("d/m/Y H:i:s", strtotime($datosEntrada["horaYdia"]));?></h2>
             </div>
             <br>
             <div class="d-flex flex-row justify-content-between p-3">

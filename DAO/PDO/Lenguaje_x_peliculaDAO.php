@@ -1,6 +1,5 @@
 <?php
-    namespace DAO;
-    use DAO\Connection as Connection;
+    namespace DAO\PDO;
     use \Exception as Exception;
     use models\Idioma;
     class Lenguaje_x_peliculaDAO 

@@ -1,10 +1,8 @@
 <?php
-namespace DAO;
-use DAO\ICineDAO;
-use DAO\Connection as Connection;
+namespace DAO\PDO;
 use \Exception as Exception;
 use models\Cine;
-use DAO\PDO;
+
 
 
 class CineDAO {
@@ -15,14 +13,13 @@ class CineDAO {
     {
         try
         {
-            $query = "INSERT INTO ".$this->tableName." (id_usuario, nombre, direccion, horario_apertura, horario_cierre, valor_entrada, capacidad_total) VALUES (:id_usuario, :nombre, :direccion, :horario_apertura, :horario_cierre, :valor_entrada, :capacidad_total);";
+            $query = "INSERT INTO ".$this->tableName." (id_usuario, nombre, direccion, horario_apertura, horario_cierre, valor_entrada) VALUES (:id_usuario, :nombre, :direccion, :horario_apertura, :horario_cierre, :valor_entrada);";
             $parameters["id_usuario"] = $cine->getId_usuario();
             $parameters["nombre"] = $cine->getNombre();
             $parameters["direccion"] = $cine->getDireccion();
             $parameters["horario_apertura"] = $cine->getHorario_apertura();
             $parameters["horario_cierre"] = $cine->getHorario_cierre();
             $parameters["valor_entrada"] = $cine->getValorEntrada();
-            $parameters["capacidad_total"] = $cine->getCapacidadTotal();
             
 
             $this->connection = Connection::GetInstance();
@@ -42,7 +39,8 @@ class CineDAO {
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
-            return $resultSet[0];
+
+            return new Cine($resultSet[0]['id_cine'],$_SESSION['loggedUser']->getId_usuario(),$resultSet[0]['nombre'],$resultSet[0]['direccion'],$resultSet[0]['horario_apertura'],$resultSet[0]['horario_cierre'],$resultSet[0]['valor_entrada'],'');
            
            
         }
@@ -57,7 +55,7 @@ class CineDAO {
     {
         try
         {
-            $query = "UPDATE ".$this->tableName." SET nombre=:nombre,direccion=:direccion,horario_apertura=:horario_apertura,horario_cierre=:horario_cierre,valor_entrada=:valor_entrada,capacidad_total=:capacidad_total  where id_cine= :id";
+            $query = "UPDATE ".$this->tableName." SET nombre=:nombre,direccion=:direccion,horario_apertura=:horario_apertura,horario_cierre=:horario_cierre,valor_entrada=:valor_entrada  where id_cine= :id";
             
             $parameters["id"] = $cine->getId();
             $parameters["nombre"] = $cine->getNombre();
@@ -65,7 +63,7 @@ class CineDAO {
             $parameters["horario_apertura"] = $cine->getHorario_apertura();
             $parameters["horario_cierre"] = $cine->getHorario_cierre();
             $parameters["valor_entrada"] = $cine->getValorEntrada();
-            $parameters["capacidad_total"] = $cine->getCapacidadTotal();
+            
 
             $this->connection = Connection::GetInstance();
             
@@ -94,13 +92,13 @@ class CineDAO {
             throw $ex;
         }
     }
-    public function GetAll()
+    public function GetAll($id_user)
     {
         try
         {
             $cinesList = array();
-
-            $query = "SELECT * FROM $this->tableName WHERE id_usuario= ".$_SESSION['loggedUser']->getId_usuario();
+            
+            $query = "SELECT * FROM $this->tableName WHERE id_usuario='$id_user'";
 
             $this->connection = Connection::GetInstance();
 
@@ -115,11 +113,10 @@ class CineDAO {
                 $cine->setHorario_apertura($row["horario_apertura"]);
                 $cine->setHorario_cierre($row["horario_cierre"]);
                 $cine->setValorEntrada($row["valor_entrada"]);
-                $cine->setCapacidadTotal($row["capacidad_total"]);
                 
                 array_push($cinesList, $cine);
             }
-
+            
             return $cinesList;
         }
         catch(Exception $ex)
@@ -149,7 +146,6 @@ class CineDAO {
                 $cine->setHorario_apertura($row["horario_apertura"]);
                 $cine->setHorario_cierre($row["horario_cierre"]);
                 $cine->setValorEntrada($row["valor_entrada"]);
-                $cine->setCapacidadTotal($row["capacidad_total"]);
                 
                 array_push($cinesList, $cine);
             }

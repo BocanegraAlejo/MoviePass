@@ -40,7 +40,7 @@ Controllers\UsuarioController::verifUserLogueado();
                         <h5 class="card-title"><?=$value->{'title'}?></h5>
                         <p class="card-text"><?=$this->cortarCadena($value->{'overview'},130)?></p>
                         <blockquote class="blockquote mb-0">
-                            <footer class="blockquote-footer"><?=$value->{'release_date'}?></footer>
+                            <footer class="blockquote-footer"><?=date("d/m/Y", strtotime($value->{'release_date'}))?></footer>
                         </blockquote>
                         <?php
                         if($_SESSION['btnPeli']!=1) {

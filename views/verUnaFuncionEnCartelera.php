@@ -16,7 +16,7 @@ UsuarioController::verifUserLogueado();
                         <div class="datos-peli">
                             <strong>Titulo: </strong><?=$pelicula->getTitulo() ?>
                             <br>
-                            <strong>Fecha Lanzamiento: </strong><?=$pelicula->getFecha() ?>
+                            <strong>Fecha Lanzamiento: </strong><?=date("d/m/Y", strtotime($pelicula->getFecha())); ?>
                             <br>
                             <strong>Duración: </strong><?=$pelicula->getDuracion() ?>
                             <br>
@@ -51,7 +51,7 @@ UsuarioController::verifUserLogueado();
                                     <select multiple class="form-control" name="funcion" id="exampleFormControlSelect2" required>
                                         <?php
                                         foreach ($arrFunciones as $key => $value) {
-                                            echo "<option value='".$value->getId_funcion()."'>".$value->getFecha(). "  --  " .$value->getHora()." || ".$value->getIdioma()."</option>";
+                                            echo "<option value='".$value->getId_funcion()."'>".date("d/m/Y", strtotime($value->getFecha())). "  --  " .$value->getHora()." || ".$value->getIdioma()."</option>";
                                         }
                                         ?>
                                     </select>

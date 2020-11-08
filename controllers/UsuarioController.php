@@ -1,9 +1,10 @@
 <?php
     namespace Controllers;
 
-    use DAO\CineDAO;
+    use DAO\PDO\CineDAO;
     use Models\Usuario;
-    use DAO\UsuarioDAO;
+    use DAO\PDO\UsuarioDAO;
+    use Exception;
     use Facebook\Facebook;
     use Facebook\Exceptions\FacebookResponseException;
     use Facebook\Exceptions\FacebookSDKException;
@@ -31,7 +32,6 @@
         public function ShowDashboard() {
             
             require_once(VIEWS_PATH."dashboard.php");
-            $this->mostrarAlerta();
         }
         public function ShowRegisterView()
         {
@@ -39,21 +39,26 @@
         }
 
         public function loguear($email = '', $clave = '') {
-            $userAux = $this->UsuarioDAO->verifExistenciaUser($email, $clave);
+            try {
+                 $userAux = $this->UsuarioDAO->verifExistenciaUser($email, $clave);
           
-            if(!empty($userAux) && $userAux[0]['clave'] == $clave)
-            {
-                $userObject = new Usuario($userAux[0]['id_usuario'],$userAux[0]['email'],$userAux[0]['clave'],'',$userAux[0]['admin']);
-                $_SESSION['loggedUser'] = $userObject;
-                $this->mostrarAlerta();
+                if(!empty($userAux) && $userAux->getClave() == $clave)
+                {
+                
+                $_SESSION['loggedUser'] = $userAux;
                 require_once(VIEWS_PATH."dashboard.php");
                 
-            }
-            else {
+                }
+                else {
                 
-                $_SESSION["Alertmessage"] = "ERROR! USUARIO Y/O CLAVE INCORRECTOS";
-                $this->ShowLoginView();
+                    $_SESSION["Alertmessage"] = "ERROR! USUARIO Y/O CLAVE INCORRECTOS";
+                    $this->ShowLoginView();
+                }
             }
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+           
         }
 
         public function loguearFacebook() {
@@ -108,21 +113,26 @@
                 $fbUserData['link']       = !empty($fbUser['link'])?$fbUser['link']:'';
                 
               
+                try {
+                     $existe = $this->UsuarioDAO->VerifExistenciaUser($fbUserData['email']);
                 
-                $existe = $this->UsuarioDAO->VerifExistenciaUser($fbUserData['email']);
-                
-                if(!empty($existe))
-                { 
-                    $usuario = new Usuario($existe[0]["id_usuario"],$fbUserData['email'],'',$fbUserData['first_name'],0);
-                    $_SESSION['loggedUser'] = $usuario;
-                    
-                    header("location: /TP_LabIV/Usuario/ShowDashboard");    
+                    if(!empty($existe))
+                    { 
+                        
+                        $_SESSION['loggedUser'] = $existe;
+                        
+                        header("location: /TP_LabIV/Usuario/ShowDashboard");    
+                    }
+                    else
+                    {
+                        $usuario = new Usuario('',$fbUserData['email'],'',$fbUserData['first_name'],0);
+                        $this->UsuarioDAO->Add($usuario);
+                    }
                 }
-                else
-                {
-                    $usuario = new Usuario('',$fbUserData['email'],'',$fbUserData['first_name'],0);
-                    $this->UsuarioDAO->Add($usuario);
+                catch(Exception $ex) {
+                    $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
                 }
+               
                 
                 // Get logout url
                 $logoutURL = $helper->getLogoutUrl($accessToken, FB_REDIRECT_URL.'logout.php');
@@ -137,17 +147,23 @@
         }
         
         public function registrarUsuario($nombre, $email, $pass) {
-            $Objectuser = $this->UsuarioDAO->VerifExistenciaUser($email);
-            if(empty($Objectuser)) {
-                $newUsuario = new Usuario('',$email,$pass,$nombre,0);
-                $this->UsuarioDAO->Add($newUsuario);
-                $_SESSION["Alertmessage"] = "Registro de Usuario Exitoso!";
-                $this->ShowLoginView();
+            try {
+                 $Objectuser = $this->UsuarioDAO->VerifExistenciaUser($email);
+                if(empty($Objectuser)) {
+                    $newUsuario = new Usuario('',$email,$pass,$nombre,0);
+                    $this->UsuarioDAO->Add($newUsuario);
+                    $_SESSION["Alertmessage"] = "Registro de Usuario Exitoso!";
+                    $this->ShowLoginView();
+                }
+                else {
+                    $_SESSION["Alertmessage"] = "ERROR! Ya existe una cuenta registrada con ese email!";
+                    $this->ShowLoginView();
+                }
             }
-            else {
-                $_SESSION["Alertmessage"] = "ERROR! Ya existe una cuenta registrada con ese email!";
-                $this->ShowLoginView();
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
             }
+           
         }
 
         public function destroySession() {
@@ -169,14 +185,9 @@
                 
                 if($_SESSION['loggedUser']->getAdmin()==1) {
                     $cineDAO = new CineDAO();
-                    $arrCines = $cineDAO->GetAll();
+                    $arrCines = $cineDAO->GetAll($_SESSION['loggedUser']->getId_usuario());
                     require_once(VIEWS_PATH."navAdmin.php");
                     
-                }
-                else if($_SESSION['loggedUser']->getAdmin()==2) {
-                    $cineDAO = new CineDAO();       //sacar despues
-                    $arrCines = $cineDAO->GetAll(); //sacar
-                    require_once(VIEWS_PATH."navSuperAdmin.php");
                 }
                 else {
                     require_once(VIEWS_PATH."nav.php");

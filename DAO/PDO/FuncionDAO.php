@@ -1,7 +1,6 @@
 <?php
-namespace DAO;
+namespace DAO\PDO;
 
-use DAO\Connection as Connection;
 use \Exception as Exception;
 use models\Funcion;
 use models\FuncionDB;
@@ -207,7 +206,8 @@ class FuncionDAO  {
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
-            return $resultSet[0];
+            
+            return new FuncionDB($resultSet[0]['id_funcion'],$resultSet[0]['id_sala'],$resultSet[0]['id_lenguaje'],$resultSet[0]['id_pelicula'],$resultSet[0]['horaYdia']);
            
            
         }
@@ -293,7 +293,7 @@ class FuncionDAO  {
     public function BuscarHorasOcupadasSala($id_sala, $dia) {
         try
         {
-           
+            $dia = date("Y-m-d", strtotime($dia));
             $horarioFuncionList = array();
             
             $query = "SELECT  DISTINCT TIME(horaYdia) horaYdia, p.duracion  FROM `".$this->tableName."`f  INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula

@@ -1,8 +1,9 @@
 <?php
     namespace Controllers;
-    use DAO\CineDAO;
-    use DAO\CompraDAO;
-use DAO\FuncionDAO;
+    use DAO\PDO\CineDAO;
+    use DAO\PDO\CompraDAO;
+    use DAO\PDO\FuncionDAO;
+    use Exception;
 
 class EstadisticasController
     {
@@ -19,7 +20,7 @@ class EstadisticasController
             $this->cineDAO = new CineDAO();
             $this->compraDAO = new CompraDAO();
             $this->funcionDAO = new FuncionDAO();
-            $this->arrCines = $this->cineDAO->GetAll();
+            $this->arrCines = $this->cineDAO->GetAll($_SESSION['loggedUser']->getId_usuario());
             
         }
 
@@ -38,14 +39,20 @@ class EstadisticasController
             $Total_totalButacas = 0;
             $Total_cantFunciones = 0;
             $Total_dineroRecaudado = 0;
-            if($id_cine == "") {
-               $estadisticas =  $this->funcionDAO->calcularEstadisticasAllCinesUser($_SESSION['loggedUser']->getId_usuario(), $fecha_ini, $fecha_fin);
+            try {
+                if($id_cine == "") {
+                    $estadisticas =  $this->funcionDAO->calcularEstadisticasAllCinesUser($_SESSION['loggedUser']->getId_usuario(), $fecha_ini, $fecha_fin);
+                 }
+                 else {
+                     $estadisticas = $this->funcionDAO->calcularEstadisticasXcine($id_cine, $fecha_ini, $fecha_fin);
+                 }
+                
+                 require_once(VIEWS_PATH.'estadisticas.php');
             }
-            else {
-                $estadisticas = $this->funcionDAO->calcularEstadisticasXcine($id_cine, $fecha_ini, $fecha_fin);
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
             }
            
-            require_once(VIEWS_PATH.'estadisticas.php');
         }
        
         

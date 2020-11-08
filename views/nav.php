@@ -1,12 +1,12 @@
 <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center navbar-dark bg-dark py-3 navbar-custom">
-    <a href="<?=FRONT_ROOT?>Cartelera/ShowCartelera" class="navbar-brand d-flex w-50 mr-auto">MOVIE PASS</a>
+    <a href="<?=FRONT_ROOT?>Usuario/ShowDashboard" class="navbar-brand d-flex w-50 mr-auto">MOVIE PASS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
         <ul class="navbar-nav w-100 justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cartelera/ShowCartelera"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Peliculas Actuales</a>
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cartelera/ShowCartelera"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Sacar Entrada</a>
             </li>
         </ul>
         <ul class="nav navbar-nav ml-auto w-100 justify-content-end">

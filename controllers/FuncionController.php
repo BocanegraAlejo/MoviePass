@@ -2,16 +2,18 @@
 
       namespace Controllers;
       use Models\Pelicula;
-      use DAO\FuncionDAO;
-      use DAO\SalaDAO;
-      use DAO\PeliculaDAO;
-      use DAO\GeneroDAO;
-      use DAO\IdiomaDAO;
-      use DAO\Lenguaje_x_peliculaDAO;
-      use DAO\Genero_x_peliculaDAO;
+      use DAO\PDO\FuncionDAO;
+      use DAO\PDO\SalaDAO;
+      use DAO\PDO\PeliculaDAO;
+      use DAO\PDO\GeneroDAO;
+      use DAO\PDO\IdiomaDAO;
+      use DAO\PDO\Lenguaje_x_peliculaDAO;
+      use DAO\PDO\Genero_x_peliculaDAO;
       use Models\FuncionDB;
       use DateTime;
-    class FuncionController
+use Exception;
+
+class FuncionController
       {
           private $salaDAO;
           private $funcionDAO;
@@ -40,9 +42,15 @@
           }
           
           public function verFuncionAllSalas($id_cine = '', $id_sala = '') {
-            $arrSalas = $this->salaDAO->getAllSalasXcine($id_cine);
-            $arrFunciones = $this->funcionDAO->getAllFuncionesXCine($id_cine);
-            require_once(VIEWS_PATH.'verCartelera.php');   
+            try {
+              $arrSalas = $this->salaDAO->getAllSalasXcine($id_cine);
+              $arrFunciones = $this->funcionDAO->getAllFuncionesXCine($id_cine);
+              require_once(VIEWS_PATH.'verCartelera.php');   
+            }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+           
             
           }
 
@@ -51,24 +59,36 @@
             if($id_sala == "") {
               $this->verFuncionAllSalas($id_cine, $id_sala);
             }
+            try {
+              $arrSalas = $this->salaDAO->getAllSalasXcine($id_cine);
             
-            $arrSalas = $this->salaDAO->getAllSalasXcine($id_cine);
+              $arrFunciones = $this->funcionDAO->getAllFuncionesXsala($id_sala);
             
-            $arrFunciones = $this->funcionDAO->getAllFuncionesXsala($id_sala);
+              require_once(VIEWS_PATH.'verCartelera.php'); 
+            }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
             
-            require_once(VIEWS_PATH.'verCartelera.php'); 
             
           }
 
           public function buscarLenguajesXidPelicula($id_pelicula) {
-            return $this->lenguaje_x_peliculaDAO->buscarLenguajesXidPelicula($id_pelicula);
+            try {
+              return $this->lenguaje_x_peliculaDAO->buscarLenguajesXidPelicula($id_pelicula);
+            }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+            
         }
         
           public function addFuncionToCartelera($id_cine, $id_sala, $id_pelicula,  $dia, $horario, $idioma) {
-            
+            try {
               $peliculaAPI = $this->peliculaDAO->GetPeliculaByID($id_pelicula);
-             
+              
               $objectPeli = $this->peliculaDAO->buscarPelicula($id_pelicula);
+              
               if(empty($objectPeli)) {
                 if(empty($peliculaAPI->{'videos'}->{'results'}[0]->{'key'})) {
                   $trailer = '';
@@ -79,71 +99,113 @@
                 $this->peliculaDAO->Add($pelicula);
                 $this->AddIdiomasByIDPelicula($id_pelicula);
                 $this->AddGenerosByIDPelicula($id_pelicula,$peliculaAPI->{'genres'});
+                
               }
-              
+              $dia =  date("Y-d-m", strtotime($dia));
               $diaYhora = $dia." ".$horario;
-               
+               var_dump($diaYhora);
                 $funcion = new FuncionDB('', $id_sala, $idioma, $id_pelicula,$diaYhora);
                 $this->funcionDAO->AddFuncion($funcion);
-              $this->verFuncionOneSala($id_cine, $id_sala);
-
+                $this->verFuncionOneSala($id_cine, $id_sala);
+            }catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
           }
 
           private function AddGenerosByIDPelicula($id_pelicula, $generos) {
+            try {
               foreach ($generos as $key => $value) {
-                  $this->genero_x_peliculaDAO->add($value->{'id'}, $id_pelicula);
+                $this->genero_x_peliculaDAO->add($value->{'id'}, $id_pelicula);
               }
+            }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+              
           }
           private function AddIdiomasByIDPelicula($id_pelicula) {
+            try {
               $arrIdiomas = $this->peliculaDAO->GetIdiomasByIDpelicula($id_pelicula);
               foreach ($arrIdiomas as $key => $value) {
                   $this->lenguaje_x_peliculaDAO->add($value,$id_pelicula);
               }
+            }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+              
           }
           
           public function modificaFuncion($id_funcion) {
-            $resultado = $this->funcionDAO->BuscarFuncionXid($id_funcion);
-            if(!empty($resultado))
-            {
-                $ObjectFuncion = new FuncionDB($resultado['id_funcion'],$resultado['id_sala'],$resultado['id_lenguaje'],$resultado['id_pelicula'],$resultado['horaYdia']);
+            try {
+              $ObjectFuncion = $this->funcionDAO->BuscarFuncionXid($id_funcion);
+              if(!empty($ObjectFuncion))
+              {
+                  return $ObjectFuncion;
+              }
+              
             }
-            return $ObjectFuncion;
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
         }
         
         public function ModificarFuncion2($id_cine, $id_sala, $id_funcion,$fecha, $hora, $idioma) {
           
             $diaYhora = $fecha." ".$hora;
+            try {
+              $ObjectFuncion = new FuncionDB($id_funcion,'',$idioma,'',$diaYhora);
+              $this->funcionDAO->ModificarFuncion($ObjectFuncion);
+              $this->verFuncionOneSala($id_cine, $id_sala);
+            }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
             
-            $ObjectFuncion = new FuncionDB($id_funcion,'',$idioma,'',$diaYhora);
-            $this->funcionDAO->ModificarFuncion($ObjectFuncion);
-            $this->verFuncionOneSala($id_cine, $id_sala);
         }
 
 
           public function ElimFuncion($id_cine, $id_sala, $id_funcion) {
-            $this->funcionDAO->eliminarFuncion($id_funcion);
-            $this->verFuncionOneSala($id_cine,$id_sala); 
+            try {
+               $this->funcionDAO->eliminarFuncion($id_funcion);
+              $this->verFuncionOneSala($id_cine,$id_sala); 
+            }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+           
           }
 
           public function getAllCines() {
-              return $this->cineDAO->getAll();
+              try {return $this->cineDAO->getAll(); } 
+              catch(Exception $ex) { $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}"; }
           }
           
         
           public function BuscarDiasXPelicula($id_cine, $id_pelicula) {
-
-            $arrDias =  array_column($this->funcionDAO->BuscarDiasXPelicula($id_cine,$id_pelicula),0);
-            //$arrDiasString = "['".implode(" ','",$arrDias)."']";
-            
-            echo json_encode($arrDias);
+            try {
+              $arr = array();
+              $arrDias =  array_column($this->funcionDAO->BuscarDiasXPelicula($id_cine,$id_pelicula),0);
+              foreach ($arrDias as $key => $value) {
+                $fech = date("d/m/Y", strtotime($value));
+                array_push($arr,$fech);
+              }
+              
+              echo json_encode($arr);
+            }catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
           }
 
           
           public function BuscarHorariosXdia($id_sala, $dia, $id_pelicula) {
-            $pelicula = $this->peliculaDAO->GetPeliculaByID($id_pelicula);
+            
+            try {
+              $pelicula = $this->peliculaDAO->GetPeliculaByID($id_pelicula);
            
             $duracionPelicula = date("i:s", $pelicula->{'runtime'}+15);
             $arrHorarioFuncion = $this->funcionDAO->BuscarHorasOcupadasSala($id_sala,$dia);
+           
             $arr24horas = $this->cargarArr24Hs();
             $arrdefinitivo = array();
             
@@ -166,21 +228,17 @@
             else {
               echo json_encode($arrdefinitivo);
             }
-            
+            }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            } 
           }
 
           private function FuncionRestarHoras($horarioInic,$duracionPelicula){
-            //echo 'horarioInic:'.$horarioInic;
-            //echo '<br>';
-            //echo 'duracionPelicula:'. $duracionPelicula;
-            //echo '<br>';
 
               $horarioInic = new DateTime($horarioInic);
               $duracionPelicula = new DateTime($duracionPelicula);
-            
-              
               $result = $horarioInic->diff($duracionPelicula);
-             // echo 'resultado:'.$result->format('%H:%i:%s');
               return $result->format('%H:%i:%s0');
               
           }
