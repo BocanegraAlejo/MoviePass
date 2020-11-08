@@ -48,9 +48,8 @@ class CompraDAO {
             {
                 throw $ex;
             }
-    
-        
     }
+
 }
 
 

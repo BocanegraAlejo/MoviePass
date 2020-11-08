@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center navbar-dark bg-dark py-3 navbar-custom">
-    <a href="<?=FRONT_ROOT?>Usuario/ShowDashboard" class="navbar-brand d-flex w-50 mr-auto">MOVIE PASS</a>
+    <a href="<?=FRONT_ROOT?>Cartelera/ShowCartelera" class="navbar-brand d-flex w-50 mr-auto">MOVIE PASS</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
         <span class="navbar-toggler-icon"></span>
     </button>

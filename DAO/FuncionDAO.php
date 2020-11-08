@@ -378,6 +378,60 @@ class FuncionDAO  {
         return date('H:i:s', $horaFinal);//imprimir la hora de destino
     }
 
+    public function calcularEstadisticasXcine($id_cine, $fecha_ini = '', $fecha_fin = '') {
+        try
+        {
+            $query = "SELECT p.titulo as `Pelicula` ,count(e.id_entrada) as `cantidad_tickets_vendidos`,(sum(s.cant_filas*s.cant_columnas))-count(e.id_entrada) as `cantidad_tickets_remanentes`,sum(s.cant_filas*s.cant_columnas) as `total_butacas`,count(f.id_pelicula) as `cantidad_funciones`,
+            (c.valor_entrada*count(e.id_entrada)) as `dinero_recaudado`
+            from $this->tableName f
+            INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+            INNER JOIN sala s ON f.id_sala=s.id_sala
+            INNER JOIN cine c ON s.id_cine=c.id_cine
+            LEFT JOIN entrada e ON f.id_funcion=e.id_funcion
+            WHERE c.id_cine='$id_cine' and f.horaYdia BETWEEN '$fecha_ini' AND '$fecha_fin' 
+            group by(f.id_pelicula)";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            
+            return $resultSet;
+           
+           
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function calcularEstadisticasAllCinesUser($id_user, $fecha_ini, $fecha_fin) {
+        try
+        {
+            $query = "SELECT p.titulo as `Pelicula` ,count(e.id_entrada) as `cantidad_tickets_vendidos`,(sum(s.cant_filas*s.cant_columnas))-count(e.id_entrada) as `cantidad_tickets_remanentes`,sum(s.cant_filas*s.cant_columnas) as `total_butacas`,count(f.id_pelicula) as `cantidad_funciones`,
+            (c.valor_entrada*count(e.id_entrada)) as `dinero_recaudado`
+            from $this->tableName f
+            INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula
+            INNER JOIN sala s ON f.id_sala=s.id_sala
+            INNER JOIN cine c ON s.id_cine=c.id_cine
+            LEFT JOIN entrada e ON f.id_funcion=e.id_funcion
+            WHERE c.id_usuario='$id_user' and f.horaYdia BETWEEN '$fecha_ini' AND '$fecha_fin'  
+            group by(f.id_pelicula)";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+            
+            return $resultSet;
+           
+           
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
 }
 
 
