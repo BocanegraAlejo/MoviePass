@@ -52,7 +52,7 @@ class EntradaController
             if(!empty($this->tarjetaDAO->verificaTarjeta($tarjeta))) {
                 $_SESSION['Alertmessage'] = "INGRESO DE TARJETA EXITOSO!";
                 $arrButacas = $this->ArmaArrayButacasYguarda($id_funcion, $butacas);
-                $this->compraDAO->Add(new Compra('',$_SESSION['loggedUser']->getId_usuario(),count($butacas),0,$valor_entrada*count($butacas)));
+                $this->compraDAO->Add(new Compra('',$_SESSION['loggedUser']->getId_usuario(),count($butacas),$this->calcularDescuento($valor_entrada,count($butacas)),($valor_entrada*count($butacas))-$this->calcularDescuento($valor_entrada,count($butacas))));
                 $arrEntradas = $this->sacaEntradas($id_funcion,count($butacas));
                 
                 $datosEntrada = $this->funcionDAO->getDatosEntrada($id_funcion);
@@ -68,6 +68,17 @@ class EntradaController
             }
           }
           
+          private function calcularDescuento($valor_entrada, $cantidad_entradas) {
+            $descuento_total = 0;
+            $dia_actual = date("l");
+            if($dia_actual == "Tuesday" || $dia_actual == "Wednesday") {
+              $descuentoXentrada = $valor_entrada * 0.25;
+              $descuento_total = $descuentoXentrada * $cantidad_entradas;
+            }
+            return $descuento_total;
+           
+          }
+
           private function sacaEntradas($id_funcion,$cantidad) {
             $ultimoIDcompra = $this->compraDAO->obtenerUltimoId_compra();
             $arrEntradas = array();
