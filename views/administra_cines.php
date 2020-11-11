@@ -26,7 +26,7 @@ require_once(VIEWS_PATH.'add_cine.php');
         </thead>
         <tbody>
             <?php
-            
+                
                 foreach ($arrCines as $key => $value) {
                     $ObjectCine = $this->ModificaCine($value->getId());
                     require(VIEWS_PATH.'modify_cine.php');

@@ -1,8 +1,8 @@
 <?php
-    namespace DAO;
+    namespace DAO\JSON;
     use Models\Usuario;
 
-   class UsuarioDAOjson 
+   class UsuarioDAO 
    {
        private $userList = array();
        private $fileName;

@@ -1,9 +1,8 @@
 <?php
-namespace DAO;
-use DAO\Connection as Connection;
+namespace DAO\PDO;
 use \Exception as Exception;
 use models\Tarjeta;
-use DAO\PDO;
+
 
 
 class TarjetaDAO  {

@@ -1,8 +1,8 @@
 <?php
-namespace DAO;
+namespace DAO\JSON;
 use Models\Cine as Cine;
 
-class CineDAOjson 
+class CineDAO 
 {
     private $cineList = array();
     private $fileName;

@@ -31,7 +31,7 @@
         <table id="tablaCines" class="table tableCines">
         <thead>
             <tr>
-                <td style="background-color:#C87D03;"></td>
+                <td style="background-color:#C87D03; border:1px none none none;"></td>
                 <th>Titulo Pelicula</th>
                 <th>tickets vendidos</th>
                 <th>tickets remanentes</th>
@@ -45,7 +45,7 @@
                 foreach ($estadisticas as $key => $value) {
                     ?>
                     <tr>
-                        <td style="background-color:#C87D03;"></td>
+                        <td style="background-color:#C87D03;border:none;"></td>
                         <td><?=$value["Pelicula"] ?></td>
                         <td><?=$value["cantidad_tickets_vendidos"] ?></td>
                         <td><?=$value["cantidad_tickets_remanentes"] ?></td>
@@ -68,7 +68,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>Totales:</th>
+                <th style='border: none;'>Totales:</th>
                 <th><?=  $Total_cantPeliculas ?></th>
                 <th><?= $Total_cantTicketsVendidos ?></th>
                 <th><?=  $Total_cantidadTicketsRemanentes ?></th>

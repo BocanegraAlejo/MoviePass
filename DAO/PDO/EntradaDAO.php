@@ -1,10 +1,10 @@
 <?php
 
-namespace DAO;
-use DAO\Connection as Connection;
+namespace DAO\PDO;
+
 use \Exception as Exception;
 use Models\entrada;
-use DAO\PDO;
+
 
 
 class EntradaDAO  {

@@ -1,5 +1,5 @@
 <?php
-    namespace DAO;
+    namespace DAO\PDO;
     use \Exception as Exception;
     use Models\Usuario;
     
@@ -68,7 +68,7 @@
 
                 $resultSet = $this->connection->Execute($query);
                 
-                return $resultSet;
+                return new Usuario($resultSet[0]['id_usuario'],$resultSet[0]['email'],$resultSet[0]['clave'],$resultSet[0]['nombre'],$resultSet[0]['admin']);
             
             
             }

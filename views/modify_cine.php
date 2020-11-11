@@ -2,7 +2,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">MODIFICAR UN CINE <?=$ObjectCine->getId();?></h5>
+        <h5 class="modal-title" id="exampleModalLabel">MODIFICAR UN CINE </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -32,10 +32,7 @@
           <label for="valor_entrada">Valor Entrada</label>
           <input type="number" min="0" name="valor_entrada" class="form-control" id="valor_entrada" value="<?=$ObjectCine->getValorEntrada(); ?>">
         </div>
-        <div class="form-group">
-          <label for="cap_total">Capacidad Total</label>
-          <input type="number" min="0" name="capacidad_total" class="form-control" id="cap_total" value="<?=$ObjectCine->getCapacidadTotal(); ?>">
-        </div>
+
         <button type="submit" class="btn btn-success">Enviar</button>
       </form>
     </div>

@@ -2,11 +2,11 @@
 
       namespace Controllers;
       
-      use DAO\FuncionDAO;
-      use DAO\TarjetaDAO;
-      use DAO\ButacaDAO;
-      use DAO\CompraDAO;
-      use DAO\EntradaDAO;
+      use DAO\PDO\FuncionDAO;
+      use DAO\PDO\TarjetaDAO;
+      use DAO\PDO\ButacaDAO;
+      use DAO\PDO\CompraDAO;
+      use DAO\PDO\EntradaDAO;
       use Models\Tarjeta;
       use Models\Butaca;
       use Models\Compra;
@@ -39,18 +39,23 @@ class EntradaController
           }
           public function procesaEntrada($id_funcion, $cantidadEntradas, $butacas) 
           {
-
-                $datosEntrada = $this->funcionDAO->getDatosEntrada($id_funcion);
+              try {
+                 $datosEntrada = $this->funcionDAO->getDatosEntrada($id_funcion);
                 $total_a_pagar = $datosEntrada["valor_entrada"] * $cantidadEntradas;
                 
                 require_once(VIEWS_PATH.'realizarCompra.php');
+              }catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+              }
+               
           }
 
           public function procesaPago($numeroTarjeta, $nombreTitular, $mes, $anio, $ccv, $butacas, $id_funcion, $valor_entrada) {
             
             $tarjeta = new Tarjeta('',$numeroTarjeta,$nombreTitular,$mes,$anio,$ccv);
-            if(!empty($this->tarjetaDAO->verificaTarjeta($tarjeta))) {
-                $_SESSION['Alertmessage'] = "INGRESO DE TARJETA EXITOSO!";
+            try {
+              if(!empty($this->tarjetaDAO->verificaTarjeta($tarjeta))) {
+                $_SESSION['Alertmessage'] = "FELICITACIONES! Su compra ha sido Exitosa, a continuacion podra visualizar las entradas, Tambien recibira una copia de las mismas a su mail registrado.";
                 $arrButacas = $this->ArmaArrayButacasYguarda($id_funcion, $butacas);
                 $this->compraDAO->Add(new Compra('',$_SESSION['loggedUser']->getId_usuario(),count($butacas),$this->calcularDescuento($valor_entrada,count($butacas)),($valor_entrada*count($butacas))-$this->calcularDescuento($valor_entrada,count($butacas))));
                 $arrEntradas = $this->sacaEntradas($id_funcion,count($butacas));
@@ -59,13 +64,17 @@ class EntradaController
                 $arrAbecedario = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
                 $this->enviaMail($datosEntrada,$arrButacas,$arrAbecedario,$arrEntradas);
                 require_once(VIEWS_PATH.'verMisEntradas.php');
-            }else {
+              }else {
               //error, esa tarjeta no es valida
+                $_SESSION['Alertmessage'] = "ERROR! tarjeta no valida!";
               
-              $_SESSION['Alertmessage'] = "ERROR! tarjeta no valida!";
-              
-              $this->procesaEntrada($id_funcion,count($butacas),$butacas);
+                $this->procesaEntrada($id_funcion,count($butacas),$butacas);
+              }
             }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+          
           }
           
           private function calcularDescuento($valor_entrada, $cantidad_entradas) {
@@ -80,32 +89,43 @@ class EntradaController
           }
 
           private function sacaEntradas($id_funcion,$cantidad) {
-            $ultimoIDcompra = $this->compraDAO->obtenerUltimoId_compra();
-            $arrEntradas = array();
-            for($x=0; $x<$cantidad; $x++) {
-              $qrRandom = uniqid();
-              $entrada = new Entrada('',$ultimoIDcompra,$id_funcion,$qrRandom);
-              $this->generaQr($qrRandom);
-              $this->entradaDAO->Add($entrada);
-              
-              array_push($arrEntradas,$entrada);
+            try {
+              $ultimoIDcompra = $this->compraDAO->obtenerUltimoId_compra();
+              $arrEntradas = array();
+              for($x=0; $x<$cantidad; $x++) {
+                $qrRandom = uniqid();
+                $entrada = new Entrada('',$ultimoIDcompra,$id_funcion,$qrRandom);
+                $this->generaQr($qrRandom);
+                $this->entradaDAO->Add($entrada);
+                
+                array_push($arrEntradas,$entrada);
+              }
             }
+            catch(Exception $ex) {
+              $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+            
             return $arrEntradas;
           }
           private function ArmaArrayButacasYguarda($id_funcion,$arrButacas) {
             $arr = array();
-            foreach ($arrButacas as $key => $value) {
-              $FilCol = explode("+",$value);
-              $butaca = new Butaca();
-              $butaca->setId_funcion($id_funcion);
-              $butaca->setFila($FilCol[0]);
-              $butaca->setColumna($FilCol[1]);
-              array_push($arr,$butaca);
-              $this->butacaDAO->Add($butaca);
+            try {
+              foreach ($arrButacas as $key => $value) {
+                $FilCol = explode("+",$value);
+                $butaca = new Butaca();
+                $butaca->setId_funcion($id_funcion);
+                $butaca->setFila($FilCol[0]);
+                $butaca->setColumna($FilCol[1]);
+                $this->butacaDAO->Add($butaca);
+                array_push($arr,$butaca);   
+              }
             }
-            return $arr;
-          }
-
+              catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+              }
+               return $arr;
+            }
+            
           public function generaQr($codeqr) {
             //Agregamos la libreria para genera códigos QR
             require_once(ROOT."phpqrcode/qrlib.php");    
@@ -172,7 +192,6 @@ class EntradaController
                   $strButaca =  $arrAbecedario[$arrButacas[$key]->getFila()]. "  ".$arrButacas[$key]->getColumna();
                   $mail->AddEmbeddedImage(VIEWS_PATH."img/temp/".$value->getQr_code().'.png', $value->getQr_code(), $value->getQr_code().".png");
                   
-                 /*<img style='margin-left: 490px;margin-top: -55px;' src='/TP_LabIV/views/img/temp/'".$value->getQr_code()."'.png'>*/
                  $mail->Body .= "
                  <table style='border: 8px dashed orange;width: 600px;height: 300px;margin: 15px auto 0px auto;'>
                     <tr>
@@ -181,7 +200,7 @@ class EntradaController
                       <td style='text-align:right;'><img alt='phpMailer' src='cid:".$value->getQr_code()."'></td>
                     </tr>
                     <tr> 
-                      <td style='text-align:center;font-size:25px;' colspan='3'>".$datosEntrada["titulo"]."<br>".$datosEntrada["horaYdia"]."</td>
+                      <td style='text-align:center;font-size:25px;' colspan='3'>".$datosEntrada["titulo"]."<br>".date("d/m/Y H:i:s", strtotime($datosEntrada["horaYdia"]))."</td>
                     </tr>
                     <tr>
                       <td style='font-size:20px;'><strong>CINE: </strong>".$datosEntrada["nombre"]."<br><strong>SALA: </strong>". $datosEntrada["nombre_sala"]."</td>

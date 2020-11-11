@@ -1,9 +1,8 @@
 <?php
-namespace DAO;
-use DAO\Connection as Connection;
+namespace DAO\PDO;
+
 use \Exception as Exception;
 use models\Sala;
-use DAO\PDO;
 
 
 class SalaDAO  {
@@ -76,7 +75,8 @@ class SalaDAO  {
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query);
-            return $resultSet[0];
+            
+            return new Sala($resultSet[0]['id_sala'],$resultSet[0]['id_cine'],$resultSet[0]['nombre_sala'], $resultSet[0]['cant_filas'],$resultSet[0]['cant_columnas']);
            
            
         }
@@ -111,6 +111,28 @@ class SalaDAO  {
             }
 
             return $salasList;
+
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
+    }
+
+    public function calcularTotalCapacidadAllSalas($id_cine) {
+        try
+        {
+           
+
+            $query = "SELECT SUM(cant_filas*cant_columnas) as `capacidad_cine` FROM $this->tableName WHERE id_cine='$id_cine'";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+           
+           return $resultSet[0]["capacidad_cine"];
+
+           
 
         }
         catch(Exception $ex)

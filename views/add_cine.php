@@ -32,10 +32,6 @@
           <label for="valor_entrada">Valor Entrada</label>
           <input type="number" min="0" name="valor_entrada" class="form-control" id="valor_entrada" required>
         </div>
-        <div class="form-group">
-          <label for="cap_total">Capacidad Total</label>
-          <input type="number" min="0" name="capacidad_total" class="form-control" id="cap_total" required>
-        </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
       

@@ -1,14 +1,17 @@
 <?php
     namespace Controllers;
     use models\Cine;
-    use DAO\CineDAO;
+    use DAO\PDO\CineDAO;
+    use DAO\PDO\SalaDAO;
+    use Exception;
 
-    class CineController {
+class CineController {
         private $CineDAO;
-        
+        private $SalaDAO;
+
         public function __construct() {
             $this->CineDAO = new CineDAO();
-            
+            $this->SalaDAO = new SalaDAO();
             
         }
 
@@ -28,40 +31,69 @@
         
 
         
-        public function altaCine($nombre, $direccion, $horario_apertura, $horario_cierre, $valor_entrada, $capacidad_total) {
-            
-            $cine = new Cine('',$_SESSION['loggedUser']->getId_usuario(),$nombre,$direccion,$horario_apertura,$horario_cierre, $valor_entrada, $capacidad_total);
-            $this->CineDAO->Add($cine);
-            $_SESSION["Alertmessage"] = "El cine se agrego correctamente!";
-            $this->ShowAdministraCine();
+        public function altaCine($nombre, $direccion, $horario_apertura, $horario_cierre, $valor_entrada) {
+            try {
+                $cine = new Cine('',$_SESSION['loggedUser']->getId_usuario(),$nombre,$direccion,$horario_apertura,$horario_cierre, $valor_entrada, '');
+                $this->CineDAO->Add($cine);
+                $_SESSION["Alertmessage"] = "El cine se agrego correctamente!";
+                $this->ShowAdministraCine();
+            }
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+           
         }
 
         public function ModificaCine($id) {
-            
-            $resultado = $this->CineDAO->BuscarId($id);
-            
-            if(!empty($resultado))
-            {
-                $ObjectCine = new Cine($resultado['id_cine'],$_SESSION['loggedUser']->getId_usuario(),$resultado['nombre'],$resultado['direccion'],$resultado['horario_apertura'],$resultado['horario_cierre'],$resultado['valor_entrada'],$resultado['capacidad_total']);
-
+            try {
+                 $ObjectCine = $this->CineDAO->BuscarId($id);
+                if(!empty($ObjectCine))
+                {
+                    return $ObjectCine;
+                }
             }
-            return $ObjectCine;
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
         }
 
-        public function ModificarCine2($id,$nombre, $direccion, $horario_apertura, $horario_cierre, $valor_entrada, $capacidad_total) {
-            $ObjectCine = new Cine($id,$_SESSION['loggedUser']->getId_usuario(),$nombre,$direccion,$horario_apertura,$horario_cierre,$valor_entrada,$capacidad_total);
-            $this->CineDAO->ModificarCine($ObjectCine);
-            $this->ShowAdministraCine();
+        public function ModificarCine2($id,$nombre, $direccion, $horario_apertura, $horario_cierre, $valor_entrada) {
+            try {
+                  $ObjectCine = new Cine($id,$_SESSION['loggedUser']->getId_usuario(),$nombre,$direccion,$horario_apertura,$horario_cierre,$valor_entrada,'');
+                $this->CineDAO->ModificarCine($ObjectCine);
+                $this->ShowAdministraCine();
+            }
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+          
            
         }
         
         public function ElimCine($id_cine) {
-            $this->CineDAO->EliminarCine($id_cine);
-            $this->ShowAdministraCine();
+            try {
+                $this->CineDAO->EliminarCine($id_cine);
+                $this->ShowAdministraCine();
+            }
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+            
 
         }
         public function getAllCines() {
-            return $this->CineDAO->GetAll();
+            try {
+                $arrCines = $this->CineDAO->GetAll($_SESSION['loggedUser']->getId_usuario());
+                foreach ($arrCines as $key => $value) {
+                    $value->setCapacidadTotal($this->SalaDAO->calcularTotalCapacidadAllSalas($value->getId()));
+                }
+                return $arrCines; 
+               
+            }
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+           
         }
     }
         

@@ -1,11 +1,13 @@
 <?php
       namespace Controllers;
 
-use DAO\FuncionDAO;
-use DAO\PeliculaDAO;
-use DAO\IdiomaDAO;  
-use DAO\Lenguaje_x_peliculaDAO; 
-      class PeliculaController
+use DAO\PDO\FuncionDAO;
+use DAO\PDO\PeliculaDAO;
+use DAO\PDO\IdiomaDAO;  
+use DAO\PDO\Lenguaje_x_peliculaDAO;
+use Exception;
+
+class PeliculaController
       {
           private $PeliculaDAO;
           private $idiomaDAO;
@@ -39,7 +41,7 @@ use DAO\Lenguaje_x_peliculaDAO;
        
 
           public function getLenguajesFromPelicula($id_pelicula) {
-
+            
                $datos =  $this->PeliculaDAO->GetPeliculaByID($id_pelicula);
                $originalLanguage = $datos->{'original_language'};
                 $x=0; $flag = 0;
@@ -51,15 +53,18 @@ use DAO\Lenguaje_x_peliculaDAO;
                    $x++;
                }
                $arrIdiomas = array();
-               foreach ($datos->{'spoken_languages'} as $key => $value) {
-                   $objectIdioma = $this->idiomaDAO->buscarIdiomaXid($datos->{'spoken_languages'}[$key]->{'iso_639_1'});
-                   array_push($arrIdiomas,$objectIdioma);
+               try {
+                foreach ($datos->{'spoken_languages'} as $key => $value) {
+                    $objectIdioma = $this->idiomaDAO->buscarIdiomaXid($datos->{'spoken_languages'}[$key]->{'iso_639_1'});
+                    array_push($arrIdiomas,$objectIdioma);
+                }
+                if($flag == 0) {
+                    $objectIdioma = $this->idiomaDAO->buscarIdiomaXid($datos->{'original_language'});
+                    array_push($arrIdiomas,$objectIdioma);
+                }
+               }catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
                }
-               if($flag == 0) {
-                   $objectIdioma = $this->idiomaDAO->buscarIdiomaXid($datos->{'original_language'});
-                   array_push($arrIdiomas,$objectIdioma);
-               }
-              // print_r($arrIdiomas);
                echo json_encode($arrIdiomas);
                
           }

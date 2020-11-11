@@ -1,8 +1,6 @@
 <?php
-namespace DAO;
-use DAO\Connection as Connection;
+namespace DAO\PDO;
 use \Exception as Exception;
-use DAO\PDO;
 use Models\Compra;
 
 

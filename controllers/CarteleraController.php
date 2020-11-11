@@ -1,11 +1,13 @@
 <?php
     namespace Controllers;
-    use DAO\CineDAO;
-    use DAO\FuncionDAO;
-    use DAO\Genero_x_peliculaDAO;
-    use DAO\PeliculaDAO;
-    use DAO\SalaDAO;
-    use DAO\ButacaDAO;
+    use DAO\PDO\CineDAO;
+    use DAO\PDO\FuncionDAO;
+    use DAO\PDO\Genero_x_peliculaDAO;
+    use DAO\PDO\PeliculaDAO;
+    use DAO\PDO\SalaDAO;
+    use DAO\PDO\ButacaDAO;
+    use Exception;
+
 class CarteleraController
     {
         private $arrCines;
@@ -37,26 +39,39 @@ class CarteleraController
         }
 
         public function VerUnaFuncionEnCartelera($id_cine, $id_pelicula) {
-            $arrFunciones = $this->funcionDAO->buscaFuncionesXpeliculaEncine($id_cine,$id_pelicula);
-            $cine = $this->cineDAO->BuscarId($id_cine);
-            $pelicula = $this->peliculaDAO->getOnePelicula($id_pelicula);
-            $generosDePeli = implode(", ",$this->genero_x_peliculaDAO->getGenerosOnePelicula($id_pelicula));
-            
-            require_once(VIEWS_PATH.'verUnaFuncionEnCartelera.php');
+            try {
+                $arrFunciones = $this->funcionDAO->buscaFuncionesXpeliculaEncine($id_cine,$id_pelicula);
+                $cine = $this->cineDAO->BuscarId($id_cine);
+                $pelicula = $this->peliculaDAO->getOnePelicula($id_pelicula);
+                $generosDePeli = implode(", ",$this->genero_x_peliculaDAO->getGenerosOnePelicula($id_pelicula));
+                require_once(VIEWS_PATH.'verUnaFuncionEnCartelera.php');
+            }
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
         }
         
         public function obtenerButacasOcupadas($id_funcion) {
-           
-            $sala = $this->funcionDAO->buscarSalaXid_funcion($id_funcion);
-            $ArrButacasOcupadas = $this->butacaDAO->getAllXid_funcion($id_funcion);
-            $arrDatos[] = array("sala" => $sala, "arrButacasOcupadas" => $ArrButacasOcupadas);
-
+           try {
+                $sala = $this->funcionDAO->buscarSalaXid_funcion($id_funcion);
+                $ArrButacasOcupadas = $this->butacaDAO->getAllXid_funcion($id_funcion);
+                $arrDatos[] = array("sala" => $sala, "arrButacasOcupadas" => $ArrButacasOcupadas);
+           }
+           catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+           }
             echo json_encode($arrDatos);
         }
 
         public function verCarteleraCine($id_cine) {
-            $arrFunciones = $this->funcionDAO->getAll_FuncionconDatosPeli_XCine($id_cine);
-            $this->ShowCartelera();
+            try {
+                $arrFunciones = $this->funcionDAO->getAll_FuncionconDatosPeli_XCine($id_cine);
+                $this->ShowCartelera();
+            }
+            catch(Exception $ex) {
+                $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
+            }
+            
             
         }
         

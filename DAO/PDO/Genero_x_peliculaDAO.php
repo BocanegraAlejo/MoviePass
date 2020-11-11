@@ -1,6 +1,5 @@
 <?php
-    namespace DAO;
-    use DAO\Connection as Connection;
+    namespace DAO\PDO;
     use \Exception as Exception;
     use models\Genero;
     class Genero_x_peliculaDAO 
