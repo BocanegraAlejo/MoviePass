@@ -33,7 +33,7 @@
                     <br>
                     <label><?=$strButaca?></label>
                 </div>
-                <label class="entrada__precio">$<?= $datosEntrada["valor_entrada"]?></label>
+                <label class="entrada__precio">$<?= $datosEntrada["valor_entrada"] - ($descuentoTotal/count($butacas))?></label>
             </div>
         </div>
        <?php

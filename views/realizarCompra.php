@@ -17,7 +17,12 @@ Controllers\UsuarioController::verifUserLogueado();
                 <strong>Valor de Entrada: </strong>$<?= $datosEntrada["valor_entrada"]?>
                 <br>
                 <strong>Cantidad de entradas: </strong><?= $cantidadEntradas ?>
-                
+                <br>
+                <?php 
+                    if(($cantidadEntradas >=2) && (date("l")=="Tuesday" || date("l")== "Wednesday")) {
+                        echo "<strong> Descuentos: </strong> $ ".$descuentos;
+                    }
+                ?>
                 <h2>TOTAL A PAGAR: $ <?= $total_a_pagar ?></h2> 
             </div>
         </div>

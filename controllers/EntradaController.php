@@ -40,8 +40,14 @@ class EntradaController
           public function procesaEntrada($id_funcion, $cantidadEntradas, $butacas) 
           {
               try {
+                 $descuentos = 0;
                  $datosEntrada = $this->funcionDAO->getDatosEntrada($id_funcion);
-                $total_a_pagar = $datosEntrada["valor_entrada"] * $cantidadEntradas;
+                 if(($cantidadEntradas >=2) && (date("l")=="Tuesday" || date("l")== "Wednesday")) {
+                    $descuentos = (($datosEntrada["valor_entrada"] * 0.25) * $cantidadEntradas);
+                 }
+                 
+                
+                $total_a_pagar = ($datosEntrada["valor_entrada"] * $cantidadEntradas)- $descuentos;
                 
                 require_once(VIEWS_PATH.'realizarCompra.php');
               }catch(Exception $ex) {
@@ -57,12 +63,14 @@ class EntradaController
               if(!empty($this->tarjetaDAO->verificaTarjeta($tarjeta))) {
                 $_SESSION['Alertmessage'] = "FELICITACIONES! Su compra ha sido Exitosa, a continuacion podra visualizar las entradas, Tambien recibira una copia de las mismas a su mail registrado.";
                 $arrButacas = $this->ArmaArrayButacasYguarda($id_funcion, $butacas);
-                $this->compraDAO->Add(new Compra('',$_SESSION['loggedUser']->getId_usuario(),count($butacas),$this->calcularDescuento($valor_entrada,count($butacas)),($valor_entrada*count($butacas))-$this->calcularDescuento($valor_entrada,count($butacas))));
+                $descuentoTotal = $this->calcularDescuento($valor_entrada,count($butacas));
+                $this->compraDAO->Add(new Compra('',$_SESSION['loggedUser']->getId_usuario(),count($butacas),$descuentoTotal,($valor_entrada*count($butacas)) - $descuentoTotal));
                 $arrEntradas = $this->sacaEntradas($id_funcion,count($butacas));
-                
+               
                 $datosEntrada = $this->funcionDAO->getDatosEntrada($id_funcion);
                 $arrAbecedario = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-                $this->enviaMail($datosEntrada,$arrButacas,$arrAbecedario,$arrEntradas);
+                $valorEdescuento = $valor_entrada - ($descuentoTotal/count($butacas));
+                $this->enviaMail($datosEntrada,$arrButacas,$arrAbecedario,$arrEntradas,$valorEdescuento);
                 require_once(VIEWS_PATH.'verMisEntradas.php');
               }else {
               //error, esa tarjeta no es valida
@@ -156,7 +164,7 @@ class EntradaController
            
           }
 
-          public function enviaMail($datosEntrada, $arrButacas, $arrAbecedario, $arrEntradas) {
+          public function enviaMail($datosEntrada, $arrButacas, $arrAbecedario, $arrEntradas, $valorEntrada) {
             require_once(ROOT.'PHPMailer/PHPMailer.php');
             require_once(ROOT.'PHPMailer/SMTP.php');
             require_once(ROOT.'PHPMailer/Exception.php');
@@ -207,7 +215,7 @@ class EntradaController
                       <td style='text-align:center;font-size:15px;'><strong>BUTACA: </strong>
                       <br>
                        <label>".$strButaca."</label></td>
-                      <td style='text-align:right;font-size:45px;'><label>$".$datosEntrada["valor_entrada"]."</label></td>
+                      <td style='text-align:right;font-size:45px;'><label>$".$valorEntrada."</label></td>
                     </tr>
                     
                   </table>";
