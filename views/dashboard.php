@@ -1,5 +1,4 @@
 <?php
-
 require_once(VIEWS_PATH.'header.php');
 Controllers\UsuarioController::verifUserLogueado();
 if($_SESSION['loggedUser']->getAdmin() == 0) {

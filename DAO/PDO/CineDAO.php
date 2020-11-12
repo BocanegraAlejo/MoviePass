@@ -157,9 +157,6 @@ class CineDAO {
             throw $ex;
         }
     }
-
-
-
 }
 
 

@@ -1,12 +1,13 @@
 <?php
 require_once(VIEWS_PATH.'header.php');
 Controllers\UsuarioController::verifUserLogueado();
+require_once(VIEWS_PATH.'CheckoutPago.php') 
 ?>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <div class="card-compra">
-                <h3 style="text-align:center;margin-top:10px;text-decoration:underline;">FINALIZAR COMPRA</h3>
+                <h3 style="text-align:center;margin-top:10px">FINALIZAR COMPRA</h3>
 
                 <strong>Cine: </strong><?=$datosEntrada["nombre"] ?>
                 <br>
@@ -14,7 +15,7 @@ Controllers\UsuarioController::verifUserLogueado();
                 <br>
                 <strong>Nombre de la Pelicula: </strong><?=$datosEntrada["titulo"] ?>
                 <br>
-                <strong>Valor de Entrada: </strong>$<?= $datosEntrada["valor_entrada"]?>
+                <strong>Valor de Entrada: </strong><?= $datosEntrada["valor_entrada"]?>
                 <br>
                 <strong>Cantidad de entradas: </strong><?= $cantidadEntradas ?>
                 <br>
@@ -83,24 +84,24 @@ Controllers\UsuarioController::verifUserLogueado();
             <form action="<?=FRONT_ROOT?>Entrada/procesaPago" method="post" id="formulario-tarjeta" class="formulario-tarjeta">
                 <div class="grupo">
                     <label for="inputNumero">Número Tarjeta</label>
-                    <input type="text" name="nro" id="inputNumero" maxlength="19" autocomplete="off" required>
+                    <input type="text" name="nro" id="inputNumero" maxlength="19" autocomplete="off">
                 </div>
                 <div class="grupo">
                     <label for="inputNombre">Nombre</label>
-                    <input type="text" name="nombre" id="inputNombre" maxlength="19" autocomplete="off" required>
+                    <input type="text" name="nombre" id="inputNombre" maxlength="19" autocomplete="off">
                 </div>
                 <div class="flexbox">
                     <div class="grupo expira">
                         <label for="selectMes">Expiracion</label>
                         <div class="flexbox">
                             <div class="grupo-select">
-                                <select name="mes" id="selectMes" required>
+                                <select name="mes" id="selectMes">
                                     <option disabled selected>Mes</option>
                                 </select>
                                 <i class="fas fa-angle-down"></i>
                             </div>
                             <div class="grupo-select">
-                                <select name="year" id="selectYear" required>
+                                <select name="year" id="selectYear">
                                     <option disabled selected>Año</option>
                                 </select>
                                 <i class="fas fa-angle-down"></i>
@@ -110,7 +111,7 @@ Controllers\UsuarioController::verifUserLogueado();
 
                     <div class="grupo ccv">
                         <label for="inputCCV">CCV</label>
-                        <input type="text" name="ccv" id="inputCCV" maxlength="3" required>
+                        <input type="text" name="ccv" id="inputCCV" maxlength="3">
                     </div>
                 </div>
                 <?php 
