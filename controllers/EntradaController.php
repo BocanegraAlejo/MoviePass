@@ -181,13 +181,6 @@ class EntradaController
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; 
                 $mail->Port       = 587;                                    // TCP port to connect to, use 465 for 
                 //Recipients
-                $mail->SMTPOptions = array(
-                  'ssl' => array(
-                      'verify_peer' => false,
-                      'verify_peer_name' => false,
-                      'allow_self_signed' => true
-                  )
-              );
                 $mail->setFrom('moviepass908@gmail.com', 'MoviePass');
                 $mail->addAddress($_SESSION['loggedUser']->getEmail(), 'Usuario');     // Add a recipient
                 // Content

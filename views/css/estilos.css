@@ -57,8 +57,8 @@ html, body {
  
  #logreg-forms .social-login{
      width:390px;
-     margin:0 auto 14px auto;
-    text-align: center;
+     margin:0 auto;
+     margin-bottom: 14px;
  }
  #logreg-forms .social-btn{
      display: inline-block;
@@ -133,7 +133,6 @@ html, body {
 
 .navbar-custom .nav-item .nav-link {
     color: orange;
-    font-size: 15px;
 }
 
 .navbar-custom .nav-item.active .nav-link,
@@ -201,16 +200,10 @@ html, body {
 
 .tableCines thead{
     background-color:#C87D03;
-    text-align: center;
 }
 
 .tableCines tbody{
     background-color:#fff;
-    text-align: center;
-}
-.tableCines tfoot {
-    background-color:#C87D03;
-    text-align: center;
 }
 
 .bg-login {
@@ -365,23 +358,20 @@ a:link, a:visited, a:active {
 }
 
 .card-compra {
-    border-radius: 20px;
     margin: 25px auto 25px auto;
     padding: 20px;
     background-color: #fff;
    width: 500px;
-   height: 335px;
-   font-family: 'Oswald', sans-serif;
+   height: 500px
 }
 .card-compra strong {
    
-    font-size: 22px;
-    
+    font-size: 25px;
+    font-family: 'Oswald', sans-serif;
     margin-top: 15px;
 }
 .card-compra h2{
-    margin-top: 20px;
-    color: red;
+    margin-top: 50px;
 }
 
 /*===================================================== */
@@ -666,6 +656,7 @@ a:link, a:visited, a:active {
 	background: #1850b1;
 }
 
+
 .entrada {
     border: 8px dashed orange;
     width: 600px;
@@ -674,6 +665,11 @@ a:link, a:visited, a:active {
     margin: 15px auto 0px auto;
 }
 
+.entrada img {
+    margin-left: 490px;
+    margin-top: -55px;
+   
+}
 .entrada .entrada__qrcode {
     position: absolute;
     left: 400px;
@@ -702,37 +698,26 @@ a:link, a:visited, a:active {
 }
 
 .entrada__precio {
+    position: absolute;
+    right: 400px;
+    margin-top: 30px;
     color: #000;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
     font-size: 45px;
-    
 }
 
 .entrada .cine_y_sala {
-   
+    margin-top: 30px;
     color: #000;
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
-    
+    margin-left: 10px;
 }
 
 .entrada__butaca {
-    
+    position:absolute;
+    left: 640px;
     text-align: center;
-    
-}
-
-.estadisticas-container label{
-    color: #fff;
-}
-
-.estadisticas-container select, .estadisticas-container input {
-    width: 300px;
-    margin: 0px auto 30px auto;
-    *background-color: transparent;
-    border-radius: 0px;
-    font-family: 'Oswald', sans-serif;
-    color: #000;
-   
+    margin-top: -35px;
 }

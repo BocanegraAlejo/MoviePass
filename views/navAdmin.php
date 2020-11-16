@@ -7,16 +7,13 @@
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
         <ul class="navbar-nav w-100 justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cine/ShowAdministraCine"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Admin Cines</a>
+                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Cine/ShowAdministraCine"><i class="fa fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;Administrar Cines</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="" data-toggle="modal" data-target="#elegirCineFuncion" ><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Admin. Carteleras</a>
+                <a class="nav-link" href="" data-toggle="modal" data-target="#elegirCineFuncion" ><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Administrar Carteleras</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo FRONT_ROOT ?>Pelicula/getPeliculasActualesBTN"><i class="fa fa-clipboard-list"></i>&nbsp;&nbsp;Ver Peliculas</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Estadisticas/calculaEstadisticas"><i class="fas fa-chart-line"></i>&nbsp;&nbsp;Ver Estadisticas</a>
             </li>
         </ul>
         <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
