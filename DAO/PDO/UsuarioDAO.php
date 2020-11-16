@@ -68,7 +68,12 @@
 
                 $resultSet = $this->connection->Execute($query);
                 
-                return new Usuario($resultSet[0]['id_usuario'],$resultSet[0]['email'],$resultSet[0]['clave'],$resultSet[0]['nombre'],$resultSet[0]['admin']);
+                if(!empty($resultSet)) {
+                    return new Usuario($resultSet[0]['id_usuario'],$resultSet[0]['email'],$resultSet[0]['clave'],$resultSet[0]['nombre'],$resultSet[0]['admin']);
+                }else {
+                    return null;
+                }
+                
             
             
             }

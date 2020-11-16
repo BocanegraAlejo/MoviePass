@@ -293,7 +293,7 @@ class FuncionDAO  {
     public function BuscarHorasOcupadasSala($id_sala, $dia) {
         try
         {
-            $dia = date("Y-m-d", strtotime($dia));
+           
             $horarioFuncionList = array();
             
             $query = "SELECT  DISTINCT TIME(horaYdia) horaYdia, p.duracion  FROM `".$this->tableName."`f  INNER JOIN pelicula p ON f.id_pelicula=p.id_pelicula

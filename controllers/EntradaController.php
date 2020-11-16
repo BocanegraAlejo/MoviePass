@@ -88,7 +88,7 @@ class EntradaController
           private function calcularDescuento($valor_entrada, $cantidad_entradas) {
             $descuento_total = 0;
             $dia_actual = date("l");
-            if($dia_actual == "Tuesday" || $dia_actual == "Wednesday") {
+            if($cantidad_entradas >= 2 && $dia_actual == "Tuesday" || $dia_actual == "Wednesday") {
               $descuentoXentrada = $valor_entrada * 0.25;
               $descuento_total = $descuentoXentrada * $cantidad_entradas;
             }

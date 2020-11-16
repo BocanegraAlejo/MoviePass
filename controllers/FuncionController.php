@@ -101,9 +101,10 @@ class FuncionController
                 $this->AddGenerosByIDPelicula($id_pelicula,$peliculaAPI->{'genres'});
                 
               }
-              $dia =  date("Y-d-m", strtotime($dia));
+              
               $diaYhora = $dia." ".$horario;
-               var_dump($diaYhora);
+              
+               
                 $funcion = new FuncionDB('', $id_sala, $idioma, $id_pelicula,$diaYhora);
                 $this->funcionDAO->AddFuncion($funcion);
                 $this->verFuncionOneSala($id_cine, $id_sala);
@@ -184,14 +185,11 @@ class FuncionController
         
           public function BuscarDiasXPelicula($id_cine, $id_pelicula) {
             try {
-              $arr = array();
+             
               $arrDias =  array_column($this->funcionDAO->BuscarDiasXPelicula($id_cine,$id_pelicula),0);
-              foreach ($arrDias as $key => $value) {
-                $fech = date("d/m/Y", strtotime($value));
-                array_push($arr,$fech);
-              }
               
-              echo json_encode($arr);
+              
+              echo json_encode($arrDias);
             }catch(Exception $ex) {
               $_SESSION["Alertmessage"] = "Ha ocurrido un Error: {$ex}";
             }

@@ -35,11 +35,11 @@
 <script>
     $('#dia<?=$key?>').datepicker({
         language: "es",
-        format: "dd/mm/yyyy",
+        format: "yyyy/mm/dd",
         autoclose: true,
         multidate: false,
         todayHighlight: true,
-        startDate: "<?=date("d/m/Y");?>",
+        startDate: "<?=date("Y/m/d");?>",
         datesDisabled: buscarDiasXpelicula(<?=$id_cine?>,<?=$value->{'id'}?>)
     });
 </script>
